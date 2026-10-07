@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MarketLink DZ - منصة التسويق بالجملة والعمولة</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f5f7fb;color:#101828}header{background:#101828;color:#fff;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;position:sticky;top:0;z-index:100}.brand{font-size:23px;font-weight:900}.brand span{color:#60a5fa}.container{width:min(1200px,94%);margin:28px auto}.box,.panel,.card,.product{background:#fff;border:1px solid #eaecf0;border-radius:16px}.box{padding:24px;max-width:540px;margin:30px auto}.tabs,.admin-nav,.actions{display:flex;gap:8px;flex-wrap:wrap}.tabs{margin-bottom:20px}.tabs button,.btn,.smallbtn{border:0;border-radius:9px;padding:10px 14px;cursor:pointer;font-weight:800}.tabs button.active,.primary{background:#2563eb;color:#fff}.secondary{background:#eef2ff;color:#1d4ed8}.logout{background:#fff;color:#101828}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:9px;font:inherit}.notice{padding:12px;border-radius:10px;background:#eff6ff;color:#1d4ed8;line-height:1.7;margin:12px 0}.error{background:#fef3f2;color:#b42318}.success{background:#ecfdf3;color:#027a48}.dashboard{display:none}.dashboard.active{display:block}.cards,.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{padding:18px}.muted{color:#667085;font-size:13px}.num{font-size:25px;font-weight:900;margin-top:6px}.green{color:#12b76a}.blue{color:#2563eb}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}.product{padding:18px}.line{display:flex;justify-content:space-between;gap:12px;margin:9px 0;color:#475467}.profit{background:#ecfdf3;color:#027a48;padding:10px;border-radius:9px;font-weight:800;margin:12px 0}.hidden{display:none!important}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.panel{padding:20px;margin-top:15px}.admin-section{display:none}.admin-section.active{display:block}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:850px}.table th,.table td{padding:11px;border-bottom:1px solid #eaecf0;text-align:right;white-space:nowrap}.table th{background:#f9fafb;font-size:13px}.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:800}.badge.admin{background:#ede9fe;color:#6d28d9}.badge.marketer{background:#eff6ff;color:#1d4ed8}.badge.supplier{background:#ecfdf3;color:#027a48}.badge.delivered{background:#ecfdf3;color:#027a48}.badge.pending,.badge.shipping{background:#fff7ed;color:#c2410c}.badge.returned,.badge.cancelled{background:#fef3f2;color:#b42318}.badge.approved{background:#ecfdf3;color:#027a48}.badge.pendingpay{background:#fff7ed;color:#c2410c}.badge.blocked{background:#fef3f2;color:#b42318}.danger{background:#fef3f2;color:#b42318}.search{max-width:340px}.empty{text-align:center;color:#667085;padding:28px}.modal{position:fixed;inset:0;background:rgba(16,24,40,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:1000}.modal.open{display:flex}.modal-box{background:#fff;border-radius:16px;padding:22px;width:min(500px,100%);max-height:90vh;overflow:auto}.kpi{font-size:18px;font-weight:900}.timeline{border-right:3px solid #dbeafe;padding-right:14px}.timeline>div{margin:12px 0}.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#f2f4f7;margin:3px}.hero{background:linear-gradient(135deg,#101828,#1d4ed8);color:#fff;border-radius:20px;padding:28px;margin-bottom:18px}.hero h1{margin:0 0 10px;font-size:32px}.hero p{line-height:1.8;color:#e0e7ff}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.mini{padding:15px;background:#f8fafc;border-radius:12px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hr{border-top:1px solid #eaecf0;margin:18px 0}.ship-box{background:#f8fafc;border:1px solid #e4e7ec;border-radius:12px;padding:10px;margin-top:8px}.ship-link{display:inline-block;margin-top:6px;font-weight:800;color:#2563eb;text-decoration:none}.file-mini{font-size:12px;color:#667085}
+
+/* Header Action Buttons */
+.header-actions{display:flex;gap:10px;align-items:center}
+.btn-nav-login{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+.btn-nav-signup{background:#2563eb;color:#fff;border:0;padding:8px 18px;border-radius:10px;font-weight:800;cursor:pointer}
+
+/* ===== LANDING PROMO SECTION (NEW) ===== */
+.ml-landing-hero{background:linear-gradient(135deg,#0c1322 0%,#111e38 100%);border-radius:24px;color:#fff;padding:40px 30px;position:relative;overflow:hidden;box-shadow:0 20px 45px rgba(12,19,34,.2);margin-bottom:30px}
+.ml-landing-hero:after{content:"";position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.15) 0%,rgba(0,0,0,0) 70%);top:-100px;left:-100px;pointer-events:none}
+.ml-landing-split{display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;z-index:2}
+.ml-promo-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;backdrop-filter:blur(8px);transition:transform .2s,border-color .2s}
+.ml-promo-card:hover{transform:translateY(-3px)}
+.ml-promo-card.supplier{border-color:rgba(59,130,246,.3)}
+.ml-promo-card.marketer{border-color:rgba(16,185,129,.3)}
+.ml-promo-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:800;width:fit-content;margin-bottom:14px}
+.ml-promo-tag.supplier{background:rgba(37,99,235,.2);color:#93c5fd;border:1px solid rgba(147,197,253,.3)}
+.ml-promo-tag.marketer{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(110,231,183,.3)}
+.ml-promo-card h2{margin:0 0 10px;font-size:26px;line-height:1.35;font-weight:900}
+.ml-promo-card p{color:#94a3b8;font-size:14px;line-height:1.7;margin:0 0 16px}
+.ml-promo-features{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:10px}
+.ml-promo-features li{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:#e2e8f0}
+.ml-check-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.supplier .ml-check-icon{background:#2563eb;color:#fff}
+.marketer .ml-check-icon{background:#10b981;color:#fff}
+.ml-promo-btn{width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.18s}
+.ml-promo-btn.supplier{background:#2563eb;color:#fff}
+.ml-promo-btn.supplier:hover{background:#1d4ed8}
+.ml-promo-btn.marketer{background:#10b981;color:#fff}
+.ml-promo-btn.marketer:hover{background:#059669}
+.ml-promo-note{text-align:center;font-size:12px;color:#94a3b8;margin-top:10px}
+
+/* Landing Trust Bar */
+.ml-landing-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px}
+.ml-trust-item{display:flex;align-items:center;gap:12px;color:#cbd5e1}
+.ml-trust-icon{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ml-trust-item strong{display:block;font-size:13px;color:#fff}
+.ml-trust-item span{font-size:11px;color:#94a3b8}
+
+@media(max-width:850px){
+  .ml-landing-split{grid-template-columns:1fr}
+  .ml-landing-trust{grid-template-columns:repeat(2,1fr)}
+  .ml-promo-card h2{font-size:22px}
+}
+@media(max-width:560px){
+  .ml-landing-hero{padding:24px 18px;border-radius:18px}
+  .ml-landing-trust{grid-template-columns:1fr;gap:12px}
+  .header-actions{display:none}
+}
+
+/* Include Rest of Styles */
+#mlNav{display:none;position:fixed;top:74px;right:18px;width:250px;max-height:calc(100vh - 94px);overflow:auto;background:#fff;border:1px solid #e6eaf0;border-radius:18px;padding:12px;z-index:2000;box-shadow:0 18px 50px rgba(16,24,40,.16)}
+#mlNav .ml-nav-title{font-size:11px;color:#667085;font-weight:900;padding:6px 10px 10px;letter-spacing:.08em}
+#mlNav button{width:100%;border:0;background:transparent;color:#344054;text-align:right;padding:13px 14px;border-radius:12px;margin:3px 0;font:inherit;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:9px}
+#mlNav button.active{background:#eef5ff;color:#155eef}
+#mlNav .ml-nav-sep{height:1px;background:#eaecf0;margin:12px 4px}
+#mlNav .ml-logout{color:#b42318;background:#fff7f6}
+body.ml-dashboard-open{padding-right:0}
+@media(min-width:761px){
+  #mlNav{top:84px;right:18px;bottom:18px;position:fixed}
+  body.ml-dashboard-open .container{margin-right:285px!important;width:calc(100% - 320px)!important}
+}
+.ml-mobile-menu{display:none}
+@media(max-width:760px){
+  .ml-mobile-menu{display:flex;position:fixed;right:12px;top:74px;z-index:2100;border:1px solid #e4e7ec;border-radius:13px;background:#fff;color:#101828;padding:10px 13px;font-weight:900;cursor:pointer}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Market<span>Link</span> DZ <small style="font-size:11px;color:#98a2b3">V6</small></div>
+  <div id="landingHeaderActions" class="header-actions">
+    <button class="btn-nav-login" onclick="scrollToAuth('login')">تسجيل الدخول</button>
+    <button class="btn-nav-signup" onclick="scrollToAuth('register')">إنشاء حساب مجاناً</button>
+  </div>
+  <div id="userArea"></div>
+</header>
+
+<div class="container">
+
+<!-- LANDING / HERO PROMO SECTION -->
+<div id="landingSection" class="ml-landing-hero">
+  <div class="ml-landing-split">
+    
+    <!-- قسم الموردين والتجار -->
+    <div class="ml-promo-card supplier">
+      <div>
+        <div class="ml-promo-tag supplier">🏢 للموردين والتجار</div>
+        <h2>اعرض منتجاتك ووصل إلى آلاف المسوّقين</h2>
+        <p>منصتنا تجمع لك بين التجار والمسوّقين، تساعدك على بيع منتجاتك بالجملة بسهولة وتوسيع نشاطك التجاري في كل ولايات الجزائر.</p>
+        <ul class="ml-promo-features">
+          <li><span class="ml-check-icon">✓</span> فتح حساب مجاني وسريع</li>
+          <li><span class="ml-check-icon">✓</span> رفع وتعديل المنتجات بسهولة تامة</li>
+          <li><span class="ml-check-icon">✓</span> وصول مباشر إلى شبكة مسوقين جاهزين</li>
+          <li><span class="ml-check-icon">✓</span> إدارة دقيقة وموثوقة للطلبيات والشحن</li>
+        </ul>
+      </div>
+      <div>
+        <button class="ml-promo-btn supplier" onclick="startRegisterAs('supplier')">📦 ابدأ الآن كـ مورد</button>
+        <div class="ml-promo-note">انضم الآن إلى شبكة كبار الموردين في الجزائر ↗</div>
+      </div>
+    </div>
+
+    <!-- قسم المسوقين -->
+    <div class="ml-promo-card marketer">
+      <div>
+        <div class="ml-promo-tag marketer">📢 للمسوقين</div>
+        <h2>سوّق المنتجات واحصل على عمولة ممتازة</h2>
+        <p>اختر من بين مئات المنتجات الجاهزة للتسويق، روّج لها عبر قنواتك وصفحاتك على السوشل ميديا، وحقق أرباحاً حقيقية بكل سهولة وبدون رأس مال.</p>
+        <ul class="ml-promo-features">
+          <li><span class="ml-check-icon">✓</span> منتجات متنوعة ومربحة بسعر الجملة</li>
+          <li><span class="ml-check-icon">✓</span> عمولة مجزية تصل إلى 100 دج وأكثر لكل قطعة</li>
+          <li><span class="ml-check-icon">✓</span> أدوات تسويقية وتتبع لحظي للأرباح</li>
+          <li><span class="ml-check-icon">✓</span> سحب أرباحك بكل سهولة عبر CCP و BaridiMob</li>
+        </ul>
+      </div>
+      <div>
+        <button class="ml-promo-btn marketer" onclick="startRegisterAs('marketer')">🚀 ابدأ الآن كـ مسوّق</button>
+        <div class="ml-promo-note">انضم الآن إلى أكثر من 10,000 مسوّق نشط ↗</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ميزات المنصة / الثقة -->
+  <div class="ml-landing-trust">
+    <div class="ml-trust-item">
+      <div class="ml-trust-icon">🤝</div>
+      <div><strong>شراكة رابحة</strong><span>نجاحك هو هدفنا الأساسي</span></div>
+    </div>
+    <div class="ml-trust-item">
+      <div class="ml-trust-icon">🛡️</div>
+      <div><strong>نظام آمن وموثوق</strong><span>حماية كاملة لبياناتك وعمولاتك</span></div>
+    </div>
+    <div class="ml-trust-item">
+      <div class="ml-trust-icon">🎧</div>
+      <div><strong>دعم فني مستمر</strong><span>فريق متخصص يرافقك في كل خطوة</span></div>
+    </div>
+    <div class="ml-trust-item">
+      <div class="ml-trust-icon">⚡</div>
+      <div><strong>سحب فوري</strong><span>تسوية سريعة ومضمونة لمستحقاتك</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH BOX -->
+<div id="auth" class="box">
+<h2 id="authTitle">تسجيل الدخول</h2><p class="muted">ادخل إلى حسابك في MarketLink DZ</p>
+<div class="tabs"><button id="loginTab" class="active" onclick="setMode('login')">دخول</button><button id="registerTab" onclick="setMode('register')">إنشاء حساب</button></div>
+<div id="roleWrap" class="field hidden"><label>نوع الحساب</label><select id="role"><option value="marketer">مسوق</option><option value="supplier">مورد</option></select></div>
+<div id="registerFields" class="hidden">
+  <div class="form-grid register-grid">
+    <div class="field"><label>اسم المتجر *</label><input id="storeName" placeholder="مثلاً: Panda One DZ"></div>
+    <div class="field"><label>اسم ولقب المسوق *</label><input id="marketerFullName" placeholder="مثلاً: محمد بن علي"></div>
+    <div class="field"><label>رقم الهاتف *</label><input id="marketerPhone" type="tel" inputmode="tel" placeholder="0550123456"></div>
+    <div class="field"><label>الولاية *</label><select id="marketerWilaya">
+      <option value="">اختر الولاية</option>
+      <option>أدرار</option><option>الشلف</option><option>الأغواط</option><option>أم البواقي</option><option>باتنة</option><option>بجاية</option><option>بسكرة</option><option>بشار</option><option>البليدة</option><option>البويرة</option><option>تمنراست</option><option>تبسة</option><option>تلمسان</option><option>تيارت</option><option>تيزي وزو</option><option>الجزائر</option><option>الجلفة</option><option>جيجل</option><option>سطيف</option><option>سعيدة</option><option>سكيكدة</option><option>سيدي بلعباس</option><option>عنابة</option><option>قالمة</option><option>قسنطينة</option><option>المدية</option><option>مستغانم</option><option>المسيلة</option><option>معسكر</option><option>ورقلة</option><option>وهران</option><option>البيض</option><option>إليزي</option><option>برج بوعريريج</option><option>بومرداس</option><option>الطارف</option><option>تندوف</option><option>تيسمسيلت</option><option>الوادي</option><option>خنشلة</option><option>سوق أهراس</option><option>تيبازة</option><option>ميلة</option><option>عين الدفلى</option><option>النعامة</option><option>عين تموشنت</option><option>غرداية</option><option>غليزان</option><option>تيميمون</option><option>برج باجي مختار</option><option>أولاد جلال</option><option>بني عباس</option><option>عين صالح</option><option>عين قزام</option><option>تقرت</option><option>جانت</option><option>المغير</option><option>المنيعة</option>
+    </select></div>
+    <div class="field"><label>البلدية *</label><input id="marketerCommune" placeholder="مثلاً: بئر مراد رايس"></div>
+  </div>
+</div>
+<div class="field"><label>البريد الإلكتروني</label><input id="email" type="email" placeholder="example@email.com"></div><div class="field"><label>كلمة المرور</label><input id="password" type="password" placeholder="••••••••"></div>
+<button class="btn primary" style="width:100%" onclick="submitAuth()" id="submitBtn">دخول</button><div id="msg" class="notice hidden"></div>
+</div>
+
+<!-- SIDEBAR NAVIGATION & DASHBOARDS -->
+<div id="mlNav">
+  <div class="ml-nav-title">MARKETLINK DZ</div>
+  <div id="mlNavItems"></div>
+</div>
+<button class="ml-mobile-menu" id="mlMobileMenu" onclick="document.getElementById('mlNav').classList.toggle('mobile-open')">☰ الأقسام</button>
+
+<div id="dashboard" class="dashboard">
+<div class="topbar"><div><h2 id="welcome" style="margin-bottom:5px"></h2><div class="muted" id="emailText"></div></div><button class="btn logout" onclick="logout()">تسجيل الخروج</button></div>
+
+<div id="normalDash">
+<div id="supplierHero" class="hero hidden"></div>
+<div class="cards" id="normalCards"></div>
+<div id="marketerDash" class="hidden marketer-page">
+  <div class="marketer-hero">
+    <div><div class="eyebrow">MARKETLINK DZ • ESPACE MARKETER</div><h1>لوحة المسوّق</h1><p>اختار المنتجات، حدد العمولة تاعك حتى 100 دج، وسوّق بسهولة.</p></div>
+    <button class="btn hero-btn" onclick="loadMarketerData()">↻ تحديث البيانات</button>
+  </div>
+  <div class="marketer-stats" id="marketerStats"></div>
+  <div class="marketer-tabs"><button class="m-tab active" onclick="switchMarketerTab('catalog',this)">🛍️ المنتجات</button><button class="m-tab" onclick="switchMarketerTab('mine',this)">⭐ منتجاتي</button><button class="m-tab" onclick="switchMarketerTab('orders',this)">📦 طلباتي</button></div>
+  <div id="m-tab-catalog" class="m-panel active ml-products-page-v21">
+    <div class="ml-products-hero-v21">
+      <div class="ml-products-hero-copy">
+        <div class="ml-products-eyebrow">MARKETLINK DZ • CATALOGUE</div>
+        <h2>المنتجات المتاحة</h2>
+        <p>اكتشف المنتجات المناسبة، حدد عمولتك، وابدأ التسويق عبر رابطك الخاص.</p>
+      </div>
+      <div class="ml-products-hero-art" aria-hidden="true">🛒📦</div>
+    </div>
+    <div class="ml-products-kpis-v21" id="marketerProductsKpis">
+      <div class="ml-product-kpi"><span class="kpi-ico">▣</span><div><small>إجمالي المنتجات</small><strong id="mlProductsTotal">0</strong><em>منتج متاح للترويج</em></div></div>
+      <div class="ml-product-kpi"><span class="kpi-ico green">✓</span><div><small>منتجات نشطة</small><strong id="mlProductsActive">0</strong><em>جاهزة للتسويق</em></div></div>
+      <div class="ml-product-kpi"><span class="kpi-ico blue">▤</span><div><small>إجمالي القطع</small><strong id="mlProductsStock">0</strong><em>قطعة متاحة</em></div></div>
+      <div class="ml-product-kpi ml-product-kpi-profit"><span class="kpi-ico green">دج</span><div><small>متوسط عمولتك</small><strong id="mlProductsAvgCommission">0 دج</strong><em>لكل قطعة</em></div></div>
+    </div>
+    <div class="ml-products-toolbar-v21">
+      <div class="ml-product-search-v21"><span>⌕</span><input id="marketerSearch" placeholder="ابحث عن منتج..." oninput="renderMarketerProducts()"></div>
+      <select id="mlProductStatusFilter" onchange="renderMarketerProducts()"><option value="all">كل الحالات</option><option value="available">متوفر</option><option value="out">نفذ المخزون</option></select>
+      <select id="mlProductSort" onchange="renderMarketerProducts()"><option value="newest">ترتيب حسب: الأحدث</option><option value="name">الاسم</option><option value="price-low">سعر الجملة: الأقل</option><option value="price-high">سعر الجملة: الأعلى</option><option value="stock-high">المخزون: الأعلى</option></select>
+      <button class="btn primary ml-products-refresh-v21" type="button" onclick="loadMarketerData()">↻ تحديث المنتجات</button>
+    </div>
+    <div class="ml-products-category-row-v21">
+      <button class="ml-cat-btn active" type="button" data-cat="all" onclick="setMarketerProductCategory('all',this)">▦ الكل</button>
+      <button class="ml-cat-btn" type="button" data-cat="ملابس" onclick="setMarketerProductCategory('ملابس',this)">👕 ملابس</button>
+      <button class="ml-cat-btn" type="button" data-cat="أحذية" onclick="setMarketerProductCategory('أحذية',this)">👟 أحذية</button>
+      <button class="ml-cat-btn" type="button" data-cat="إكسسوارات" onclick="setMarketerProductCategory('إكسسوارات',this)">🏠 إكسسوارات</button>
+      <button class="ml-cat-btn" data-cat="أخرى" type="button" onclick="setMarketerProductCategory('أخرى',this)">✦ أخرى</button>
+    </div>
+    <div class="ml-products-layout-v21">
+      <aside class="ml-products-side-v21">
+        <div class="ml-side-card"><h3>علاش تسوق هنا؟</h3><ul><li>✓ عمولة واضحة لكل قطعة</li><li>✓ منتجات جاهزة للتسويق</li><li>✓ تتبع الطلبات وDelivered</li><li>✓ سحب الأرباح عبر الطرق المتاحة</li></ul></div>
+        <div class="ml-side-cta"><span>🚀</span><b>ابدأ الترويج الآن</b><p>اختار المنتج المناسب وحدد العمولة تاعك.</p><button type="button" onclick="document.getElementById('marketerProducts')?.scrollIntoView({behavior:'smooth'})">تصفح المنتجات ←</button></div>
+      </aside>
+      <div class="ml-products-grid-v21" id="marketerProducts"></div>
+    </div>
+    <div class="ml-products-footer-v21"><span id="mlProductsCountText">0 منتج</span><div class="ml-products-pagination"><button type="button" disabled>‹</button><button type="button" class="active">1</button><button type="button" disabled>2</button><button type="button" disabled>›</button></div></div>
+  </div>
+  <div id="m-tab-mine" class="m-panel"><div class="m-toolbar"><div><h2>منتجاتي</h2><p>المنتجات اللي راك مسجل فيها والعمولة تاعك.</p></div></div><div id="myMarketerProducts" class="products marketer-products"></div></div>
+  <div id="m-tab-orders" class="m-panel"><div class="m-toolbar"><div><h2>طلباتي</h2><p>تابع كل طلبية من التسجيل حتى Delivered أو Retour، مع كامل التفاصيل.</p></div></div><div id="marketerOrdersBody" class="marketer-orders-list"></div></div>
+</div>
+<div id="supplierDash" class="hidden supplier-page">
+  <div class="supplier-hero">
+    <div><div class="eyebrow">MARKETLINK DZ • ESPACE FOURNISSEUR</div><h1>لوحة المورد</h1><p>أضف منتجاتك مرة واحدة، وخليها تظهر للمسوقين باش يقدرو يختاروها ويسوقوها.</p></div>
+    <button class="btn hero-btn" onclick="openProductModal()">＋ إضافة منتج</button>
+  </div>
+  <div id="supplierCreditBanner"></div>
+  <div class="supplier-stats" id="supplierStats"></div>
+  <div class="supplier-toolbar"><div><h2>منتجاتي</h2><p class="muted">كل منتج تضيفه هنا يظهر للمسوقين إذا كان نشطاً.</p></div><div class="actions"><input id="supplierSearch" class="m-search" placeholder="🔎 ابحث عن منتج..." oninput="renderSupplierProducts()"><button class="btn secondary" onclick="loadSupplierData()">↻ تحديث</button></div></div>
+  <div id="supplierProductCards" class="products supplier-products"></div>
+  <div class="panel"><h3>طلبات المورد</h3><div class="table-wrap"><table class="table"><thead><tr><th>المنتج</th><th>المسوق</th><th>الكمية</th><th>الحالة</th><th>العمولات</th><th>الشحن</th><th>الإجراء</th></tr></thead><tbody id="supplierOrdersBody"></tbody></table></div></div>
+  <div class="panel"><h3>الفوترة والدفع</h3><div id="supplierBilling"></div></div>
+</div>
+</div>
+
+<div id="adminDash" class="admin-section">
+<div class="stat-grid"><div class="card"><div class="muted">كل المستخدمين</div><div class="num blue" id="statUsers">0</div></div><div class="card"><div class="muted">المسوقون</div><div class="num" id="statMarketers">0</div></div><div class="card"><div class="muted">الموردون</div><div class="num" id="statSuppliers">0</div></div><div class="card"><div class="muted">المنتجات</div><div class="num green" id="statProducts">0</div></div></div>
+<div class="stat-grid" style="margin-top:14px"><div class="card"><div class="muted">طلبات Delivered</div><div class="num green" id="statDelivered">0</div></div><div class="card"><div class="muted">عمولة المنصة</div><div class="num blue" id="statPlatform">0 دج</div></div><div class="card"><div class="muted">مستحقات المسوقين</div><div class="num" id="statMarketerDue">0 دج</div></div><div class="card"><div class="muted">فواتير مستحقة</div><div class="num" id="statBills">0</div></div></div>
+<div class="admin-nav"><button class="active" onclick="showAdminTab('users',this)">المستخدمون</button><button onclick="showAdminTab('products',this)">المنتجات</button><button onclick="showAdminTab('orders',this)">الطلبات</button><button onclick="showAdminTab('billing',this)">الفوترة</button><button onclick="showAdminTab('commissions',this)">العمولات</button><button onclick="showAdminTab('withdrawals',this)">💳 سحب المسوقين</button></div>
+<div id="admin-users" class="panel admin-section active"><div class="topbar"><h3>إدارة المستخدمين</h3><input class="field search" style="margin:0;padding:10px" id="userSearch" placeholder="بحث بالإيميل..." oninput="renderUsers()"></div><div class="table-wrap"><table class="table"><thead><tr><th>الإيميل</th><th>الدور</th><th>تاريخ الإنشاء</th><th>الإجراء</th></tr></thead><tbody id="usersBody"></tbody></table></div></div>
+<div id="admin-products" class="panel admin-section"><div class="topbar"><h3>إدارة المنتجات</h3><button class="btn primary" onclick="loadAdminData()">تحديث</button></div><div class="table-wrap"><table class="table"><thead><tr><th>المنتج</th><th>سعر الجملة</th><th>عمولة المسوق</th><th>عمولة المنصة</th><th>المورد</th><th>الإجراء</th></tr></thead><tbody id="productsBody"></tbody></table></div></div>
+<div id="admin-orders" class="panel admin-section"><div class="topbar"><h3>إدارة الطلبات</h3><button class="btn primary" onclick="loadAdminData()">تحديث</button></div><div class="table-wrap"><table class="table"><thead><tr><th>المنتج</th><th>المورد</th><th>المسوق</th><th>الكمية</th><th>الحالة</th><th>عمولة المنصة</th><th>التاريخ</th><th>الإجراء</th></tr></thead><tbody id="adminOrdersBody"></tbody></table></div></div>
+<div id="admin-billing" class="panel admin-section"><div class="topbar"><h3>فواتير الموردين</h3><button class="btn primary" onclick="loadAdminData()">تحديث</button></div><div class="table-wrap"><table class="table"><thead><tr><th>المورد</th><th>الفترة</th><th>Delivered</th><th>المبلغ</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="billingBody"></tbody></table></div></div>
+<div id="admin-withdrawals" class="panel admin-section ml-admin-withdrawals-panel">
+  <div class="topbar ml-admin-withdrawals-topbar">
+    <div><h3>💳 طلبات سحب المسوقين</h3><p class="muted">راجع طلبات السحب، وافق عليها أو ارفضها، وبعد التأكد من التحويل سجّلها كـ <b>تم الدفع</b>.</p></div>
+    <button class="btn primary" type="button" onclick="loadAdminWithdrawalsV13()">↻ تحديث</button>
+  </div>
+  <div id="adminWithdrawalsSummary" class="ml-admin-withdraw-summary"></div>
+  <div class="table-wrap ml-admin-withdraw-table-wrap">
+    <table class="table ml-admin-withdraw-table">
+      <thead><tr><th>المسوق</th><th>المبلغ</th><th>طريقة الدفع</th><th>الحساب</th><th>الحالة</th><th>تاريخ الطلب</th><th>الإجراء</th></tr></thead>
+      <tbody id="adminWithdrawalsBody"><tr><td colspan="7" class="empty">جارٍ تحميل طلبات السحب...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+<div id="admin-commissions" class="panel admin-section"><h3>قواعد العمولة</h3><div class="products"><div class="product"><h3>المسوق</h3><div class="num green">100 دج</div><p class="muted">لكل قطعة Delivered.</p></div><div class="product"><h3>MarketLink</h3><div class="num green">50 دج</div><p class="muted">لكل قطعة Delivered.</p></div><div class="product"><h3>الإجمالي</h3><div class="num blue">150 دج</div><p class="muted">السعر المقترح = سعر الجملة + 150 دج.</p></div></div><div class="notice">المورد الجديد يبدأ بحد 3 طلبيات Delivered. بعد تسوية أول فاتورة، يرفع الحد إلى 10 ويبقى ثابتاً. عند بلوغ الحد تتوقف الطلبات الجديدة حتى تسوية الفاتورة. وإذا جاء تاريخ الفوترة قبل بلوغ 10، تتم الفوترة على عدد Delivered الفعلي.</div></div>
+</div></div></div>
+
+<!-- MODALS -->
+<div id="marketerProductDetailsModal" class="modal">
+  <div class="modal-box mkt-detail-modal-box">
+    <div class="topbar">
+      <div><div class="eyebrow" style="color:#2563eb">MARKETLINK DZ • PRODUCT</div><h2 id="mktDetailTitle" class="mkt-detail-title"></h2></div>
+      <button class="btn" onclick="closeMarketerProductDetails()">✕</button>
+    </div>
+    <div id="mktDetailContent"></div>
+  </div>
+</div>
+
+<div id="marketerOrderModal" class="modal">
+  <div class="modal-box mkt-order-box">
+    <div class="topbar">
+      <div><h2 style="margin:0">📦 تسجيل طلبية جديدة</h2><div id="mktOrderProductName" class="muted" style="margin-top:5px"></div></div>
+      <button class="btn" onclick="closeMarketerOrderModal()">✕</button>
+    </div>
+    <div id="mktOrderSummary" class="mkt-order-summary"></div>
+    <div class="mkt-order-grid">
+      <div class="field"><label>اسم ولقب الزبون *</label><input id="mktCustomerName" placeholder="مثلاً: محمد بن علي"></div>
+      <div class="field"><label>رقم الهاتف *</label><input id="mktCustomerPhone" type="tel" inputmode="tel" placeholder="0550123456"></div>
+      <div class="field"><label>الولاية *</label><select id="mktCustomerWilaya"></select></div>
+      <div class="field"><label>البلدية *</label><input id="mktCustomerCommune" placeholder="مثلاً: بئر مراد رايس"></div>
+      <div class="field"><label>شركة التوصيل *</label><input id="mktShippingCompany" placeholder="مثلاً: Kazitour / Yalidine"></div>
+      <div class="field"><label>عدد السريات *</label><input id="mktCustomerSeries" type="number" min="1" step="1" inputmode="numeric"><div class="muted" style="margin-top:6px">السيرية = 6 حبات.</div></div>
+    </div>
+    <div class="mkt-order-total">
+      <div class="row"><span>عدد القطع</span><b id="mktPiecesPreview">0 قطعة</b></div>
+      <div class="row"><span>عمولتك</span><b id="mktCommissionPreview">0 دج/قطعة</b></div>
+      <div class="row"><span>MarketLink</span><b id="mktPlatformPreview">50 دج/قطعة</b></div>
+      <div class="row"><span>السعر الإجمالي للمورد <small>(بدون التوصيل)</small></span><b id="mktSupplierTotal">0 دج</b></div>
+      <div class="row"><span>السعر المقترح مع الزبون</span><b id="mktSuggestedCustomerTotal">0 دج</b></div>
+    </div>
+    <div class="field">
+      <label>السعر الإجمالي المتفق عليه مع الزبون *</label>
+      <input id="mktCustomerTotal" type="number" min="1" step="1" inputmode="numeric" placeholder="مثلاً: 4800">
+      <div class="muted" style="margin-top:6px">هذا هو المبلغ النهائي اللي تفاهمت عليه مع الزبون، وتكون داخلة فيه عمولتك + عمولة MarketLink. التوصيل حسب الاتفاق مع الزبون.</div>
+    </div>
+    <div id="mktOrderMsg" class="notice hidden"></div>
+    <div class="actions">
+      <button class="btn primary" onclick="submitMarketerOrderForm()">✅ تأكيد وتسجيل الطلب</button>
+      <button class="btn" onclick="closeMarketerOrderModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div id="roleModal" class="modal"><div class="modal-box"><h3>تغيير دور المستخدم</h3><p id="modalEmail" class="muted"></p><select id="newRole" style="width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:9px"><option value="marketer">مسوق</option><option value="supplier">مورد</option><option value="admin">Admin</option></select><div class="actions" style="margin-top:15px"><button class="btn primary" onclick="saveRole()">حفظ</button><button class="btn" onclick="closeRoleModal()">إلغاء</button></div></div></div>
+<div id="productModal" class="modal"><div class="modal-box"><h3>➕ إضافة منتج جديد</h3><p class="muted">كمل معلومات المنتج باش المسوق يشوف كل التفاصيل قبل ما يختارو.</p><div class="field"><label>اسم المنتج *</label><input id="pname" placeholder="مثلاً: بليغة لاكوست EVA"></div><div class="form-grid"><div class="field"><label>سعر الجملة (دج) *</label><input id="pprice" type="number" min="1" placeholder="900"></div><div class="field"><label>الكمية المتوفرة *</label><input id="pstock" type="number" min="0" placeholder="100"></div></div><div class="form-grid"><div class="field"><label>الحد الأدنى للطلب *</label><input id="pminorder" type="number" min="1" value="3" placeholder="مثلاً: 3"><div class="muted" style="margin-top:6px">السيرية = 6 حبات. مثال: 3 سيريات = 18 حبة.</div></div><div class="field"><label>شركة التوصيل *</label><input id="pdelivery" placeholder="مثلاً: Yalidine / ZR Express"></div></div><div class="field"><label>صور المنتج *</label><input id="pimages" type="file" accept="image/*" multiple><div class="muted" style="margin-top:6px">تقدر ترفع أكثر من صورة. الأفضل صور واضحة للمنتج.</div></div><div class="field"><label>وصف
