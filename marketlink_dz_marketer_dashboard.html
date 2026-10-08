@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MarketLink DZ V6 — لوحة تحكم المسوّق</title>
+<style>
+:root{--navy:#071a38;--blue:#126cf5;--purple:#762cf5;--bg:#f4f7fc;--text:#10213d;--muted:#71809a;--card:#fff;--line:#e5ebf4;--green:#16b879;--orange:#ff9f18;--pink:#a42cf2;--shadow:0 10px 28px rgba(22,45,85,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--text)}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh}.top{height:72px;background:linear-gradient(100deg,#071a38,#0b2045);color:#fff;display:flex;align-items:center;gap:24px;padding:0 26px;position:sticky;top:0;z-index:30}.brand{font-size:26px;font-weight:800;margin-right:auto}.brand b{color:#4a9cff}.version{font-size:11px;color:#b9c8df}.profile{display:flex;align-items:center;gap:10px}.avatar{width:40px;height:40px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#0b2045;font-weight:800}.bell{position:relative;font-size:22px}.badge{position:absolute;top:-7px;right:-8px;background:#ef4444;border-radius:20px;font-size:10px;padding:3px 6px}.search{width:min(520px,42vw);height:40px;border-radius:24px;background:#17365f;border:1px solid #31517b;color:#fff;padding:0 18px;outline:none}.layout{display:grid;grid-template-columns:230px 1fr;direction:ltr;gap:0}.side{background:#071a38;color:#dce8fb;min-height:calc(100vh - 72px);padding:22px 16px;direction:rtl;position:sticky;top:72px;height:calc(100vh - 72px)}.side .brand-mobile{display:none}.nav{display:flex;flex-direction:column;gap:8px}.nav button{background:transparent;color:#dce8fb;text-align:right;padding:14px 15px;border-radius:12px;font-weight:700;transition:.2s}.nav button:hover,.nav button.active{background:#1174f7;color:#fff;box-shadow:0 8px 18px rgba(17,116,247,.25)}.main{direction:rtl;padding:22px 25px 35px;max-width:1500px;width:100%;margin:auto}.hero{background:linear-gradient(110deg,#69c7ff 0%,#3d9dff 42%,#4b15ee 100%);color:#fff;border-radius:18px;min-height:150px;padding:25px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden;position:relative;box-shadow:var(--shadow)}.hero:before{content:"📣";font-size:110px;opacity:.25;position:absolute;left:25px;bottom:-25px}.hero h1{margin:0 0 8px;font-size:32px}.hero p{margin:0 0 15px;color:#eef7ff}.cta{background:#fff;color:#3158e8;padding:12px 25px;border-radius:28px;font-weight:800;box-shadow:0 5px 16px #3212aa55}.today{background:#fff;color:#1c3760;border-radius:12px;padding:14px 20px;min-width:155px;z-index:1}.today strong{display:block;margin-bottom:8px}.today div{display:flex;justify-content:space-between;padding:5px 0}.up{color:#0eb97d;font-weight:800}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:15px 0}.stat{color:#fff;border-radius:15px;padding:18px;min-height:145px;position:relative;overflow:hidden;box-shadow:var(--shadow)}.stat:nth-child(1){background:linear-gradient(135deg,#09ad75,#13c992)}.stat:nth-child(2){background:linear-gradient(135deg,#0d6df3,#238dfd)}.stat:nth-child(3){background:linear-gradient(135deg,#9b20e9,#c32cf0)}.stat:nth-child(4){background:linear-gradient(135deg,#f79a10,#ffb326)}.stat .ico{font-size:28px}.stat h3{margin:8px 0 2px;font-size:14px}.stat .num{font-size:28px;font-weight:900}.stat small{opacity:.9}.grid2{display:grid;grid-template-columns:2fr 1fr;gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:var(--shadow)}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.cardhead h2{font-size:18px;margin:0}.select{border:1px solid #d9e2ef;background:#fff;padding:7px 12px;border-radius:20px;color:#34506f}.chart{height:260px;position:relative}.chart svg{width:100%;height:100%}.donutbox{display:flex;align-items:center;justify-content:center;gap:22px;min-height:260px}.donut{width:180px;height:180px;border-radius:50%;background:conic-gradient(#126cf5 0 42%,#ff9f18 42% 66%,#f02ba0 66% 82%,#17b9a0 82% 93%,#4376f2 93% 100%);position:relative}.donut:after{content:"إجمالي المبيعات\A56";white-space:pre;text-align:center;position:absolute;inset:37px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:800;color:#243c61;line-height:1.5}.legend{display:grid;gap:10px}.legend div{display:flex;gap:8px;align-items:center}.dot{width:10px;height:10px;border-radius:50%;display:inline-block}.bottom{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:14px;margin-top:14px}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 7px;border-bottom:1px solid #edf1f6;text-align:right;font-size:13px}.table th{color:#64748b}.profit{color:#0aa66e;font-weight:800}.tag{display:inline-block;padding:5px 9px;border-radius:20px;background:#eaf4ff;color:#1670df;font-size:11px;font-weight:700}.tasks{display:grid;gap:12px}.task{display:flex;align-items:center;gap:10px}.check{width:24px;height:24px;border-radius:50%;background:#dff8ed;color:#0da96f;display:grid;place-items:center}.recommend{border:1px solid #1886ff;background:linear-gradient(180deg,#f8fbff,#eef7ff)}.product{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #dce8f5}.product:last-child{border-bottom:0}.pimg{width:46px;height:46px;border-radius:9px;background:#eef2f7;display:grid;place-items:center;font-size:24px}.product .meta{display:flex;align-items:center;gap:10px}.linkbtn{background:none;color:#126cf5;font-weight:800}.tip{margin-top:14px}.modal{display:none;position:fixed;inset:0;background:#071a3880;z-index:80;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modalbox{background:#fff;width:min(560px,100%);border-radius:18px;padding:24px;box-shadow:0 20px 70px #0004}.modalbox h2{margin-top:0}.close{float:left;background:#eef3fa;border-radius:50%;width:34px;height:34px}.toast{position:fixed;bottom:25px;left:25px;background:#0b2045;color:#fff;padding:13px 18px;border-radius:12px;opacity:0;transform:translateY(15px);transition:.25s;z-index:100}.toast.show{opacity:1;transform:translateY(0)}.mobilebar{display:none}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.side{position:fixed;right:0;top:72px;width:260px;height:calc(100vh - 72px);transform:translateX(110%);transition:.25s;z-index:50;box-shadow:-15px 0 35px #0004}.side.open{transform:translateX(0)}.mobilebar{display:flex;position:fixed;right:16px;top:17px;z-index:60;color:#fff;background:transparent;font-size:25px}.search{width:38vw}.stats{grid-template-columns:repeat(2,1fr)}.bottom{grid-template-columns:1fr 1fr}.recommend{grid-column:1/-1}}
+@media(max-width:680px){.top{height:64px;padding:0 14px;gap:10px}.brand{font-size:19px}.version{display:none}.profile .name{display:none}.search{display:none}.layout{display:block}.main{padding:12px}.hero{min-height:250px;padding:20px;display:block}.hero h1{font-size:25px}.hero:before{font-size:75px;left:5px}.today{margin-top:15px;width:100%}.stats{grid-template-columns:repeat(2,1fr);gap:9px}.stat{min-height:125px;padding:13px}.stat .num{font-size:22px}.grid2{grid-template-columns:1fr}.bottom{grid-template-columns:1fr}.card{padding:13px}.chart{height:210px}.donutbox{flex-direction:column}.table{min-width:600px}.tablewrap{overflow:auto}.mobilebar{top:16px}.side{top:64px;height:calc(100vh - 64px)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <button class="mobilebar" onclick="toggleSide()" aria-label="القائمة">☰</button>
+  <div class="brand">Market<span>Link</span> DZ <small class="version">v6</small></div>
+  <input id="search" class="search" placeholder="ابحث عن منتج، فئة أو كلمة مفتاحية..." oninput="searchProducts(this.value)">
+  <div class="profile"><div class="avatar">أ</div><div class="name"><b>أحمد المسوق</b><br><small>مسوق محترف 🟢</small></div><span>⌄</span></div>
+  <div class="bell">🔔<span class="badge">3</span></div>
+</header>
+
+<div class="layout">
+<aside class="side" id="side">
+  <nav class="nav">
+    <button class="active" onclick="nav('الرئيسية',this)">🏠 الرئيسية</button>
+    <button onclick="nav('المنتجات',this)">📦 المنتجات</button>
+    <button onclick="nav('ملاحظات',this)">☆ ملاحظات</button>
+    <button onclick="nav('طلباتي',this)">🗓 طلباتي</button>
+    <button onclick="nav('الأرباح',this)">💰 الأرباح</button>
+    <button onclick="nav('الإحصائيات',this)">▥ الإحصائيات</button>
+    <button onclick="nav('الدعم الفني',this)">◉ الدعم الفني</button>
+    <button onclick="nav('الملف الشخصي',this)">♙ الملف الشخصي</button>
+  </nav>
+</aside>
+
+<main class="main">
+<section class="hero">
+  <div>
+    <h1>ابدأ في تسويق المنتجات 🚀</h1>
+    <p>اختر المنتجات التي تناسب جمهورك وابدأ في جلب الزوار وتحقيق الأرباح.</p>
+    <button class="cta" onclick="openModal('ابدأ في تسويق المنتجات','تم فتح مساحة اختيار المنتجات المناسبة لحملاتك. اختر منتجاً من القائمة ثم ابدأ التسويق.')">ابدأ في تسويق المنتجات ←</button>
+  </div>
+  <div class="today">
+    <strong>📊 أداؤك اليوم</strong>
+    <div><span>مبيعات اليوم</span><b class="up">+12% ↑</b></div>
+    <div><span>تراجع المنتج</span><b class="up">+18% ↑</b></div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat"><div class="ico">💵</div><h3>إجمالي الأرباح</h3><div class="num">12,480 دج</div><small>↑ +18% مقارنة بالأسبوع الماضي</small></div>
+  <div class="stat"><div class="ico">👁</div><h3>إجمالي الزوار</h3><div class="num">8,732</div><small>↑ +32% مقارنة بالأسبوع الماضي</small></div>
+  <div class="stat"><div class="ico">🛒</div><h3>المبيعات الناجحة</h3><div class="num">56</div><small>↑ +27% مقارنة بالأسبوع الماضي</small></div>
+  <div class="stat"><div class="ico">⭐</div><h3>المنتجات المميزة</h3><div class="num">12</div><small>📦 منتجات نشطة للتسويق</small></div>
+</section>
+
+<section class="grid2">
+<div class="card">
+  <div class="cardhead"><h2>📈 تطور المبيعات</h2><select class="select" onchange="toast('تم تغيير الفترة إلى '+this.value)"><option>آخر 30 يوم</option><option>آخر 7 أيام</option><option>آخر 90 يوم</option></select></div>
+  <div class="chart">
+    <svg viewBox="0 0 760 260" preserveAspectRatio="none">
+      <g stroke="#e8eef7" stroke-width="1"><path d="M50 30H735M50 80H735M50 130H735M50 180H735M50 230H735"/><path d="M50 20V235"/></g>
+      <polyline fill="rgba(18,108,245,.12)" stroke="none" points="50,205 90,190 125,150 165,165 210,120 250,145 290,132 330,105 370,125 410,115 450,130 490,100 530,88 570,75 610,58 650,43 690,20 735,5 735,235 50,235"/>
+      <polyline fill="none" stroke="#126cf5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="50,205 90,190 125,150 165,165 210,120 250,145 290,132 330,105 370,125 410,115 450,130 490,100 530,88 570,75 610,58 650,43 690,20 735,5"/>
+      <g fill="#fff" stroke="#126cf5" stroke-width="3"><circle cx="50" cy="205" r="4"/><circle cx="125" cy="150" r="4"/><circle cx="210" cy="120" r="4"/><circle cx="330" cy="105" r="4"/><circle cx="490" cy="100" r="4"/><circle cx="610" cy="58" r="4"/><circle cx="735" cy="5" r="5"/></g>
+      <g fill="#65758f" font-size="12"><text x="5" y="235">0</text><text x="2" y="185">1,000</text><text x="2" y="135">2,000</text><text x="2" y="85">3,000</text><text x="2" y="35">5,000</text></g>
+    </svg>
+  </div>
+</div>
+<div class="card">
+  <div class="cardhead"><h2>⚙ توزيع المبيعات حسب الفئات</h2></div>
+  <div class="donutbox"><div class="donut"></div><div class="legend">
+    <div><i class="dot" style="background:#126cf5"></i> الإلكترونيات <b>42%</b></div>
+    <div><i class="dot" style="background:#ff9f18"></i> الملابس <b>24%</b></div>
+    <div><i class="dot" style="background:#f02ba0"></i> المنزل والمطبخ <b>16%</b></div>
+    <div><i class="dot" style="background:#17b9a0"></i> الجمال والصحة <b>11%</b></div>
+    <div><i class="dot" style="background:#4376f2"></i> أخرى <b>7%</b></div>
+  </div></div>
+</div>
+</section>
+
+<section class="bottom">
+<div class="card">
+ <div class="cardhead"><h2>📊 آخر المنتجات مبيعاً</h2><button class="linkbtn" onclick="nav('المنتجات')">عرض الكل</button></div>
+ <div class="tablewrap"><table class="table"><thead><tr><th>#</th><th>المنتج</th><th>الفئة</th><th>المبيعات</th><th>العمولة</th><th>الربح</th></tr></thead>
+ <tbody id="products">
+ <tr onclick="productClick('ساعة ذكية')"><td>1</td><td>ساعة ذكية</td><td><span class="tag">إلكترونيات</span></td><td>1,240</td><td>12%</td><td class="profit">8,960 دج</td></tr>
+ <tr onclick="productClick('سماعات بلوتوث')"><td>2</td><td>سماعات بلوتوث</td><td><span class="tag">إلكترونيات</span></td><td>980</td><td>10%</td><td class="profit">6,720 دج</td></tr>
+ <tr onclick="productClick('حقيبة ظهر عصرية')"><td>3</td><td>حقيبة ظهر عصرية</td><td><span class="tag" style="background:#e7fbf2;color:#0c9b68">حقائب</span></td><td>760</td><td>10%</td><td class="profit">5,460 دج</td></tr>
+ <tr onclick="productClick('كريم العناية بالبشرة')"><td>4</td><td>كريم العناية بالبشرة</td><td><span class="tag" style="background:#f0eaff;color:#7935d9">جمال وصحة</span></td><td>640</td><td>8%</td><td class="profit">3,840 دج</td></tr>
+ <tr onclick="productClick('آلة المطبخ الكهربائية')"><td>5</td><td>آلة المطبخ الكهربائية</td><td><span class="tag" style="background:#fff2df;color:#c97600">المنزل والمطبخ</span></td><td>520</td><td>8%</td><td class="profit">3,120 دج</td></tr>
+ </tbody></table></div>
+</div>
+
+<div class="card">
+ <div class="cardhead"><h2>⚡ المهام السريعة</h2></div>
+ <div class="tasks">
+  <div class="task"><span class="check">✓</span><div><b>قم بإنشاء أول حملة تسويقية</b><br><small>ابدأ الآن وحقق أول مبيعاتك</small></div></div>
+  <div class="task"><span class="check">✓</span><div><b>اختر 3 منتجات للتسويق</b><br><small>اختر المنتجات الأكثر طلباً</small></div></div>
+  <div class="task"><span class="check">✓</span><div><b>تابع أداء حملاتك</b><br><small>وحسّن النتائج باستمرار</small></div></div>
+ </div>
+ <div class="tip">💡 كلما زادت حملاتك التسويقية، زادت مبيعاتك وأرباحك!</div>
+</div>
+
+<div class="card recommend">
+ <div class="cardhead"><h2>🎯 منتجات مقترحة لك</h2></div>
+ <p><small>منتجات عليها طلب مرتفع حالياً</small></p>
+ <div class="product" onclick="productClick('سماعات بلوتوث')"><div class="meta"><span class="pimg">🎧</span><div><b>سماعات بلوتوث</b><br><span class="tag">إلكترونيات</span></div></div><span>‹</span></div>
+ <div class="product" onclick="productClick('حقيبة ظهر عصرية')"><div class="meta"><span class="pimg">🎒</span><div><b>حقيبة ظهر عصرية</b><br><span class="tag" style="background:#e7fbf2;color:#0c9b68">حقائب</span></div></div><span>‹</span></div>
+ <div class="product" onclick="productClick('ساعة ذكية')"><div class="meta"><span class="pimg">⌚</span><div><b>ساعة ذكية</b><br><span class="tag">إلكترونيات</span></div></div><span>‹</span></div>
+ <button class="cta" style="width:100%;margin-top:12px" onclick="nav('المنتجات')">عرض المزيد من المنتجات ←</button>
+</div>
+</section>
+
+<div class="card tip">💡 <b>نصيحة اليوم:</b> استخدم روابط التتبع الخاصة بك لقياس أداء حملاتك التسويقية.</div>
+</main>
+</div>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><h2 id="modalTitle"></h2><p id="modalText"></p><button class="cta" onclick="closeModal()">حسناً</button></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove('show'),2200)}
+function openModal(title,text){document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=text;document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function toggleSide(){document.getElementById('side').classList.toggle('open')}
+function nav(name,el){if(el){document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));el.classList.add('active')}toast('تم فتح قسم '+name);if(innerWidth<=1000)document.getElementById('side').classList.remove('open')}
+function productClick(name){openModal(name,'تم اختيار «'+name+'». من هنا يمكنك الاطلاع على تفاصيل المنتج، العمولة، الأداء وبدء تسويقه.')}
+function searchProducts(v){const rows=document.querySelectorAll('#products tr');v=v.trim().toLowerCase();rows.forEach(r=>r.style.display=r.textContent.toLowerCase().includes(v)?'':'none')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+</script>
+</body>
+</html>
