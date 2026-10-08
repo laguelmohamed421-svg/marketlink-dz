@@ -1745,6 +1745,8 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     if(role==='marketer'){
       setVisible($('marketerDash'),true);
       $('marketerDash').classList.toggle('ml-marketer-home-active', key==='home');
+      const topDashboard=document.getElementById('ml-v23-wrap');
+      if(topDashboard)topDashboard.style.setProperty('display',key==='home'?'block':'none','important');
       const mhero=$('marketerDash').querySelector('.marketer-hero');
       const mstats=$('marketerStats');
       const mtabs=$('marketerDash').querySelector('.marketer-tabs');
