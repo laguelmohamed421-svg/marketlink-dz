@@ -2127,17 +2127,20 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 .ml-v23-quick button{padding:12px;border:1px solid #d0d5dd;background:#fff;border-radius:10px;font-weight:800;cursor:pointer}
 .ml-v23-quick button:hover{border-color:#1570ef;color:#1570ef}
 @media(max-width:1000px){.ml-v23-head{flex-wrap:wrap}.ml-v23-search{order:5;max-width:none;flex-basis:100%}.ml-v23-stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.ml-v23-head{padding:7px}.ml-v23-links{display:none}.ml-v23-brand{font-size:15px}.ml-v23-stats{grid-template-columns:repeat(2,1fr);gap:8px}.ml-v23-stat{min-height:94px;padding:11px}.ml-v23-stat .t{font-size:12px}.ml-v23-stat .n{font-size:19px}.ml-v23-quick{grid-template-columns:1fr 1fr}.ml-v23-quick button{font-size:11px}}
+@media(max-width:600px){.ml-v23-head{padding:9px;gap:7px;flex-wrap:wrap}.ml-v23-links{display:flex;order:10;flex:1 0 100%;width:100%;justify-content:space-between;gap:5px}.ml-v23-links button{flex:1;min-width:0;padding:10px 5px;font-size:12px;border-radius:9px;background:#f2f4f7;color:#101828}.ml-v23-search{order:9;flex:1 0 100%;max-width:none;width:100%;min-width:0}.ml-v23-brand{font-size:15px}.ml-v23-stats{grid-template-columns:repeat(2,1fr);gap:8px}.ml-v23-stat{min-height:94px;padding:11px}.ml-v23-stat .t{font-size:12px}.ml-v23-stat .n{font-size:19px}.ml-v23-quick{grid-template-columns:1fr 1fr}.ml-v23-quick button{font-size:11px}}
 </style>
 
 
 <script id="ml-marketer-v23-js">
 (function(){
   function go(key){
-    if(typeof showSection==='function'){showSection(key);return}
-    if(typeof switchMarketerTab==='function'){switchMarketerTab(key,document.querySelector('.m-tab'));return}
-    const map={catalog:'#m-tab-catalog',mine:'#m-tab-mine',orders:'#m-tab-orders',payments:'#m-tab-payments',notifications:'#ml-notice-panel'};
-    const el=document.querySelector(map[key]);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    // Route header controls through the dashboard's real section controller.
+    const sectionMap={categories:'catalog',favorites:'mine',heart:'mine'};
+    key=sectionMap[key]||key;
+    if(typeof window.mlShowSection==='function'){window.mlShowSection(key);return}
+    if(typeof window.showSection==='function'){window.showSection(key);return}
+    const map={home:'#ml-home-v20',catalog:'#m-tab-catalog',mine:'#m-tab-mine',orders:'#m-tab-orders',payments:'#ml-earnings-panel',notifications:'#ml-notice-panel'};
+    const el=document.querySelector(map[key]);if(el){el.style.display='block';el.scrollIntoView({behavior:'smooth',block:'start'})}
   }
   // Connect the header search to the real marketer catalog search.
   window.mlV23SyncSearch=function(value){
@@ -2190,11 +2193,11 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
         <div class="ml-v23-brand">سوقلي <b>▰</b></div>
         <input id="mlV23HeaderSearch" class="ml-v23-search" type="search" autocomplete="off" aria-label="البحث عن المنتجات" placeholder="اكتب اسم المنتج للبحث..." oninput="window.mlV23SyncSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();window.mlV23RunSearch(this.value)}">
         <div class="ml-v23-links">
-          <button onclick="go('home')">⌂ الرئيسية</button>
-          <button onclick="go('catalog')">▱ الفئات</button>
-          <button onclick="go('orders')">▣ الطلبات</button>
+          <button type="button" aria-label="الرئيسية" onclick="go('home')">⌂ الرئيسية</button>
+          <button type="button" aria-label="الفئات" onclick="go('catalog')">▱ الفئات</button>
+          <button type="button" aria-label="الطلبات" onclick="go('orders')">▣ الطلبات</button>
         </div>
-        <button class="ml-v23-icon" onclick="go('mine')" title="الحساب">♡</button>
+        <button class="ml-v23-icon" type="button" onclick="go('mine')" title="المفضلة / منتجاتي" aria-label="المفضلة ومنتجاتي">♡</button>
       </div>
       <div class="ml-v23-stats">
         <div class="ml-v23-stat yellow" onclick="go('payments')"><div class="t">محفظة</div><div class="n" id="v23-wallet">0 دج</div></div>
