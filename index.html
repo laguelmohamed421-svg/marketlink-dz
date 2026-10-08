@@ -2334,6 +2334,18 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     }catch(e){}
     return false;
   };
+  // The header routes through mlShowSection, so wrap that exact controller too.
+  const originalMLShowSection=window.mlShowSection;
+  if(typeof originalMLShowSection==='function' && !originalMLShowSection.__mlv25){
+    const wrappedMLShowSection=function(key){
+      const result=originalMLShowSection.apply(this,arguments);
+      setTimeout(()=>cleanForSection(key),30);
+      setTimeout(()=>cleanForSection(key),250);
+      return result;
+    };
+    wrappedMLShowSection.__mlv25=true;
+    window.mlShowSection=wrappedMLShowSection;
+  }
   function bind(){
     const root=document.getElementById('ml-v23-wrap');
     if(!root)return;
