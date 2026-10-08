@@ -2274,7 +2274,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     root.querySelectorAll(':scope > .marketer-hero,:scope > .marketer-tabs,:scope > .ml-v23-quick')
       .forEach(e=>e.style.setProperty('display','none','important'));
     const top=document.getElementById('ml-v23-wrap');
-    if(top)top.style.setProperty('display','block','important');
+    if(top)top.style.setProperty('display',root.classList.contains('ml-marketer-home-active')?'block':'none','important');
   }
   const oldShow=window.showSection;
   if(typeof oldShow==='function' && !oldShow.__mlv24){
@@ -2305,7 +2305,8 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     if(!root)return;
     // Keep the navigation/search header available, but show dashboard shortcuts only on Home.
     if(top){
-      top.style.setProperty('display','block','important');
+      // Hide the entire home dashboard outside Home so the selected section is the only content shown.
+      top.style.setProperty('display',key==='home'?'block':'none','important');
       const head=top.querySelector('.ml-v23-head');
       const stats=top.querySelector('.ml-v23-stats');
       const quick=top.querySelector('.ml-v23-quick');
