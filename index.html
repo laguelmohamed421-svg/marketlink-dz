@@ -2248,7 +2248,6 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   #marketerDash > #marketerStats,
   #marketerDash > .marketer-hero,
   #marketerDash > .marketer-tabs,
-  #marketerDash > .ml-home-v20,
   #marketerDash > .ml-v23-quick{display:none !important}
   #marketerDash > #ml-v23-wrap{display:block !important}
 }
@@ -2268,7 +2267,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   function keepHomeClean(){
     const root=document.getElementById('marketerDash');
     if(!root)return;
-    ['marketerStats','ml-home-v20'].forEach(id=>{
+    ['marketerStats'].forEach(id=>{
       const e=document.getElementById(id);
       if(e)e.style.setProperty('display','none','important');
     });
@@ -2316,7 +2315,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     }
     ['marketerStats','ml-home-v20'].forEach(id=>{
       const e=document.getElementById(id);
-      if(e)e.style.setProperty('display','none','important');
+      if(e)e.style.setProperty('display',key==='home' && id==='ml-home-v20'?'block':'none','important');
     });
   }
   window.mlV25Go=function(key){
