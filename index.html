@@ -2139,6 +2139,22 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     const map={catalog:'#m-tab-catalog',mine:'#m-tab-mine',orders:'#m-tab-orders',payments:'#m-tab-payments',notifications:'#ml-notice-panel'};
     const el=document.querySelector(map[key]);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
   }
+  // Connect the header search to the real marketer catalog search.
+  window.mlV23SyncSearch=function(value){
+    const target=document.getElementById('marketerSearch');
+    if(!target)return;
+    target.value=String(value??'');
+    if(typeof window.renderMarketerProducts==='function')window.renderMarketerProducts();
+  };
+  window.mlV23RunSearch=function(value){
+    window.mlV23SyncSearch(value);
+    if(typeof window.mlV25Go==='function')window.mlV25Go('catalog');else go('catalog');
+    setTimeout(function(){
+      window.mlV23SyncSearch(value);
+      const target=document.getElementById('marketerSearch');
+      if(target)target.scrollIntoView({behavior:'smooth',block:'center'});
+    },180);
+  };
   function money(v){return Number(v||0).toLocaleString('fr-DZ')+' دج'}
   function mount(){
     const root=document.getElementById('marketerDash');
@@ -2152,7 +2168,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
         <button class="ml-v23-icon" onclick="go('orders')" title="الطلبات">🛒</button>
         <button class="ml-v23-icon ml-v23-account" onclick="go('payments')" title="الأرباح">💳</button>
         <div class="ml-v23-brand">سوقلي <b>▰</b></div>
-        <input class="ml-v23-search" placeholder="بحث" onkeydown="if(event.key==='Enter'){go('catalog')}">
+        <input id="mlV23HeaderSearch" class="ml-v23-search" type="search" autocomplete="off" aria-label="البحث عن المنتجات" placeholder="اكتب اسم المنتج للبحث..." oninput="window.mlV23SyncSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();window.mlV23RunSearch(this.value)}">
         <div class="ml-v23-links">
           <button onclick="go('home')">⌂ الرئيسية</button>
           <button onclick="go('catalog')">▱ الفئات</button>
