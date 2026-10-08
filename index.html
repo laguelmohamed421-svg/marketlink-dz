@@ -2280,7 +2280,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   if(typeof oldShow==='function' && !oldShow.__mlv24){
     const wrapped=function(key){
       oldShow.apply(this,arguments);
-      if(key==='home')setTimeout(keepHomeClean,0);
+      setTimeout(keepHomeClean,0);
     };
     wrapped.__mlv24=true;
     window.showSection=wrapped;
