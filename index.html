@@ -2304,15 +2304,20 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     const root=document.getElementById('marketerDash');
     const top=document.getElementById('ml-v23-wrap');
     if(!root)return;
-    if(key!=='home'){
-      if(top)top.style.setProperty('display','none','important');
-      ['marketerStats','ml-home-v20'].forEach(id=>{
-        const e=document.getElementById(id);
-        if(e)e.style.setProperty('display','none','important');
-      });
-    }else if(top){
+    // Keep the navigation/search header available, but show dashboard shortcuts only on Home.
+    if(top){
       top.style.setProperty('display','block','important');
+      const head=top.querySelector('.ml-v23-head');
+      const stats=top.querySelector('.ml-v23-stats');
+      const quick=top.querySelector('.ml-v23-quick');
+      if(head)head.style.setProperty('display','flex','important');
+      if(stats)stats.style.setProperty('display',key==='home'?'grid':'none','important');
+      if(quick)quick.style.setProperty('display',key==='home'?'grid':'none','important');
     }
+    ['marketerStats','ml-home-v20'].forEach(id=>{
+      const e=document.getElementById(id);
+      if(e)e.style.setProperty('display','none','important');
+    });
   }
   window.mlV25Go=function(key){
     try{
