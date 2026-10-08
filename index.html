@@ -2147,13 +2147,33 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     if(typeof window.renderMarketerProducts==='function')window.renderMarketerProducts();
   };
   window.mlV23RunSearch=function(value){
-    window.mlV23SyncSearch(value);
-    if(typeof window.mlV25Go==='function')window.mlV25Go('catalog');else go('catalog');
+    const query=String(value??'').trim();
+    // Open the real catalog first, then apply the query after its panel is visible.
+    if(typeof window.showSection==='function')window.showSection('catalog');
+    else if(typeof window.mlV25Go==='function')window.mlV25Go('catalog');
+    else go('catalog');
+    const catalog=document.getElementById('m-tab-catalog');
+    if(catalog){
+      document.querySelectorAll('#marketerDash .m-panel').forEach(function(panel){
+        panel.classList.remove('active');
+        panel.style.setProperty('display','none','important');
+      });
+      catalog.classList.add('active');
+      catalog.style.setProperty('display','block','important');
+    }
+    const status=document.getElementById('mlProductStatusFilter');
+    if(status)status.value='all';
+    const allCategory=document.querySelector('.ml-cat-btn[data-cat="all"]');
+    if(allCategory&&typeof window.setMarketerProductCategory==='function')window.setMarketerProductCategory('all',allCategory);
+    window.mlV23SyncSearch(query);
     setTimeout(function(){
-      window.mlV23SyncSearch(value);
       const target=document.getElementById('marketerSearch');
-      if(target)target.scrollIntoView({behavior:'smooth',block:'center'});
-    },180);
+      if(target){
+        target.value=query;
+        if(typeof window.renderMarketerProducts==='function')window.renderMarketerProducts();
+        target.scrollIntoView({behavior:'smooth',block:'center'});
+      }
+    },250);
   };
   function money(v){return Number(v||0).toLocaleString('fr-DZ')+' دج'}
   function mount(){
