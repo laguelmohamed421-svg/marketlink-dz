@@ -2142,6 +2142,8 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     const map={home:'#ml-home-v20',catalog:'#m-tab-catalog',mine:'#m-tab-mine',orders:'#m-tab-orders',payments:'#ml-earnings-panel',notifications:'#ml-notice-panel'};
     const el=document.querySelector(map[key]);if(el){el.style.display='block';el.scrollIntoView({behavior:'smooth',block:'start'})}
   }
+  // Expose the handler because buttons are created with inline onclick attributes.
+  window.mlV23Go=go;
   // Connect the header search to the real marketer catalog search.
   window.mlV23SyncSearch=function(value){
     const target=document.getElementById('marketerSearch');
@@ -2186,32 +2188,32 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     const wrap=document.createElement('div');wrap.id='ml-v23-wrap';
     wrap.innerHTML=`
       <div class="ml-v23-head">
-        <button class="ml-v23-icon" onclick="go('catalog')" title="القائمة">☰</button>
-        <button class="ml-v23-icon" onclick="go('notifications')" title="الإشعارات">🔔</button>
-        <button class="ml-v23-icon" onclick="go('orders')" title="الطلبات">🛒</button>
-        <button class="ml-v23-icon ml-v23-account" onclick="go('payments')" title="الأرباح">💳</button>
+        <button class="ml-v23-icon" onclick="window.mlV23Go('catalog')" title="القائمة">☰</button>
+        <button class="ml-v23-icon" onclick="window.mlV23Go('notifications')" title="الإشعارات">🔔</button>
+        <button class="ml-v23-icon" onclick="window.mlV23Go('orders')" title="الطلبات">🛒</button>
+        <button class="ml-v23-icon ml-v23-account" onclick="window.mlV23Go('payments')" title="الأرباح">💳</button>
         <div class="ml-v23-brand">سوقلي <b>▰</b></div>
         <input id="mlV23HeaderSearch" class="ml-v23-search" type="search" autocomplete="off" aria-label="البحث عن المنتجات" placeholder="اكتب اسم المنتج للبحث..." oninput="window.mlV23SyncSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();window.mlV23RunSearch(this.value)}">
         <div class="ml-v23-links">
-          <button type="button" aria-label="الرئيسية" onclick="go('home')">⌂ الرئيسية</button>
-          <button type="button" aria-label="الفئات" onclick="go('catalog')">▱ الفئات</button>
-          <button type="button" aria-label="الطلبات" onclick="go('orders')">▣ الطلبات</button>
+          <button type="button" aria-label="الرئيسية" onclick="window.mlV23Go('home')">⌂ الرئيسية</button>
+          <button type="button" aria-label="الفئات" onclick="window.mlV23Go('catalog')">▱ الفئات</button>
+          <button type="button" aria-label="الطلبات" onclick="window.mlV23Go('orders')">▣ الطلبات</button>
         </div>
-        <button class="ml-v23-icon" type="button" onclick="go('mine')" title="المفضلة / منتجاتي" aria-label="المفضلة ومنتجاتي">♡</button>
+        <button class="ml-v23-icon" type="button" onclick="window.mlV23Go('mine')" title="المفضلة / منتجاتي" aria-label="المفضلة ومنتجاتي">♡</button>
       </div>
       <div class="ml-v23-stats">
-        <div class="ml-v23-stat yellow" onclick="go('payments')"><div class="t">محفظة</div><div class="n" id="v23-wallet">0 دج</div></div>
-        <div class="ml-v23-stat blue" onclick="go('notifications')"><div class="t">تلغرام</div><div class="n">➤</div></div>
-        <div class="ml-v23-stat green" onclick="go('payments')"><div class="t">عمولة قيد الانتظار</div><div class="n" id="v23-pending">0 دج</div></div>
-        <div class="ml-v23-stat indigo" onclick="go('payments')"><div class="t">عمولة في توصيل</div><div class="n" id="v23-delivery">0 دج</div></div>
-        <div class="ml-v23-stat cyan" onclick="go('payments')"><div class="t">عمولة موافق عليها</div><div class="n" id="v23-approved">0 دج</div></div>
-        <div class="ml-v23-stat purple" onclick="go('payments')"><div class="t">عمولة مدفوعة</div><div class="n" id="v23-paid">0 دج</div></div>
+        <div class="ml-v23-stat yellow" onclick="window.mlV23Go('payments')"><div class="t">محفظة</div><div class="n" id="v23-wallet">0 دج</div></div>
+        <div class="ml-v23-stat blue" onclick="window.mlV23Go('notifications')"><div class="t">تلغرام</div><div class="n">➤</div></div>
+        <div class="ml-v23-stat green" onclick="window.mlV23Go('payments')"><div class="t">عمولة قيد الانتظار</div><div class="n" id="v23-pending">0 دج</div></div>
+        <div class="ml-v23-stat indigo" onclick="window.mlV23Go('payments')"><div class="t">عمولة في توصيل</div><div class="n" id="v23-delivery">0 دج</div></div>
+        <div class="ml-v23-stat cyan" onclick="window.mlV23Go('payments')"><div class="t">عمولة موافق عليها</div><div class="n" id="v23-approved">0 دج</div></div>
+        <div class="ml-v23-stat purple" onclick="window.mlV23Go('payments')"><div class="t">عمولة مدفوعة</div><div class="n" id="v23-paid">0 دج</div></div>
       </div>
       <div class="ml-v23-quick">
-        <button onclick="go('catalog')">🛍️ ابدأ في تسويق المنتجات</button>
-        <button onclick="go('mine')">⭐ منتجاتي</button>
-        <button onclick="go('orders')">📦 طلباتي</button>
-        <button onclick="go('payments')">💰 أرباحي وسحب الأرباح</button>
+        <button onclick="window.mlV23Go('catalog')">🛍️ ابدأ في تسويق المنتجات</button>
+        <button onclick="window.mlV23Go('mine')">⭐ منتجاتي</button>
+        <button onclick="window.mlV23Go('orders')">📦 طلباتي</button>
+        <button onclick="window.mlV23Go('payments')">💰 أرباحي وسحب الأرباح</button>
       </div>`;
     root.insertBefore(wrap,root.firstChild);
     refresh();
