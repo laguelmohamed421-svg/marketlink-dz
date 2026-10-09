@@ -1029,16 +1029,44 @@ body:has(#auth:not(.hidden)) .container{width:min(1380px,96%);margin:22px auto 3
 @media(max-width:950px){.auth-layout{grid-template-columns:minmax(0,1fr) minmax(340px,.9fr);gap:14px}.auth-promo{padding:24px}.auth-promo-copy h1{font-size:30px}.auth-benefit{padding:12px 9px}.auth-benefit small{font-size:10px}.auth-card{padding:23px}}
 @media(max-width:760px){body:has(#auth:not(.hidden))>header{padding:12px 18px}body:has(#auth:not(.hidden)) .container{width:min(600px,94%);margin:14px auto 24px}.auth-layout{grid-template-columns:minmax(0,1fr);min-height:0;gap:14px}.auth-promo{padding:23px;border-radius:20px;gap:22px}.auth-promo-brand{font-size:20px;justify-content:flex-start}.auth-logo-mark{width:42px;height:42px}.auth-promo-copy h1{font-size:clamp(25px,6vw,34px);margin:12px 0 7px}.auth-promo-copy p{font-size:14px;line-height:1.85}.auth-benefit-grid{gap:8px}.auth-benefit{padding:11px 9px}.auth-benefit>span{font-size:21px}.auth-benefit strong{font-size:12px}.auth-benefit small{font-size:10px}.auth-people{gap:8px}.auth-person{padding:10px;gap:7px}.auth-person>span{font-size:22px}.auth-person strong{font-size:12px}.auth-person small{font-size:10px}.auth-connection{font-size:22px}.auth-promo-footer{font-size:11px;gap:9px 14px}.auth-card{padding:22px;border-radius:20px}.auth-card #authTitle{font-size:24px}}
 @media(max-width:420px){.auth-promo{padding:18px}.auth-promo-brand{font-size:18px}.auth-promo-brand small{font-size:9px}.auth-benefit-grid{grid-template-columns:1fr}.auth-benefit{display:grid;grid-template-columns:32px 1fr;column-gap:8px;align-items:center}.auth-benefit>span{grid-row:span 2;margin:0}.auth-benefit strong{margin:0}.auth-people{grid-template-columns:1fr}.auth-connection{display:none}.auth-person{padding:11px}.auth-card{padding:18px}.auth-card .register-grid{grid-template-columns:1fr!important}}
+
+/* MarketLink DZ: expanded supplier/marketer landing page */
+.auth-layout{display:flex;flex-direction:column;gap:18px;min-height:0;direction:rtl}
+.auth-card{order:0;width:min(760px,100%);max-width:760px;margin:0 auto 6px;box-shadow:0 14px 40px rgba(16,35,80,.08)}
+.auth-story{order:1;display:flex;flex-direction:column;gap:28px;padding:clamp(22px,4vw,48px);border-radius:26px;background:radial-gradient(ellipse at 90% 0%,rgba(48,119,237,.12),transparent 32%),linear-gradient(155deg,#07152f 0%,#102b58 56%,#073e47 100%)}
+.auth-story-heading{max-width:880px;margin:0 auto;text-align:center}.auth-story-heading h1{font-size:clamp(28px,4vw,46px);line-height:1.45;margin:14px 0}.auth-story-heading h1 em{font-style:normal;color:#4ce69a}.auth-story-heading p{max-width:760px;margin:0 auto;color:#d8e5f7;font-size:16px;line-height:2}
+.auth-audience{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.88fr);gap:clamp(20px,4vw,46px);align-items:center;padding:clamp(20px,3vw,34px);border:1px solid #ffffff22;border-radius:22px;background:#ffffff09}
+.marketer-story{grid-template-columns:minmax(0,1fr) minmax(300px,.88fr);background:linear-gradient(120deg,#ffffff0d,#ffffff05)}
+.auth-audience-copy h2{font-size:clamp(23px,3vw,34px);line-height:1.55;margin:14px 0 10px;color:#fff}.auth-audience-copy>p{color:#d8e5f7;font-size:14px;line-height:2;margin:0 0 20px}
+.auth-section-label{display:inline-flex;align-items:center;gap:9px;color:#aef5d2;font-weight:800;font-size:13px}.auth-section-label>span{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#ffffff18;color:#fff}
+.auth-feature-list{display:grid;gap:10px}.auth-feature-list article{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:14px;background:#ffffff0a;border:1px solid #ffffff18}.auth-feature-icon{display:grid;place-items:center;flex:0 0 38px;height:38px;border-radius:12px;background:#ffffff14;font-size:20px}.auth-feature-list strong,.auth-feature-list small{display:block}.auth-feature-list strong{color:#fff;font-size:14px;margin:1px 0 5px}.auth-feature-list small{color:#cfddf0;font-size:12px;line-height:1.8}
+.auth-people-visual,.auth-marketer-visual{width:100%;max-width:620px;margin:0 auto;overflow:hidden;border-radius:22px;filter:drop-shadow(0 14px 25px rgba(0,0,0,.14))}.auth-people-visual svg,.auth-marketer-visual svg{display:block;width:100%;height:auto}
+.auth-join{padding:clamp(24px,4vw,44px);text-align:center;border-radius:22px;background:linear-gradient(120deg,#e8fff4,#eef5ff);color:#14234b}.auth-join-icon{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 10px;border-radius:18px;background:#d0f8e4;font-size:30px}.auth-join h2{font-size:clamp(23px,3vw,32px);margin:8px 0}.auth-join p{max-width:760px;margin:0 auto 22px;line-height:1.9;color:#475775}.auth-join-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.auth-join-btn{border:0;border-radius:12px;padding:14px 22px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s}.auth-join-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px #14234b20}.supplier-btn{background:#0c8c63;color:#fff}.marketer-btn{background:#245fe2;color:#fff}.auth-join>small{display:block;margin-top:16px;color:#64748b;font-size:11px;line-height:1.7}
+@media(max-width:760px){.auth-layout{gap:14px}.auth-card{order:0;margin-bottom:0;padding:20px}.auth-story{gap:18px;padding:15px;border-radius:20px}.auth-story-heading{padding:8px 4px}.auth-story-heading p{font-size:14px}.auth-audience,.marketer-story{grid-template-columns:minmax(0,1fr);gap:18px;padding:16px}.auth-audience-copy h2{font-size:25px}.auth-audience-copy>p{font-size:13px}.auth-people-visual,.auth-marketer-visual{max-width:100%;grid-row:1}.auth-feature-list article{padding:10px}.auth-feature-list small{font-size:11px}.auth-join{padding:24px 16px}.auth-join-actions{flex-direction:column}.auth-join-btn{width:100%;padding:14px 12px}}
 </style>
 </head>
 <body>
 <header><div class="brand">Market<span>Link</span> DZ <small style="font-size:11px;color:#98a2b3">V6</small></div><div id="userArea"></div></header>
 <div class="container">
 <div id="auth" class="auth-layout">
-<section class="auth-promo" aria-label="مميزات MarketLink DZ">
-  <div class="auth-promo-brand"><span class="auth-logo-mark">M</span><span>MarketLink <b>DZ</b><small>منصة التسويق بالعمولة وتجارة الجملة في الجزائر</small></span></div>
-  <div class="auth-promo-copy"><span class="auth-kicker">منصة جزائرية تجمع فرصتك</span><h1>اربط بين الموردين والمسوقين<br><em>وحقق أرباح أكبر</em></h1><p>اعرض منتجاتك بالجملة أو سوّق منتجات موردين موثوقين. مكان واحد يساعدك تبدأ وتكبر تجارتك.</p></div>
-  <div class="auth-people-visual" role="img" aria-label="رجل وامرأة يعملان معًا في التجارة والتسويق"><svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<section class="auth-promo auth-story" aria-label="اكتشف منصة MarketLink DZ">
+  <div class="auth-story-heading">
+    <span class="auth-kicker">فرصتك التجارية تبدأ من هنا</span>
+    <h1>MarketLink DZ<br><em>تجمع المورد والمسوق في منصة واحدة</em></h1>
+    <p>منصة جزائرية تساعد الموردين يعرضوا منتجاتهم، وتفتح للمسوقين فرصة يبيعوا منتجات بالجملة بالعمولة. تعاون أوضح، متابعة أسهل، وفرصة باش تكبر تجارتك.</p>
+  </div>
+  <section class="auth-audience supplier-story">
+    <div class="auth-audience-copy">
+      <span class="auth-section-label"><span>01</span> للموردين وأصحاب السلع</span>
+      <h2>عندك سلعة؟ خلّي مسوقين أكثر يكتشفوها</h2>
+      <p>بدل ما تعتمد على مجهودك وحدك باش توصل لزبائن جدد، اعرض منتجاتك في MarketLink DZ وخلي المسوقين يكتشفوها ويعاونوا في الترويج ليها.</p>
+      <div class="auth-feature-list">
+        <article><span class="auth-feature-icon">📦</span><div><strong>اعرض منتجاتك في مكان واحد</strong><small>ضيف صور المنتج، الوصف، الكمية ومعلومات الطلب باش تكون واضحة للمسوق.</small></div></article>
+        <article><span class="auth-feature-icon">📣</span><div><strong>وسّع شبكة الترويج</strong><small>خلّي المسوقين يتعرفوا على سلعك ويخدموا على جلب طلبات جديدة.</small></div></article>
+        <article><span class="auth-feature-icon">🧾</span><div><strong>تابع حالة الطلبات والعمولات</strong><small>نظّم معلومات الطلبات والقطع الموصلة، وراجع المستحقات حسب النظام المعتمد في المنصة.</small></div></article>
+      </div>
+    </div>
+    <div class="auth-people-visual" role="img" aria-label="رجل وامرأة يعملان معًا في التجارة والتسويق"><svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <defs><linearGradient id="mlBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#164b70"/><stop offset="1" stop-color="#08233f"/></linearGradient><linearGradient id="mlGreen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#42efa0"/><stop offset="1" stop-color="#07966d"/></linearGradient><linearGradient id="mlBlue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#46a6ff"/><stop offset="1" stop-color="#2452d8"/></linearGradient></defs>
 <rect x="7" y="8" width="706" height="284" rx="25" fill="url(#mlBg)" stroke="#ffffff" stroke-opacity=".16"/>
 <g opacity=".2" stroke="#a9d5ff" fill="none"><path d="M35 45H685M35 85H685M35 125H685M35 165H685M35 205H685M35 245H685"/><path d="M85 25V275M145 25V275M205 25V275M265 25V275M325 25V275M385 25V275M445 25V275M505 25V275M565 25V275M625 25V275"/></g>
@@ -1053,13 +1081,40 @@ body:has(#auth:not(.hidden)) .container{width:min(1380px,96%);margin:22px auto 3
 <g><path d="M300 112C340 68 375 68 410 108" stroke="url(#mlGreen)" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M398 91L412 109L390 111" stroke="#42efa0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="355" cy="62" r="24" fill="#ffffff" fill-opacity=".12" stroke="#ffffff" stroke-opacity=".28"/><path d="M345 62L353 70L367 53" stroke="#42efa0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
 <g><rect x="26" y="22" width="145" height="34" rx="17" fill="#073c36" stroke="#36e89a"/><circle cx="45" cy="39" r="6" fill="#42efa0"/><text x="97" y="44" text-anchor="middle" fill="#ffffff" font-size="14" font-family="Arial,sans-serif" font-weight="700">مورد</text><rect x="548" y="22" width="145" height="34" rx="17" fill="#123e91" stroke="#52a7ff"/><circle cx="567" cy="39" r="6" fill="#52a7ff"/><text x="620" y="44" text-anchor="middle" fill="#ffffff" font-size="14" font-family="Arial,sans-serif" font-weight="700">مسوّق</text></g>
 </svg></div>
-<div class="auth-benefit-grid">
-    <article class="auth-benefit"><span>📦</span><strong>منتجات متنوعة</strong><small>اكتشف منتجات من فئات متعددة</small></article>
-    <article class="auth-benefit"><span>🤝</span><strong>تعاون أسهل</strong><small>منصة تجمع المورد والمسوق</small></article>
-    <article class="auth-benefit"><span>📈</span><strong>فرص نمو</strong><small>نظّم عملك وتابع نتائجك</small></article>
-  </div>
-  <div class="auth-people"><div class="auth-person"><span>🏪</span><div><strong>أنت مورد؟</strong><small>اعرض منتجاتك ووصل لمسوقين أكثر</small></div></div><div class="auth-connection">↔</div><div class="auth-person"><span>📣</span><div><strong>أنت مسوّق؟</strong><small>اكتشف المنتجات وابنِ فرصتك</small></div></div></div>
-  <div class="auth-promo-footer"><span>✓ التسجيل مجاني وسهل</span><span>✓ صُممت للسوق الجزائري</span></div>
+  </section>
+  <section class="auth-audience marketer-story">
+    <div class="auth-audience-copy">
+      <span class="auth-section-label"><span>02</span> للمسوقين وصنّاع المبيعات</span>
+      <h2>سوّق منتجات الموردين وابنِ ربحك قطعة بقطعة</h2>
+      <p>ما تحتاجش تكون مالك السلعة باش تبدأ. اكتشف المنتجات المتاحة، اختار واش يناسب جمهورك، وروّج لها. تقدر تحدد عمولتك حتى 100 دج للقطعة حسب إعدادات المنتج.</p>
+      <div class="auth-feature-list">
+        <article><span class="auth-feature-icon">🛍️</span><div><strong>اكتشف منتجات جاهزة للتسويق</strong><small>تصفح المنتجات ومعلوماتها قبل ما تختار واش تروّج له.</small></div></article>
+        <article><span class="auth-feature-icon">💰</span><div><strong>اعرف عمولتك بوضوح</strong><small>شوف قيمة العمولة وسجّل نتائجك حسب القطع التي يتم تأكيد توصيلها.</small></div></article>
+        <article><span class="auth-feature-icon">📊</span><div><strong>تابع أرباحك وطلباتك</strong><small>راجع إجمالي الأرباح، المستحقات والمدفوعات من حسابك، حسب البيانات المتوفرة.</small></div></article>
+      </div>
+    </div>
+    <div class="auth-marketer-visual" role="img" aria-label="رسم توضيحي لمسوق يتابع المنتجات والعمولات">
+      <svg viewBox="0 0 560 310" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="mlMarketBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#152d69"/><stop offset="1" stop-color="#08765d"/></linearGradient><linearGradient id="mlMarketCard" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#49e6a0"/><stop offset="1" stop-color="#178bdf"/></linearGradient></defs>
+        <rect x="5" y="5" width="550" height="300" rx="24" fill="url(#mlMarketBg)"/>
+        <circle cx="465" cy="58" r="42" fill="#fff" opacity=".07"/><circle cx="80" cy="255" r="58" fill="#fff" opacity=".06"/>
+        <rect x="35" y="40" width="215" height="225" rx="17" fill="#fff"/><rect x="51" y="56" width="183" height="34" rx="8" fill="#eef4fa"/><circle cx="69" cy="73" r="5" fill="#22bf82"/><rect x="82" y="68" width="98" height="8" rx="4" fill="#b9c9dc"/>
+        <rect x="51" y="104" width="82" height="92" rx="9" fill="#e4f6ef"/><rect x="143" y="104" width="91" height="92" rx="9" fill="#e7efff"/><path d="M70 148L92 123L115 148V175H70Z" fill="#20a777"/><rect x="84" y="151" width="15" height="24" fill="#fff"/><circle cx="188" cy="133" r="17" fill="#397be9"/><path d="M164 173Q166 148 188 148Q211 148 212 173Z" fill="#8cb6ff"/><rect x="51" y="208" width="183" height="9" rx="4" fill="#e0e8f1"/><rect x="51" y="228" width="128" height="9" rx="4" fill="#e0e8f1"/>
+        <g transform="translate(293 42)"><rect x="0" y="0" width="226" height="88" rx="15" fill="#fff" fill-opacity=".12" stroke="#fff" stroke-opacity=".25"/><text x="202" y="25" text-anchor="end" font-size="13" fill="#d8e8ff" font-family="Arial,sans-serif">عمولة القطعة</text><text x="202" y="59" text-anchor="end" font-size="27" font-weight="700" fill="#fff" font-family="Arial,sans-serif">حتى 100 دج</text><circle cx="28" cy="44" r="17" fill="#42efa0"/><path d="M20 44L26 50L37 37" stroke="#073b35" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+        <g transform="translate(293 148)"><rect x="0" y="0" width="226" height="117" rx="15" fill="#fff" fill-opacity=".12" stroke="#fff" stroke-opacity=".25"/><text x="202" y="27" text-anchor="end" font-size="13" fill="#d8e8ff" font-family="Arial,sans-serif">تقدّمك في التسويق</text><rect x="22" y="44" width="182" height="12" rx="6" fill="#fff" fill-opacity=".18"/><rect x="22" y="44" width="127" height="12" rx="6" fill="url(#mlMarketCard)"/><rect x="22" y="71" width="145" height="8" rx="4" fill="#fff" fill-opacity=".35"/><rect x="22" y="89" width="105" height="8" rx="4" fill="#fff" fill-opacity=".2"/></g>
+      </svg>
+    </div>
+  </section>
+  <section class="auth-join">
+    <div class="auth-join-icon">🤝</div>
+    <h2>المورد والمسوق يكملوا بعضاهم</h2>
+    <p>المورد يوفّر المنتج، والمسوق يساهم في الترويج. سجّل حسابك اليوم، واكتشف كيفاش تقدر تستفيد من MarketLink DZ حسب الدور تاعك.</p>
+    <div class="auth-join-actions">
+      <button type="button" class="auth-join-btn supplier-btn" onclick="setMode('register');document.getElementById('authTitle').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('role').value='supplier'">أنا مورد — نفتح حساب</button>
+      <button type="button" class="auth-join-btn marketer-btn" onclick="setMode('register');document.getElementById('authTitle').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('role').value='marketer'">أنا مسوق — نبدأ</button>
+    </div>
+    <small>التسجيل لا يضمن مبيعات أو أرباحًا؛ النتائج تعتمد على المنتجات والتسويق والتوصيل.</small>
+  </section>
 </section>
 <div class="box auth-card">
 <h2 id="authTitle">تسجيل الدخول</h2><p class="muted">ادخل إلى حسابك في MarketLink DZ</p>
