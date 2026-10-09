@@ -1161,6 +1161,15 @@ body:has(#auth:not(.hidden)) .auth-card .notice{background:#fff1f7!important;col
  #auth .auth-people-visual svg{min-height:180px!important}
 }
 </style>
+<style id="marketlink-login-real-photo">
+#auth .auth-people-visual{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;width:100%!important;max-width:760px!important;min-height:0!important;margin:8px auto 12px!important;padding:0!important;overflow:hidden!important;border:1px solid #f2c7dc!important;border-radius:24px!important;background:#fff0f7!important;box-shadow:0 15px 38px rgba(194,46,124,.14)!important;filter:none!important}
+#auth .auth-real-people-photo{display:block!important;visibility:visible!important;opacity:1!important;width:100%!important;height:clamp(250px,32vw,410px)!important;min-height:250px!important;object-fit:cover!important;object-position:center 38%!important;border:0!important;border-radius:0!important;filter:none!important;background:linear-gradient(135deg,#ffe5f0,#fff8fb)!important}
+#auth .auth-photo-caption{display:flex!important;align-items:center!important;gap:12px!important;padding:15px 18px!important;background:linear-gradient(100deg,#fff,#fff0f7)!important;color:#4b2940!important;text-align:right!important}
+#auth .auth-photo-caption>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:14px;background:#ffe0ee;font-size:22px}
+#auth .auth-photo-caption strong{display:block;color:#c62e7c!important;font-size:15px!important;line-height:1.7!important}
+#auth .auth-photo-caption small{display:block;color:#806b80!important;font-size:12px!important;line-height:1.8!important}
+@media(max-width:760px){#auth .auth-real-people-photo{height:clamp(220px,65vw,340px)!important;min-height:220px!important}#auth .auth-photo-caption{padding:12px 14px!important}}
+</style>
 </head>
 <body>
 <header><div class="brand">Market<span>Link</span> DZ <small style="font-size:11px;color:#98a2b3">V6</small></div><nav class="landing-nav" aria-label="روابط الصفحة الرئيسية"><a href="#authStoryTop">الرئيسية</a><a href="#supplierStory">للموردين</a><a href="#marketerStory">للمسوقين</a><a href="#authJoin">مزايا المنصة</a></nav><div class="landing-country">🇩🇿 الجزائر</div><div id="userArea"></div></header>
@@ -1183,21 +1192,10 @@ body:has(#auth:not(.hidden)) .auth-card .notice{background:#fff1f7!important;col
         <article><span class="auth-feature-icon">🧾</span><div><strong>تابع حالة الطلبات والعمولات</strong><small>نظّم معلومات الطلبات والقطع الموصلة، وراجع المستحقات حسب النظام المعتمد في المنصة.</small></div></article>
       </div>
     </div>
-    <div class="auth-people-visual" role="img" aria-label="رجل وامرأة يعملان معًا في التجارة والتسويق"><svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<defs><linearGradient id="mlBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#164b70"/><stop offset="1" stop-color="#08233f"/></linearGradient><linearGradient id="mlGreen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#42efa0"/><stop offset="1" stop-color="#07966d"/></linearGradient><linearGradient id="mlBlue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#46a6ff"/><stop offset="1" stop-color="#2452d8"/></linearGradient></defs>
-<rect x="7" y="8" width="706" height="284" rx="25" fill="url(#mlBg)" stroke="#ffffff" stroke-opacity=".16"/>
-<g opacity=".2" stroke="#a9d5ff" fill="none"><path d="M35 45H685M35 85H685M35 125H685M35 165H685M35 205H685M35 245H685"/><path d="M85 25V275M145 25V275M205 25V275M265 25V275M325 25V275M385 25V275M445 25V275M505 25V275M565 25V275M625 25V275"/></g>
-<g transform="translate(95 28)">
-<rect x="0" y="112" width="202" height="127" rx="15" fill="#d4e2ef"/><rect x="13" y="125" width="176" height="91" rx="7" fill="#fff"/><rect x="27" y="140" width="72" height="8" rx="4" fill="#d4e2ef"/><rect x="27" y="157" width="130" height="7" rx="3" fill="#d4e2ef"/><rect x="27" y="174" width="105" height="7" rx="3" fill="#d4e2ef"/><path d="M-8 240H210L190 257H10Z" fill="#8fa8c0"/>
-<path d="M40 112Q37 68 69 52L105 52Q141 72 142 112L159 155L121 171L53 168L21 148Z" fill="#18365a"/><path d="M65 55Q54 37 68 20Q84 1 108 17Q125 28 112 52L96 70Z" fill="#f2bd91"/><path d="M61 33Q52 8 81 4Q111 -1 119 24L112 31Q95 16 73 27L66 39Z" fill="#202a3b"/><path d="M74 68L90 91L107 67L119 112L61 112Z" fill="#f8fafc"/><path d="M90 91L80 111L98 111Z" fill="#16a765"/><path d="M40 118L18 154L30 164L60 140M140 118L156 149L145 161L119 139" stroke="#f2bd91" stroke-width="14" stroke-linecap="round" fill="none"/><rect x="34" y="92" width="41" height="55" rx="5" fill="#1b2435" transform="rotate(-8 34 92)"/><rect x="39" y="98" width="31" height="42" rx="3" fill="#4fa8ff" transform="rotate(-8 39 98)"/>
-</g>
-<g transform="translate(405 18)">
-<rect x="3" y="185" width="218" height="67" rx="9" fill="#d7e4f0"/><rect x="18" y="195" width="188" height="43" rx="4" fill="#183b61"/><rect x="28" y="203" width="168" height="26" rx="3" fill="#f8fbff"/><path d="M-5 252H230L214 266H11Z" fill="#9db6cd"/>
-<path d="M40 131Q35 82 69 69L121 69Q159 88 157 135L163 190H27Z" fill="url(#mlGreen)"/><path d="M54 69Q31 51 42 24Q55 -1 90 4Q126 9 126 37L119 74L98 91L64 83Z" fill="#f3c7a8"/><path d="M37 48Q15 9 53 -5Q91 -17 119 8Q138 25 124 55L115 69Q111 28 78 20Q56 23 45 56Z" fill="#f3e9dc"/><path d="M35 35Q17 45 29 74L47 91L57 77L44 55Z" fill="#f3e9dc"/><path d="M65 88L85 112L107 88L123 132L52 132Z" fill="#ffffff"/><path d="M54 140L24 175L42 189L76 160M143 140L166 171L153 185L125 160" stroke="#f0bd9b" stroke-width="14" stroke-linecap="round" fill="none"/>
-</g>
-<g><path d="M300 112C340 68 375 68 410 108" stroke="url(#mlGreen)" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M398 91L412 109L390 111" stroke="#42efa0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="355" cy="62" r="24" fill="#ffffff" fill-opacity=".12" stroke="#ffffff" stroke-opacity=".28"/><path d="M345 62L353 70L367 53" stroke="#42efa0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-<g><rect x="26" y="22" width="145" height="34" rx="17" fill="#073c36" stroke="#36e89a"/><circle cx="45" cy="39" r="6" fill="#42efa0"/><text x="97" y="44" text-anchor="middle" fill="#ffffff" font-size="14" font-family="Arial,sans-serif" font-weight="700">مورد</text><rect x="548" y="22" width="145" height="34" rx="17" fill="#123e91" stroke="#52a7ff"/><circle cx="567" cy="39" r="6" fill="#52a7ff"/><text x="620" y="44" text-anchor="middle" fill="#ffffff" font-size="14" font-family="Arial,sans-serif" font-weight="700">مسوّق</text></g>
-</svg></div>
+    <div class="auth-people-visual" role="group" aria-label="صورة فوتوغرافية لفريق يعمل في التجارة والتسويق">
+  <img class="auth-real-people-photo" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85" alt="رجل وامرأة يعملان مع فريقهما على الحاسوب ويتعاونون في مشروع تجاري" loading="eager" fetchpriority="high" decoding="async">
+  <div class="auth-photo-caption"><span>🤝</span><div><strong>مورد ومسوق، فريق واحد</strong><small>معًا نحو فرص بيع أكبر في الجزائر</small></div></div>
+</div>
   </section>
   <section id="marketerStory" class="auth-audience marketer-story">
     <div class="auth-audience-copy">
