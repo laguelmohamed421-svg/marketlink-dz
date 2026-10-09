@@ -948,6 +948,26 @@ input:focus,select:focus,textarea:focus{
 .ml-notify-wrap{display:grid;gap:14px}.ml-notify-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border:1px solid #eaecf0;border-radius:16px;background:linear-gradient(135deg,#fff,#f8fffb)}.ml-notify-head h3{margin:0 0 5px;font-size:20px}.ml-notify-head p{margin:0;color:#667085;font-size:12px}.ml-notify-count{min-width:42px;height:42px;border-radius:13px;background:#ecfdf3;color:#079455;display:flex;align-items:center;justify-content:center;font-weight:800}.ml-notify-list{display:grid;gap:10px}.ml-notify-item{display:flex;gap:13px;align-items:flex-start;padding:16px;border:1px solid #eaecf0;border-radius:15px;background:#fff;box-shadow:0 2px 8px rgba(16,24,40,.04)}.ml-notify-icon{width:42px;height:42px;flex:0 0 42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;background:#f2f4f7}.ml-notify-item.success .ml-notify-icon{background:#ecfdf3}.ml-notify-item.info .ml-notify-icon{background:#eff8ff}.ml-notify-item strong{display:block;font-size:14px;color:#101828;margin-bottom:5px}.ml-notify-item p{margin:0;color:#667085;font-size:12px;line-height:1.7}.ml-notify-time{display:block;margin-top:7px;color:#98a2b3;font-size:10px}.ml-notify-empty{text-align:center;padding:35px 15px;color:#98a2b3;border:1px dashed #d0d5dd;border-radius:15px}
 @media(max-width:600px){.ml-notify-head{padding:15px}.ml-notify-head h3{font-size:17px}.ml-notify-item{padding:13px}.ml-notify-icon{width:38px;height:38px;flex-basis:38px;font-size:18px}}
 </style>
+<style id="ml-profile-section">
+.ml-profile-panel{direction:rtl;width:100%;max-width:980px;margin:0 auto 22px;padding:clamp(16px,3vw,30px);border:1px solid #e4e7ec;border-radius:22px;background:#fff;box-shadow:0 12px 32px rgba(16,24,40,.06);box-sizing:border-box}
+.ml-profile-panel *{box-sizing:border-box}
+.ml-profile-head{display:flex;align-items:center;gap:15px;padding-bottom:22px;border-bottom:1px solid #eef0f3;margin-bottom:22px}
+.ml-profile-avatar{width:62px;height:62px;flex:0 0 62px;display:flex;align-items:center;justify-content:center;border-radius:19px;background:linear-gradient(135deg,#dbeafe,#eff6ff);font-size:30px}
+.ml-profile-eyebrow{display:block;color:#2563eb;font-size:12px;font-weight:900;margin-bottom:5px}
+.ml-profile-head h2{font-size:clamp(21px,3vw,27px);line-height:1.3;margin:0;color:#101828;font-weight:900}
+.ml-profile-head p{margin:6px 0 0;color:#667085;font-size:13px;line-height:1.8}
+.ml-profile-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.ml-profile-field{display:flex;flex-direction:column;gap:8px;min-width:0;color:#344054;font-size:13px;font-weight:800}
+.ml-profile-field input{width:100%;min-width:0;min-height:48px;border:1px solid #d0d5dd;border-radius:12px;padding:12px 14px;font:inherit;font-size:14px;color:#101828;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
+.ml-profile-field input:focus{border-color:#528bff;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+.ml-profile-field input[readonly]{background:#f8fafc;color:#667085;cursor:not-allowed}
+.ml-profile-note{grid-column:1/-1;padding:12px 14px;border-radius:12px;background:#f8fafc;color:#667085;font-size:12px;line-height:1.8}
+.ml-profile-actions{grid-column:1/-1;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.ml-profile-actions button{min-height:46px;padding-inline:20px}
+.ml-profile-actions button:disabled{opacity:.65;cursor:wait}
+#mlProfileStatus{font-size:13px;color:#067647;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:560px){.ml-profile-panel{padding:17px;border-radius:17px}.ml-profile-head{align-items:flex-start;gap:11px}.ml-profile-avatar{width:48px;height:48px;flex-basis:48px;border-radius:14px;font-size:24px}.ml-profile-head p{font-size:12px}.ml-profile-form{grid-template-columns:minmax(0,1fr);gap:14px}.ml-profile-note,.ml-profile-actions{grid-column:1}.ml-profile-actions{align-items:stretch;flex-direction:column}.ml-profile-actions button{width:100%}}
+</style>
 </head>
 <body>
 <header><div class="brand">Market<span>Link</span> DZ <small style="font-size:11px;color:#98a2b3">V6</small></div><div id="userArea"></div></header>
@@ -1619,9 +1639,9 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   const nav=$('mlNav'), items=$('mlNavItems');
   let role='';
   const configs={
-    marketer:[['home','🏠 الرئيسية'],['catalog','🛍️ المنتجات'],['mine','⭐ منتجاتي'],['orders','📦 طلباتي'],['payments','💰 الأرباح'],['notifications','🔔 الإشعارات']],
-    supplier:[['home','🏠 الرئيسية'],['products','🛍️ منتجاتي'],['orders','📦 الطلبات'],['billing','💰 الفوترة والدفع'],['notifications','🔔 الإشعارات']],
-    admin:[['home','🏠 الرئيسية'],['users','👥 المستخدمون'],['products','🛍️ المنتجات'],['orders','📦 الطلبات'],['billing','💰 الفوترة'],['commissions','💸 العمولات'],['withdrawals','💳 طلبات سحب المسوقين'],['notifications','🔔 الإشعارات']]
+    marketer:[['home','🏠 الرئيسية'],['catalog','🛍️ المنتجات'],['mine','⭐ منتجاتي'],['orders','📦 طلباتي'],['payments','💰 الأرباح'],['notifications','🔔 الإشعارات'],['profile','👤 الملف الشخصي']],
+    supplier:[['home','🏠 الرئيسية'],['products','🛍️ منتجاتي'],['orders','📦 الطلبات'],['billing','💰 الفوترة والدفع'],['notifications','🔔 الإشعارات'],['profile','👤 الملف الشخصي']],
+    admin:[['home','🏠 الرئيسية'],['users','👥 المستخدمون'],['products','🛍️ المنتجات'],['orders','📦 الطلبات'],['billing','💰 الفوترة'],['commissions','💸 العمولات'],['withdrawals','💳 طلبات سحب المسوقين'],['notifications','🔔 الإشعارات'],['profile','👤 الملف الشخصي']]
   };
   function setVisible(el,on){if(!el)return;el.classList.toggle('hidden',!on);el.style.display=on?'':'none'}
   function buildNav(r){
@@ -1738,7 +1758,57 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
       </section>`;
   }
 
+  function renderMLProfilePanel(target){
+    const old=document.getElementById('ml-profile-panel');if(old)old.remove();
+    const root=typeof target==='string'?document.getElementById(target):target;
+    if(!root)return;
+    const user=window.currentUser||{};
+    const meta=user.user_metadata||{};
+    const panel=document.createElement('section');
+    panel.id='ml-profile-panel';
+    panel.className='ml-profile-panel panel';
+    panel.innerHTML=`
+      <div class="ml-profile-head">
+        <div class="ml-profile-avatar" aria-hidden="true">👤</div>
+        <div><span class="ml-profile-eyebrow">حسابك في MarketLink DZ</span><h2>الملف الشخصي</h2><p>راجع معلوماتك الشخصية وخليها محدثة باش يسهل التواصل معاك.</p></div>
+      </div>
+      <form class="ml-profile-form" id="mlProfileForm">
+        <label class="ml-profile-field"><span>الاسم الكامل</span><input id="mlProfileName" type="text" autocomplete="name" maxlength="120" placeholder="اكتب الاسم واللقب" required></label>
+        <label class="ml-profile-field"><span>رقم الهاتف</span><input id="mlProfilePhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="05 أو 06 أو 07..." required></label>
+        <label class="ml-profile-field"><span>البريد الإلكتروني</span><input id="mlProfileEmail" type="email" autocomplete="email" readonly aria-readonly="true"></label>
+        <label class="ml-profile-field"><span>الولاية</span><input id="mlProfileWilaya" type="text" autocomplete="address-level1" maxlength="80" placeholder="اكتب ولايتك" required></label>
+        <div class="ml-profile-note">يمكنك تعديل الاسم ورقم الهاتف والولاية. البريد الإلكتروني ظاهر من حساب الدخول، وتغييره يحتاج تأكيدًا عبر البريد.</div>
+        <div class="ml-profile-actions"><button class="btn primary" type="submit" id="mlProfileSave">💾 حفظ التعديلات</button><span id="mlProfileStatus" role="status" aria-live="polite"></span></div>
+      </form>`;
+    root.appendChild(panel);
+    panel.querySelector('#mlProfileName').value=meta.full_name||meta.name||'';
+    panel.querySelector('#mlProfilePhone').value=meta.phone||'';
+    panel.querySelector('#mlProfileEmail').value=user.email||'';
+    panel.querySelector('#mlProfileWilaya').value=meta.wilaya||'';
+    panel.querySelector('#mlProfileForm').addEventListener('submit',async ev=>{
+      ev.preventDefault();
+      const sb=window.supabaseClient||window.supabase;
+      const status=panel.querySelector('#mlProfileStatus'),button=panel.querySelector('#mlProfileSave');
+      if(!sb||!sb.auth||!sb.auth.updateUser){status.textContent='تعذر الاتصال بالخدمة. حدّث الصفحة وحاول مجددًا.';return}
+      const full_name=panel.querySelector('#mlProfileName').value.trim();
+      const phone=panel.querySelector('#mlProfilePhone').value.trim();
+      const wilaya=panel.querySelector('#mlProfileWilaya').value.trim();
+      if(!full_name||!phone||!wilaya){status.textContent='عمر جميع المعلومات المطلوبة.';return}
+      button.disabled=true;button.textContent='جارٍ الحفظ...';status.textContent='';
+      try{
+        const current=window.currentUser||{};
+        const {data,error}=await sb.auth.updateUser({data:{...(current.user_metadata||{}),full_name,phone,wilaya}});
+        if(error)throw error;
+        if(data&&data.user){window.currentUser=data.user}
+        else if(window.currentUser){window.currentUser={...window.currentUser,user_metadata:{...(window.currentUser.user_metadata||{}),full_name,phone,wilaya}}}
+        status.textContent='✅ تم حفظ معلوماتك بنجاح.';
+      }catch(err){status.textContent='ما قدرناش نحفظو المعلومات: '+(err?.message||'خطأ غير معروف')}
+      finally{button.disabled=false;button.textContent='💾 حفظ التعديلات'}
+    });
+  }
+
   function showSection(key){
+    const oldProfile=document.getElementById('ml-profile-panel');if(oldProfile)oldProfile.remove();
     resetMain();
     document.querySelectorAll('#mlNavItems button[data-section]').forEach(b=>b.classList.toggle('active',b.dataset.section===key));
     if(window.innerWidth<=760) nav.classList.remove('mobile-open');
@@ -1799,6 +1869,8 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
           <div class="ml-history-box ml-history-box-v17"><div class="ml-history-head"><div><h4>آخر طلبات السحب</h4><span>سجل كامل لطلبات السحب الخاصة بك.</span></div><button type="button" class="ml-link-btn" onclick="loadMarketerEarningsV12()">عرض الكل ↔</button></div><div class="ml-history-table-wrap"><table class="ml-history-table"><thead><tr><th>#</th><th>المبلغ</th><th>طريقة الدفع</th><th>الحساب</th><th>الحالة</th><th>تاريخ الطلب</th><th>تاريخ المعالجة</th></tr></thead><tbody id="mlWithdrawalHistory"><tr><td colspan="7"><div class="muted">جارٍ التحميل...</div></td></tr></tbody></table></div></div>`;
         $('marketerDash').appendChild(d);
         loadMarketerEarningsV12();
+      }else if(key==='profile'){
+        renderMLProfilePanel('marketerDash');
       }else if(key==='notifications'){
         const old=document.getElementById('ml-notice-panel');if(old)old.remove();
         const orders=Array.isArray(window.marketerOrders)?window.marketerOrders:[];
@@ -1823,6 +1895,9 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
       if(key==='products'){[toolbar,products].forEach(x=>{if(x)setVisible(x,true)})}
       if(key==='orders'){const p=panels[0];if(p)setVisible(p,true)}
       if(key==='billing'){const p=panels[1];if(p)setVisible(p,true)}
+      if(key==='profile'){
+        renderMLProfilePanel('supplierDash');
+      }
       if(key==='notifications'){
         const old=document.getElementById('ml-notice-panel');if(old)old.remove();
         const d=document.createElement('div');d.id='ml-notice-panel';d.className='panel';d.innerHTML='<h3>🔔 الإشعارات</h3><p class="muted">تنبيهات الطلبات، الشحن، الفوترة وحالة الحساب.</p><div class="notice">لا توجد إشعارات جديدة حالياً.</div>'; $('supplierDash').appendChild(d);
@@ -1834,6 +1909,10 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
       if(key!=='home'&&key!=='notifications'){
         stats.forEach(x=>setVisible(x,false));
         const sec=$('admin-'+key);if(sec){sec.classList.add('active');sec.style.display='block'}
+      }
+      if(key==='profile'){
+        stats.forEach(x=>setVisible(x,false));
+        renderMLProfilePanel('adminDash');
       }
       if(key==='notifications'){
         stats.forEach(x=>setVisible(x,false));
