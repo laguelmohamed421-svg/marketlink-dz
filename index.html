@@ -1140,9 +1140,9 @@ body:has(#auth:not(.hidden)) .auth-card .notice{background:#fff1f7!important;col
 </style>
 <style id="marketlink-login-people-visibility-fix">
 /* Ensure the supplier + marketer illustration is visible on the actual login screen */
-#auth.auth-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(330px,410px)!important;gap:22px!important;align-items:start!important}
-#auth .auth-story{display:flex!important;visibility:visible!important;opacity:1!important;grid-column:1!important;grid-row:1!important;min-width:0!important;max-width:none!important;overflow:visible!important}
-#auth .auth-story-heading{display:flex!important;visibility:visible!important;opacity:1!important}
+#auth:not(.hidden).auth-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(330px,410px)!important;gap:22px!important;align-items:start!important}
+#auth:not(.hidden) .auth-story{display:flex!important;visibility:visible!important;opacity:1!important;grid-column:1!important;grid-row:1!important;min-width:0!important;max-width:none!important;overflow:visible!important}
+#auth:not(.hidden) .auth-story-heading{display:flex!important;visibility:visible!important;opacity:1!important}
 #auth .supplier-story{display:grid!important}
 #auth .auth-people-visual{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;width:100%!important;max-width:760px!important;min-height:250px!important;margin:8px auto 12px!important;padding:8px!important;overflow:hidden!important;border:1px solid #f3bfd8!important;border-radius:22px!important;background:linear-gradient(135deg,#fff0f7 0%,#ffd9e9 50%,#fff8fb 100%)!important;box-shadow:0 14px 34px rgba(200,49,123,.13)!important;filter:none!important}
 #auth .auth-people-visual svg{display:block!important;visibility:visible!important;opacity:1!important;width:100%!important;height:auto!important;min-height:240px!important;max-height:none!important;filter:none!important}
@@ -1154,9 +1154,9 @@ body:has(#auth:not(.hidden)) .auth-card .notice{background:#fff1f7!important;col
 #auth .auth-feature-icon{background:#ffe1ee!important}
 #auth .auth-card{grid-column:2!important;grid-row:1!important}
 @media(max-width:760px){
- #auth.auth-layout{display:flex!important;flex-direction:column!important}
+ #auth:not(.hidden).auth-layout{display:flex!important;flex-direction:column!important}
  #auth .auth-card{order:0!important;position:relative!important;top:auto!important;width:100%!important}
- #auth .auth-story{order:1!important;width:100%!important}
+ #auth:not(.hidden) .auth-story{order:1!important;width:100%!important}
  #auth .auth-people-visual{min-height:190px!important}
  #auth .auth-people-visual svg{min-height:180px!important}
 }
@@ -1187,13 +1187,13 @@ body:has(#auth:not(.hidden)) #mlNav,
 body:has(#auth:not(.hidden)) .ml-mobile-menu{display:none!important}
 @media(min-width:761px){
  body:has(#auth:not(.hidden)) .container{width:min(1380px,96%)!important;max-width:1380px!important;margin:22px auto 32px!important;padding:0!important}
- body:has(#auth:not(.hidden)) #auth.auth-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(340px,410px)!important;grid-template-rows:auto!important;gap:22px!important;align-items:start!important;direction:ltr!important;min-width:0!important;width:100%!important;overflow:visible!important}
+ body:has(#auth:not(.hidden)) #auth:not(.hidden).auth-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(340px,410px)!important;grid-template-rows:auto!important;gap:22px!important;align-items:start!important;direction:ltr!important;min-width:0!important;width:100%!important;overflow:visible!important}
  body:has(#auth:not(.hidden)) #auth>.auth-card{grid-column:2!important;grid-row:1!important;position:relative!important;top:auto!important;right:auto!important;left:auto!important;float:none!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;align-self:start!important;z-index:1!important}
  body:has(#auth:not(.hidden)) #auth>.auth-story{grid-column:1!important;grid-row:1!important;position:relative!important;left:auto!important;right:auto!important;min-width:0!important;width:100%!important;max-width:none!important;margin:0!important;overflow:hidden!important}
  body:has(#auth:not(.hidden)) #auth .auth-audience{min-width:0!important;max-width:100%!important}
 }
 @media(min-width:761px) and (max-width:1050px){
- body:has(#auth:not(.hidden)) #auth.auth-layout{grid-template-columns:minmax(0,1fr) minmax(300px,350px)!important;gap:14px!important}
+ body:has(#auth:not(.hidden)) #auth:not(.hidden).auth-layout{grid-template-columns:minmax(0,1fr) minmax(300px,350px)!important;gap:14px!important}
 }
 </style>
 </head>
