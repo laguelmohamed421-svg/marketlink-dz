@@ -975,8 +975,17 @@ input:focus,select:focus,textarea:focus{
 .ml-profile-actions{grid-column:1/-1;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
 .ml-profile-actions button{min-height:46px;padding-inline:20px}
 .ml-profile-actions button:disabled{opacity:.65;cursor:wait}
-#mlProfileStatus{font-size:13px;color:#067647;line-height:1.6;overflow-wrap:anywhere}
-@media(max-width:560px){.ml-profile-panel{padding:17px;border-radius:17px}.ml-profile-head{align-items:flex-start;gap:11px}.ml-profile-avatar{width:48px;height:48px;flex-basis:48px;border-radius:14px;font-size:24px}.ml-profile-head p{font-size:12px}.ml-profile-form{grid-template-columns:minmax(0,1fr);gap:14px}.ml-profile-payment-title,.ml-profile-note,.ml-profile-actions{grid-column:1}.ml-profile-payment-title{align-items:flex-start}.ml-profile-actions{align-items:stretch;flex-direction:column}.ml-profile-actions button{width:100%}}
+.ml-profile-password-section{margin-top:26px;padding-top:8px;border-top:1px solid #eef0f3}
+.ml-profile-password-section>.ml-profile-payment-title{margin-bottom:17px}
+.ml-profile-password-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.ml-profile-password-form .ml-profile-field:last-of-type{grid-column:1/-1}
+.ml-profile-password-form input{width:100%;min-width:0;min-height:48px;border:1px solid #d0d5dd;border-radius:12px;padding:12px 14px;font:inherit;font-size:14px;color:#101828;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
+.ml-profile-password-form input:focus{border-color:#528bff;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+.ml-profile-password-actions{grid-column:1/-1;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.ml-profile-password-actions button{min-height:46px;padding-inline:20px}
+.ml-profile-password-actions button:disabled{opacity:.65;cursor:wait}
+#mlProfileStatus,#mlProfilePasswordStatus{font-size:13px;color:#067647;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:560px){.ml-profile-panel{padding:17px;border-radius:17px}.ml-profile-head{align-items:flex-start;gap:11px}.ml-profile-avatar{width:48px;height:48px;flex-basis:48px;border-radius:14px;font-size:24px}.ml-profile-head p{font-size:12px}.ml-profile-form{grid-template-columns:minmax(0,1fr);gap:14px}.ml-profile-payment-title,.ml-profile-note,.ml-profile-actions{grid-column:1}.ml-profile-payment-title{align-items:flex-start}.ml-profile-actions{align-items:stretch;flex-direction:column}.ml-profile-actions button{width:100%}.ml-profile-password-form{grid-template-columns:minmax(0,1fr);gap:14px}.ml-profile-password-form .ml-profile-field:last-of-type,.ml-profile-password-actions{grid-column:1}.ml-profile-password-actions{align-items:stretch;flex-direction:column}.ml-profile-password-actions button{width:100%}}
 </style>
 </head>
 <body>
@@ -1792,7 +1801,16 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
         <label class="ml-profile-field ml-profile-payment-details-field"><span>معلومات الدفع</span><textarea id="mlProfilePaymentDetails" rows="3" maxlength="300" placeholder="اختار طريقة الدفع أولاً، ثم اكتب معلومات الحساب"></textarea><small class="ml-profile-help">CCP: اكتب رقم الحساب واسم صاحبه. بريدي موب: اكتب رقم الهاتف المرتبط بالحساب واسم صاحبه. ما تكتبش كلمة السر أو رمز التأكيد.</small></label>
         <div class="ml-profile-note">تقدر تحفظ معلوماتك الشخصية ومعلومات الدفع مع بعض. البريد الإلكتروني ظاهر من حساب الدخول، وتغييره يحتاج تأكيدًا عبر البريد.</div>
         <div class="ml-profile-actions"><button class="btn primary" type="submit" id="mlProfileSave">💾 حفظ المعلومات</button><span id="mlProfileStatus" role="status" aria-live="polite"></span></div>
-      </form>`;
+      </form>
+      <section class="ml-profile-password-section" aria-labelledby="mlProfilePasswordTitle">
+        <div class="ml-profile-payment-title"><span class="ml-profile-payment-icon">🔐</span><div><h3 id="mlProfilePasswordTitle">تحديث كلمة المرور</h3><p>أدخل كلمة المرور الحالية، ثم اختار كلمة مرور جديدة لحماية حسابك.</p></div></div>
+        <form id="mlProfilePasswordForm" class="ml-profile-password-form" autocomplete="off">
+          <label class="ml-profile-field"><span>كلمة المرور الحالية</span><input id="mlProfileCurrentPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="أدخل كلمة المرور الحالية"></label>
+          <label class="ml-profile-field"><span>كلمة مرور جديدة</span><input id="mlProfileNewPassword" type="password" autocomplete="new-password" required minlength="6" placeholder="6 أحرف أو أكثر"></label>
+          <label class="ml-profile-field"><span>تأكيد كلمة المرور</span><input id="mlProfileConfirmPassword" type="password" autocomplete="new-password" required minlength="6" placeholder="أعد كتابة كلمة المرور الجديدة"></label>
+          <div class="ml-profile-password-actions"><button class="btn primary" type="submit" id="mlProfilePasswordSave">🔒 حفظ كلمة المرور</button><span id="mlProfilePasswordStatus" role="status" aria-live="polite"></span></div>
+        </form>
+      </section>`;
     root.appendChild(panel);
     panel.querySelector('#mlProfileName').value=meta.full_name||meta.name||'';
     panel.querySelector('#mlProfilePhone').value=meta.phone||'';
@@ -1832,6 +1850,37 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
         status.textContent='✅ تم حفظ معلوماتك بنجاح.';
       }catch(err){status.textContent='ما قدرناش نحفظو المعلومات: '+(err?.message||'خطأ غير معروف')}
       finally{button.disabled=false;button.textContent='💾 حفظ التعديلات'}
+    });
+    const passwordForm=panel.querySelector('#mlProfilePasswordForm');
+    passwordForm.addEventListener('submit',async ev=>{
+      ev.preventDefault();
+      const status=panel.querySelector('#mlProfilePasswordStatus');
+      const button=panel.querySelector('#mlProfilePasswordSave');
+      const currentPassword=panel.querySelector('#mlProfileCurrentPassword').value;
+      const newPassword=panel.querySelector('#mlProfileNewPassword').value;
+      const confirmPassword=panel.querySelector('#mlProfileConfirmPassword').value;
+      const sb=window.supabaseClient||window.supabase;
+      const current=window.currentUser||{};
+      if(!sb||!sb.auth||!sb.auth.signInWithPassword||!sb.auth.updateUser){
+        status.textContent='تعذر الاتصال بالخدمة. حدّث الصفحة وحاول مجددًا.';return;
+      }
+      if(!current.email){status.textContent='ما قدرناش نتحققو من البريد الإلكتروني للحساب. عاود سجّل الدخول.';return}
+      if(newPassword.length<6){status.textContent='كلمة المرور الجديدة لازم تكون 6 أحرف على الأقل.';return}
+      if(newPassword!==confirmPassword){status.textContent='تأكيد كلمة المرور ما يطابقش كلمة المرور الجديدة.';return}
+      if(currentPassword===newPassword){status.textContent='اختار كلمة مرور جديدة مختلفة عن الحالية.';return}
+      button.disabled=true;button.textContent='جارٍ تحديث كلمة المرور...';status.textContent='';
+      try{
+        const {error:verifyError}=await sb.auth.signInWithPassword({email:current.email,password:currentPassword});
+        if(verifyError)throw new Error('كلمة المرور الحالية غير صحيحة. راجعها وحاول مجددًا.');
+        const {error:updateError}=await sb.auth.updateUser({password:newPassword});
+        if(updateError)throw updateError;
+        passwordForm.reset();
+        status.textContent='✅ تم تحديث كلمة المرور بنجاح.';
+      }catch(err){
+        status.textContent=err?.message||'ما قدرناش نحدّثو كلمة المرور. حاول مجددًا.';
+      }finally{
+        button.disabled=false;button.textContent='🔒 حفظ كلمة المرور';
+      }
     });
   }
 
