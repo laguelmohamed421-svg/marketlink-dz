@@ -1138,6 +1138,29 @@ body:has(#auth:not(.hidden)) .auth-card .notice{background:#fff1f7!important;col
 @media(max-width:760px){body:has(#auth:not(.hidden))>header{position:relative;flex-wrap:wrap;gap:10px;padding:12px 15px!important}.landing-nav{order:3;width:100%;justify-content:center;overflow-x:auto;padding:4px 0 2px;gap:18px}.landing-country{display:none}body:has(#auth:not(.hidden)) .container{width:100%!important;padding:0 12px!important;margin:12px auto 24px!important}body:has(#auth:not(.hidden)) .auth-layout{display:flex!important;flex-direction:column!important;gap:15px!important}body:has(#auth:not(.hidden)) .auth-card{position:relative!important;top:auto!important;order:0!important;width:100%!important;padding:20px!important}body:has(#auth:not(.hidden)) .auth-story{order:1!important;width:100%!important;gap:14px!important}body:has(#auth:not(.hidden)) .auth-story-heading{min-height:260px;padding:24px 16px!important;border-radius:20px!important}body:has(#auth:not(.hidden)) .auth-story-heading h1{font-size:clamp(27px,7vw,36px)!important}body:has(#auth:not(.hidden)) .auth-audience{padding:17px!important;border-radius:18px!important}body:has(#auth:not(.hidden)) .auth-join{padding:20px 14px!important}body:has(#auth:not(.hidden)) .auth-join-btn{width:100%!important;min-width:0!important}}
 @media(max-width:420px){.landing-nav{justify-content:flex-start}.landing-nav a{font-size:11px}body:has(#auth:not(.hidden)) .auth-card{padding:16px!important}}
 </style>
+<style id="marketlink-login-people-visibility-fix">
+/* Ensure the supplier + marketer illustration is visible on the actual login screen */
+#auth.auth-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(330px,410px)!important;gap:22px!important;align-items:start!important}
+#auth .auth-story{display:flex!important;visibility:visible!important;opacity:1!important;grid-column:1!important;grid-row:1!important;min-width:0!important;max-width:none!important;overflow:visible!important}
+#auth .auth-story-heading{display:flex!important;visibility:visible!important;opacity:1!important}
+#auth .supplier-story{display:grid!important}
+#auth .auth-people-visual{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;width:100%!important;max-width:760px!important;min-height:250px!important;margin:8px auto 12px!important;padding:8px!important;overflow:hidden!important;border:1px solid #f3bfd8!important;border-radius:22px!important;background:linear-gradient(135deg,#fff0f7 0%,#ffd9e9 50%,#fff8fb 100%)!important;box-shadow:0 14px 34px rgba(200,49,123,.13)!important;filter:none!important}
+#auth .auth-people-visual svg{display:block!important;visibility:visible!important;opacity:1!important;width:100%!important;height:auto!important;min-height:240px!important;max-height:none!important;filter:none!important}
+#auth .auth-marketer-visual{display:block!important;visibility:visible!important;opacity:1!important}
+#auth .auth-marketer-visual svg{display:block!important;width:100%!important;height:auto!important;filter:none!important}
+#auth .auth-audience{color:#38243e!important}
+#auth .auth-section-label{color:#c62e7c!important}
+#auth .auth-feature-list article{background:#fff8fc!important;border-color:#f4d9e6!important}
+#auth .auth-feature-icon{background:#ffe1ee!important}
+#auth .auth-card{grid-column:2!important;grid-row:1!important}
+@media(max-width:760px){
+ #auth.auth-layout{display:flex!important;flex-direction:column!important}
+ #auth .auth-card{order:0!important;position:relative!important;top:auto!important;width:100%!important}
+ #auth .auth-story{order:1!important;width:100%!important}
+ #auth .auth-people-visual{min-height:190px!important}
+ #auth .auth-people-visual svg{min-height:180px!important}
+}
+</style>
 </head>
 <body>
 <header><div class="brand">Market<span>Link</span> DZ <small style="font-size:11px;color:#98a2b3">V6</small></div><nav class="landing-nav" aria-label="روابط الصفحة الرئيسية"><a href="#authStoryTop">الرئيسية</a><a href="#supplierStory">للموردين</a><a href="#marketerStory">للمسوقين</a><a href="#authJoin">مزايا المنصة</a></nav><div class="landing-country">🇩🇿 الجزائر</div><div id="userArea"></div></header>
