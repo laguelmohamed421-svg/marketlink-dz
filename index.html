@@ -1180,6 +1180,22 @@ body:has(#auth:not(.hidden)) .auth-card .notice{background:#fff1f7!important;col
 #auth .auth-marketer-photo-caption small{display:block!important;color:#806b80!important;font-size:12px!important;line-height:1.8!important}
 @media(max-width:760px){#auth .auth-marketer-real-photo{height:clamp(220px,65vw,340px)!important;min-height:220px!important}}
 </style>
+
+<style id="ml-login-desktop-layout-fix">
+/* Keep dashboard navigation panels from covering the login screen */
+body:has(#auth:not(.hidden)) #mlNav,
+body:has(#auth:not(.hidden)) .ml-mobile-menu{display:none!important}
+@media(min-width:761px){
+ body:has(#auth:not(.hidden)) .container{width:min(1380px,96%)!important;max-width:1380px!important;margin:22px auto 32px!important;padding:0!important}
+ body:has(#auth:not(.hidden)) #auth.auth-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(340px,410px)!important;grid-template-rows:auto!important;gap:22px!important;align-items:start!important;direction:ltr!important;min-width:0!important;width:100%!important;overflow:visible!important}
+ body:has(#auth:not(.hidden)) #auth>.auth-card{grid-column:2!important;grid-row:1!important;position:relative!important;top:auto!important;right:auto!important;left:auto!important;float:none!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;align-self:start!important;z-index:1!important}
+ body:has(#auth:not(.hidden)) #auth>.auth-story{grid-column:1!important;grid-row:1!important;position:relative!important;left:auto!important;right:auto!important;min-width:0!important;width:100%!important;max-width:none!important;margin:0!important;overflow:hidden!important}
+ body:has(#auth:not(.hidden)) #auth .auth-audience{min-width:0!important;max-width:100%!important}
+}
+@media(min-width:761px) and (max-width:1050px){
+ body:has(#auth:not(.hidden)) #auth.auth-layout{grid-template-columns:minmax(0,1fr) minmax(300px,350px)!important;gap:14px!important}
+}
+</style>
 </head>
 <body>
 <header><div class="brand">Market<span>Link</span> DZ <small style="font-size:11px;color:#98a2b3">V6</small></div><nav class="landing-nav" aria-label="روابط الصفحة الرئيسية"><a href="#authStoryTop">الرئيسية</a><a href="#supplierStory">للموردين</a><a href="#marketerStory">للمسوقين</a><a href="#authJoin">مزايا المنصة</a></nav><div class="landing-country">🇩🇿 الجزائر</div><div id="userArea"></div></header>
