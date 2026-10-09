@@ -2541,22 +2541,23 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   display:none !important;
 }
 
-/* MarketLink DZ — premium profile theme, scoped to profile only */
+
+/* MarketLink DZ — premium YouCan-inspired pink profile theme, scoped to profile only */
 #ml-profile-panel.ml-profile-panel{
-  --ml-prof-navy:#123047;
-  --ml-prof-teal:#087f8c;
-  --ml-prof-green:#16836b;
-  --ml-prof-gold:#d5a84f;
-  --ml-prof-ink:#203548;
-  --ml-prof-muted:#647789;
+  --ml-prof-pink:#e83e8c;
+  --ml-prof-pink-dark:#c92d76;
+  --ml-prof-pink-soft:#fff0f6;
+  --ml-prof-rose-border:#f4cddd;
+  --ml-prof-ink:#3d2634;
+  --ml-prof-muted:#806878;
   direction:rtl;
   position:relative;
   overflow:hidden;
   color:var(--ml-prof-ink);
-  background:linear-gradient(155deg,#ffffff 0%,#fbfefd 62%,#f0f8f7 100%);
-  border:1px solid #d9e8e7;
+  background:linear-gradient(155deg,#fff 0%,#fffafd 62%,#fff2f7 100%);
+  border:1px solid var(--ml-prof-rose-border);
   border-radius:24px;
-  box-shadow:0 18px 48px rgba(18,48,71,.09);
+  box-shadow:0 18px 48px rgba(201,45,118,.09);
 }
 #ml-profile-panel.ml-profile-panel:before{
   content:"";
@@ -2564,103 +2565,81 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   height:6px;
   position:absolute;
   inset:0 0 auto;
-  background:linear-gradient(90deg,var(--ml-prof-navy),var(--ml-prof-teal),var(--ml-prof-green),var(--ml-prof-gold));
+  background:linear-gradient(90deg,#f7a8ca,var(--ml-prof-pink),var(--ml-prof-pink-dark),#f2bfd5);
 }
 #ml-profile-panel .ml-profile-head{
   position:relative;
   padding:14px 0 24px;
-  border-bottom:1px solid #e0ecea;
+  border-bottom:1px solid #f6dfE9;
 }
 #ml-profile-panel .ml-profile-avatar{
   color:#fff;
-  background:linear-gradient(145deg,var(--ml-prof-navy),var(--ml-prof-teal) 72%,var(--ml-prof-green));
-  box-shadow:0 9px 20px rgba(8,127,140,.2);
-  border:2px solid rgba(255,255,255,.85);
+  background:linear-gradient(145deg,#f17caf,var(--ml-prof-pink) 70%,var(--ml-prof-pink-dark));
+  box-shadow:0 9px 20px rgba(232,62,140,.2);
+  border:2px solid rgba(255,255,255,.9);
 }
-#ml-profile-panel .ml-profile-eyebrow{
-  color:var(--ml-prof-green);
-  letter-spacing:.15px;
-}
-#ml-profile-panel .ml-profile-head h2{
-  color:var(--ml-prof-navy);
-  letter-spacing:-.3px;
-}
+#ml-profile-panel .ml-profile-eyebrow{color:var(--ml-prof-pink-dark);letter-spacing:.15px}
+#ml-profile-panel .ml-profile-head h2{color:#48283b;letter-spacing:-.3px}
 #ml-profile-panel .ml-profile-head p,
-#ml-profile-panel .ml-profile-payment-title p{
-  color:var(--ml-prof-muted);
-}
-#ml-profile-panel .ml-profile-payment-title{
-  border-color:#dcebe8;
-}
+#ml-profile-panel .ml-profile-payment-title p{color:var(--ml-prof-muted)}
+#ml-profile-panel .ml-profile-payment-title{border-color:#f4dce7}
 #ml-profile-panel .ml-profile-payment-icon{
-  color:var(--ml-prof-teal);
-  background:linear-gradient(145deg,#e1f4f1,#f0f9f6);
-  border:1px solid #d0e9e3;
+  color:var(--ml-prof-pink-dark);
+  background:linear-gradient(145deg,#ffe2ee,#fff4f8);
+  border:1px solid #f5d0e0;
 }
-#ml-profile-panel .ml-profile-payment-title h3{
-  color:var(--ml-prof-navy);
-}
-#ml-profile-panel .ml-profile-field{
-  color:#314b5d;
-}
+#ml-profile-panel .ml-profile-payment-title h3{color:#48283b}
+#ml-profile-panel .ml-profile-field{color:#573c4c}
 #ml-profile-panel .ml-profile-field input,
 #ml-profile-panel .ml-profile-field select,
 #ml-profile-panel .ml-profile-field textarea,
 #ml-profile-panel .ml-profile-password-form input{
-  border-color:#cfdddf;
+  border-color:#e8cbd9;
   border-radius:13px;
   background:#fff;
-  color:#18384b;
-  box-shadow:0 2px 5px rgba(18,48,71,.025);
+  color:#48283b;
+  box-shadow:0 2px 5px rgba(110,39,75,.025);
   transition:border-color .18s,box-shadow .18s,background .18s;
 }
 #ml-profile-panel .ml-profile-field input:focus,
 #ml-profile-panel .ml-profile-field select:focus,
 #ml-profile-panel .ml-profile-field textarea:focus,
 #ml-profile-panel .ml-profile-password-form input:focus{
-  border-color:var(--ml-prof-teal);
-  box-shadow:0 0 0 4px rgba(8,127,140,.12);
+  border-color:var(--ml-prof-pink);
+  box-shadow:0 0 0 4px rgba(232,62,140,.12);
 }
 #ml-profile-panel .ml-profile-field input[readonly],
-#ml-profile-panel .ml-profile-field textarea:disabled{
-  background:#f1f6f6;
-  color:#738794;
-}
+#ml-profile-panel .ml-profile-field textarea:disabled{background:#fff5f9;color:#9c8190}
 #ml-profile-panel .ml-profile-note{
-  border:1px solid #dcebe8;
-  background:linear-gradient(110deg,#f0f8f7,#f8fbfa);
-  color:#526b79;
+  border:1px solid #f4dce7;
+  background:linear-gradient(110deg,#fff1f7,#fff9fc);
+  color:#806878;
 }
-#ml-profile-panel .ml-profile-help{color:#607b84}
+#ml-profile-panel .ml-profile-help{color:#8d6c7e}
 #ml-profile-panel .ml-profile-actions button,
 #ml-profile-panel .ml-profile-password-actions button{
   border:0;
   border-radius:12px;
   color:#fff;
-  background:linear-gradient(115deg,var(--ml-prof-navy),var(--ml-prof-teal) 72%,var(--ml-prof-green));
-  box-shadow:0 7px 15px rgba(8,127,140,.18);
+  background:linear-gradient(115deg,var(--ml-prof-pink-dark),var(--ml-prof-pink) 72%,#ef6aa8);
+  box-shadow:0 7px 15px rgba(201,45,118,.18);
   font-weight:800;
   transition:transform .15s,box-shadow .15s,opacity .15s;
 }
 #ml-profile-panel .ml-profile-actions button:hover,
 #ml-profile-panel .ml-profile-password-actions button:hover{
-  box-shadow:0 10px 20px rgba(8,127,140,.24);
+  box-shadow:0 10px 20px rgba(201,45,118,.24);
   transform:translateY(-1px);
 }
 #ml-profile-panel .ml-profile-actions button:disabled,
-#ml-profile-panel .ml-profile-password-actions button:disabled{
-  opacity:.65;
-  transform:none;
-}
+#ml-profile-panel .ml-profile-password-actions button:disabled{opacity:.65;transform:none}
 #ml-profile-panel .ml-profile-password-section{
   margin-top:28px;
   padding:18px 0 0;
-  border-top:1px solid #dcebe8;
+  border-top:1px solid #f4dce7;
 }
 #ml-profile-panel #mlProfileStatus,
-#ml-profile-panel #mlProfilePasswordStatus{
-  color:var(--ml-prof-green);
-}
+#ml-profile-panel #mlProfilePasswordStatus{color:#b52c6d}
 @media(max-width:560px){
   #ml-profile-panel.ml-profile-panel{padding:19px 15px 17px;border-radius:18px}
   #ml-profile-panel .ml-profile-head{padding-top:10px;padding-bottom:19px}
