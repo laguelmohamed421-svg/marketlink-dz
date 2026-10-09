@@ -2268,13 +2268,23 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 
 
 <style id="ml-marketer-v23">
-/* V23 — responsive marketer header/cards, keeps original DB/actions */
-.ml-v23-head{display:flex;align-items:center;gap:12px;padding:8px 12px;background:#fff;border-bottom:1px solid #e5e7eb;direction:rtl;position:sticky;top:0;z-index:40}
-.ml-v23-brand{font-weight:900;font-size:18px;white-space:nowrap}.ml-v23-brand b{color:#f6c900}
-.ml-v23-search{flex:1;max-width:460px;height:42px;border:1px solid #9ca3af;border-radius:9px;padding:0 15px;background:#fafafa}
-.ml-v23-links{display:flex;gap:7px;align-items:center}.ml-v23-links button{background:transparent;border:0;padding:10px 9px;font-weight:700;cursor:pointer;white-space:nowrap}.ml-v23-links button:hover{background:#f2f4f7;border-radius:8px}
-.ml-v23-icon{width:40px;height:40px;border:1px solid #d0d5dd;border-radius:9px;background:#fff;font-size:20px;cursor:pointer}
-.ml-v23-account{background:#f3f6fa!important;border:1px solid #dbe1e8!important;border-radius:8px!important}
+/* V23 — polished responsive marketer header/cards, keeps original DB/actions */
+.ml-v23-head{display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,.97);border-bottom:1px solid #f2d5e3;box-shadow:0 5px 18px rgba(201,45,118,.06);direction:rtl;position:sticky;top:0;z-index:40}
+.ml-v23-brand{font-weight:950;font-size:19px;white-space:nowrap;color:#202033;letter-spacing:-.3px}.ml-v23-brand b{color:#E83E8C}
+.ml-v23-search{flex:1;max-width:460px;height:43px;border:1px solid #ead4df;border-radius:13px;padding:0 15px;background:#fff;outline:none;transition:border-color .18s,box-shadow .18s}.ml-v23-search:focus{border-color:#E83E8C;box-shadow:0 0 0 3px rgba(232,62,140,.12)}
+.ml-v23-links{display:flex;gap:5px;align-items:center;padding:4px;background:#fff5f9;border:1px solid #f8deea;border-radius:15px}
+.ml-v23-nav-item{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:transparent;border:1px solid transparent;border-radius:11px;padding:10px 13px;font-size:13px;font-weight:850;color:#5f5360;cursor:pointer;white-space:nowrap;transition:background .18s,color .18s,border-color .18s,transform .18s}
+.ml-v23-nav-symbol{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:7px;background:#ffe4f0;color:#C92D76;font-size:17px;line-height:1}
+.ml-v23-nav-item:hover{background:#fff;border-color:#f2c4d9;color:#C92D76;transform:translateY(-1px)}
+.ml-v23-nav-item.is-active{background:linear-gradient(135deg,#E83E8C,#C92D76);border-color:#C92D76;color:#fff;box-shadow:0 5px 12px rgba(201,45,118,.2)}
+.ml-v23-nav-item.is-active .ml-v23-nav-symbol{background:rgba(255,255,255,.2);color:#fff}
+.ml-v23-icon{width:42px;height:42px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;border:1px solid #f0d4e1;border-radius:13px;background:#fff;font-size:20px;color:#675563;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+.ml-v23-icon:hover{background:#fff0f6;border-color:#E83E8C;transform:translateY(-1px)}
+.ml-v23-fav-nav{width:54px;min-width:54px;flex-direction:column;gap:0;color:#C92D76;background:#fff0f6;border-color:#f4c7db}
+.ml-v23-fav-nav span{font-size:22px;line-height:22px}.ml-v23-fav-nav small{font-size:9px;line-height:12px;font-weight:850;color:#9d285f}
+.ml-v23-fav-nav.is-active{background:linear-gradient(135deg,#E83E8C,#C92D76);border-color:#C92D76;color:#fff;box-shadow:0 5px 12px rgba(201,45,118,.2)}
+.ml-v23-fav-nav.is-active small{color:#fff}
+.ml-v23-account{background:#fff0f6!important;border:1px solid #f4c7db!important;border-radius:13px!important;color:#C92D76!important}
 .ml-v23-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;padding:12px 0;direction:rtl}
 .ml-v23-stat{min-height:108px;border-radius:7px;padding:14px 16px;color:#fff;cursor:pointer;box-shadow:0 4px 10px #00000010;transition:.15s}
 .ml-v23-stat:hover{transform:translateY(-2px)}.ml-v23-stat .t{font-size:15px;font-weight:800}.ml-v23-stat .n{font-size:23px;font-weight:900;margin-top:10px}
@@ -2284,8 +2294,22 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 .ml-v23-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px}
 .ml-v23-quick button{padding:12px;border:1px solid #d0d5dd;background:#fff;border-radius:10px;font-weight:800;cursor:pointer}
 .ml-v23-quick button:hover{border-color:#1570ef;color:#1570ef}
+.ml-v23-head button:focus-visible{outline:3px solid rgba(232,62,140,.25);outline-offset:2px}
 @media(max-width:1000px){.ml-v23-head{flex-wrap:wrap}.ml-v23-search{order:5;max-width:none;flex-basis:100%}.ml-v23-stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.ml-v23-head{padding:9px;gap:7px;flex-wrap:wrap}.ml-v23-links{display:flex;order:10;flex:1 0 100%;width:100%;justify-content:space-between;gap:5px}.ml-v23-links button{flex:1;min-width:0;padding:10px 5px;font-size:12px;border-radius:9px;background:#f2f4f7;color:#101828}.ml-v23-search{order:9;flex:1 0 100%;max-width:none;width:100%;min-width:0}.ml-v23-brand{font-size:15px}.ml-v23-stats{grid-template-columns:repeat(2,1fr);gap:8px}.ml-v23-stat{min-height:94px;padding:11px}.ml-v23-stat .t{font-size:12px}.ml-v23-stat .n{font-size:19px}.ml-v23-quick{grid-template-columns:1fr 1fr}.ml-v23-quick button{font-size:11px}}
+@media(max-width:600px){
+.ml-v23-head{padding:9px;gap:7px;flex-wrap:wrap}
+.ml-v23-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));order:10;flex:1 0 100%;width:100%;justify-content:stretch;gap:4px;padding:4px;border-radius:14px}
+.ml-v23-nav-item{flex-direction:column;gap:3px;min-width:0;padding:8px 3px;font-size:11px;border-radius:10px}
+.ml-v23-nav-symbol{width:25px;height:23px;font-size:16px}
+.ml-v23-search{order:9;flex:1 0 100%;max-width:none;width:100%;min-width:0;height:41px}
+.ml-v23-brand{font-size:16px}
+.ml-v23-fav-nav{width:43px;min-width:43px;height:42px;border-radius:12px}
+.ml-v23-fav-nav span{font-size:21px}.ml-v23-fav-nav small{font-size:8px}
+.ml-v23-stats{grid-template-columns:repeat(2,1fr);gap:8px}
+.ml-v23-stat{min-height:94px;padding:11px}.ml-v23-stat .t{font-size:12px}.ml-v23-stat .n{font-size:19px}
+.ml-v23-quick{grid-template-columns:1fr 1fr}.ml-v23-quick button{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.ml-v23-nav-item,.ml-v23-icon{transition:none}}
 </style>
 
 
@@ -2295,6 +2319,12 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     // Route header controls through the dashboard's real section controller.
     const sectionMap={categories:'catalog',favorites:'mine',heart:'mine'};
     key=sectionMap[key]||key;
+    const navKey=key==='home'||key==='catalog'||key==='orders'||key==='mine'?key:'';
+    document.querySelectorAll('#ml-v23-wrap [data-nav]').forEach(function(item){
+      const active=item.getAttribute('data-nav')===navKey;
+      item.classList.toggle('is-active',active);
+      if(active)item.setAttribute('aria-current','page');else item.removeAttribute('aria-current');
+    });
     if(typeof window.mlShowSection==='function'){window.mlShowSection(key);return}
     if(typeof window.showSection==='function'){window.showSection(key);return}
     const map={home:'#ml-home-v20',catalog:'#m-tab-catalog',mine:'#m-tab-mine',orders:'#m-tab-orders',payments:'#ml-earnings-panel',notifications:'#ml-notice-panel'};
@@ -2352,12 +2382,12 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
         <button class="ml-v23-icon ml-v23-account" onclick="window.mlV23Go('payments')" title="الأرباح">💳</button>
         <div class="ml-v23-brand">سوقلي <b>▰</b></div>
         <input id="mlV23HeaderSearch" class="ml-v23-search" type="search" autocomplete="off" aria-label="البحث عن المنتجات" placeholder="اكتب اسم المنتج للبحث..." oninput="window.mlV23SyncSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();window.mlV23RunSearch(this.value)}">
-        <div class="ml-v23-links">
-          <button type="button" aria-label="الرئيسية" onclick="window.mlV23Go('home')">⌂ الرئيسية</button>
-          <button type="button" aria-label="الفئات" onclick="window.mlV23Go('catalog')">▱ الفئات</button>
-          <button type="button" aria-label="الطلبات" onclick="window.mlV23Go('orders')">▣ الطلبات</button>
-        </div>
-        <button class="ml-v23-icon" type="button" onclick="window.mlV23Go('mine')" title="المفضلة / منتجاتي" aria-label="المفضلة ومنتجاتي">♡</button>
+        <nav class="ml-v23-links" aria-label="التنقل الرئيسي">
+          <button type="button" class="ml-v23-nav-item" data-nav="home" aria-label="الرئيسية" onclick="window.mlV23Go('home')"><span class="ml-v23-nav-symbol" aria-hidden="true">⌂</span><span>الرئيسية</span></button>
+          <button type="button" class="ml-v23-nav-item" data-nav="catalog" aria-label="الفئات" onclick="window.mlV23Go('catalog')"><span class="ml-v23-nav-symbol" aria-hidden="true">▱</span><span>الفئات</span></button>
+          <button type="button" class="ml-v23-nav-item" data-nav="orders" aria-label="الطلبات" onclick="window.mlV23Go('orders')"><span class="ml-v23-nav-symbol" aria-hidden="true">▣</span><span>الطلبات</span></button>
+        </nav>
+        <button class="ml-v23-icon ml-v23-fav-nav" data-nav="mine" type="button" onclick="window.mlV23Go('mine')" title="المفضلة / منتجاتي" aria-label="المفضلة ومنتجاتي"><span aria-hidden="true">♡</span><small>منتجاتي</small></button>
       </div>
       <div class="ml-v23-stats">
         <div class="ml-v23-stat yellow" onclick="window.mlV23Go('payments')"><div class="t">محفظة</div><div class="n" id="v23-wallet">0 دج</div></div>
