@@ -1661,7 +1661,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   const configs={
     marketer:[['home','🏠 الرئيسية'],['catalog','🛍️ المنتجات'],['mine','⭐ منتجاتي'],['orders','📦 طلباتي'],['payments','💰 الأرباح'],['notifications','🔔 الإشعارات'],['profile','👤 الملف الشخصي']],
     supplier:[['home','🏠 الرئيسية'],['products','🛍️ منتجاتي'],['orders','📦 الطلبات'],['billing','💰 الفوترة والدفع'],['notifications','🔔 الإشعارات'],['profile','👤 الملف الشخصي']],
-    admin:[['home','🏠 الرئيسية'],['users','👥 المستخدمون'],['products','🛍️ المنتجات'],['orders','📦 الطلبات'],['billing','💰 الفوترة'],['commissions','💸 العمولات'],['withdrawals','💳 طلبات سحب المسوقين'],['notifications','🔔 الإشعارات'],['profile','👤 الملف الشخصي']]
+    admin:[['home','🏠 الرئيسية'],['users','👥 المستخدمون'],['products','🛍️ المنتجات'],['categories','🏷️ الفئات'],['orders','📦 الطلبات'],['billing','💰 الفوترة'],['commissions','💸 العمولات'],['withdrawals','💳 طلبات سحب المسوقين'],['notifications','🔔 الإشعارات'],['profile','👤 الملف الشخصي']]
   };
   function setVisible(el,on){if(!el)return;el.classList.toggle('hidden',!on);el.style.display=on?'':'none'}
   function buildNav(r){
@@ -1987,6 +1987,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
       if(key!=='home'&&key!=='notifications'){
         stats.forEach(x=>setVisible(x,false));
         const sec=$('admin-'+key);if(sec){sec.classList.add('active');sec.style.display='block'}
+        if(key==='categories'&&window.loadAdminCategories)setTimeout(()=>window.loadAdminCategories(),0);
       }
       if(key==='profile'){
         stats.forEach(x=>setVisible(x,false));
