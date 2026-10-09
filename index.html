@@ -961,12 +961,22 @@ input:focus,select:focus,textarea:focus{
 .ml-profile-field input{width:100%;min-width:0;min-height:48px;border:1px solid #d0d5dd;border-radius:12px;padding:12px 14px;font:inherit;font-size:14px;color:#101828;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
 .ml-profile-field input:focus{border-color:#528bff;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
 .ml-profile-field input[readonly]{background:#f8fafc;color:#667085;cursor:not-allowed}
+.ml-profile-payment-title{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding-top:8px;border-top:1px solid #eef0f3;margin-top:4px}
+.ml-profile-payment-icon{width:42px;height:42px;flex:0 0 42px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:#eff6ff;font-size:21px}
+.ml-profile-payment-title h3{margin:0;color:#101828;font-size:17px;font-weight:900}
+.ml-profile-payment-title p{margin:4px 0 0;color:#667085;font-size:12px;line-height:1.7}
+.ml-profile-field select,.ml-profile-field textarea{width:100%;min-width:0;border:1px solid #d0d5dd;border-radius:12px;padding:12px 14px;font:inherit;font-size:14px;color:#101828;background:#fff;outline:none}
+.ml-profile-field select{min-height:48px}
+.ml-profile-field textarea{resize:vertical;min-height:94px;line-height:1.7}
+.ml-profile-field select:focus,.ml-profile-field textarea:focus{border-color:#528bff;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+.ml-profile-field textarea:disabled{background:#f8fafc;color:#98a2b3;cursor:not-allowed}
+.ml-profile-help{color:#667085;font-size:11px;line-height:1.7;font-weight:400}
 .ml-profile-note{grid-column:1/-1;padding:12px 14px;border-radius:12px;background:#f8fafc;color:#667085;font-size:12px;line-height:1.8}
 .ml-profile-actions{grid-column:1/-1;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
 .ml-profile-actions button{min-height:46px;padding-inline:20px}
 .ml-profile-actions button:disabled{opacity:.65;cursor:wait}
 #mlProfileStatus{font-size:13px;color:#067647;line-height:1.6;overflow-wrap:anywhere}
-@media(max-width:560px){.ml-profile-panel{padding:17px;border-radius:17px}.ml-profile-head{align-items:flex-start;gap:11px}.ml-profile-avatar{width:48px;height:48px;flex-basis:48px;border-radius:14px;font-size:24px}.ml-profile-head p{font-size:12px}.ml-profile-form{grid-template-columns:minmax(0,1fr);gap:14px}.ml-profile-note,.ml-profile-actions{grid-column:1}.ml-profile-actions{align-items:stretch;flex-direction:column}.ml-profile-actions button{width:100%}}
+@media(max-width:560px){.ml-profile-panel{padding:17px;border-radius:17px}.ml-profile-head{align-items:flex-start;gap:11px}.ml-profile-avatar{width:48px;height:48px;flex-basis:48px;border-radius:14px;font-size:24px}.ml-profile-head p{font-size:12px}.ml-profile-form{grid-template-columns:minmax(0,1fr);gap:14px}.ml-profile-payment-title,.ml-profile-note,.ml-profile-actions{grid-column:1}.ml-profile-payment-title{align-items:flex-start}.ml-profile-actions{align-items:stretch;flex-direction:column}.ml-profile-actions button{width:100%}}
 </style>
 </head>
 <body>
@@ -1777,14 +1787,29 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
         <label class="ml-profile-field"><span>رقم الهاتف</span><input id="mlProfilePhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="05 أو 06 أو 07..." required></label>
         <label class="ml-profile-field"><span>البريد الإلكتروني</span><input id="mlProfileEmail" type="email" autocomplete="email" readonly aria-readonly="true"></label>
         <label class="ml-profile-field"><span>الولاية</span><input id="mlProfileWilaya" type="text" autocomplete="address-level1" maxlength="80" placeholder="اكتب ولايتك" required></label>
-        <div class="ml-profile-note">يمكنك تعديل الاسم ورقم الهاتف والولاية. البريد الإلكتروني ظاهر من حساب الدخول، وتغييره يحتاج تأكيدًا عبر البريد.</div>
-        <div class="ml-profile-actions"><button class="btn primary" type="submit" id="mlProfileSave">💾 حفظ التعديلات</button><span id="mlProfileStatus" role="status" aria-live="polite"></span></div>
+        <div class="ml-profile-payment-title"><span class="ml-profile-payment-icon">💳</span><div><h3>معلومات الدفع</h3><p>اختار طريقة الدفع وعمّر معلومات الحساب باش نقدروا نرجعولها وقت تسوية الأرباح.</p></div></div>
+        <label class="ml-profile-field"><span>طريقة الدفع المفضلة</span><select id="mlProfilePaymentMethod"><option value="">— اختار طريقة الدفع —</option><option value="ccp">CCP</option><option value="baridimob">بريدي موب (BaridiMob)</option></select></label>
+        <label class="ml-profile-field ml-profile-payment-details-field"><span>معلومات الدفع</span><textarea id="mlProfilePaymentDetails" rows="3" maxlength="300" placeholder="اختار طريقة الدفع أولاً، ثم اكتب معلومات الحساب"></textarea><small class="ml-profile-help">CCP: اكتب رقم الحساب واسم صاحبه. بريدي موب: اكتب رقم الهاتف المرتبط بالحساب واسم صاحبه. ما تكتبش كلمة السر أو رمز التأكيد.</small></label>
+        <div class="ml-profile-note">تقدر تحفظ معلوماتك الشخصية ومعلومات الدفع مع بعض. البريد الإلكتروني ظاهر من حساب الدخول، وتغييره يحتاج تأكيدًا عبر البريد.</div>
+        <div class="ml-profile-actions"><button class="btn primary" type="submit" id="mlProfileSave">💾 حفظ المعلومات</button><span id="mlProfileStatus" role="status" aria-live="polite"></span></div>
       </form>`;
     root.appendChild(panel);
     panel.querySelector('#mlProfileName').value=meta.full_name||meta.name||'';
     panel.querySelector('#mlProfilePhone').value=meta.phone||'';
     panel.querySelector('#mlProfileEmail').value=user.email||'';
     panel.querySelector('#mlProfileWilaya').value=meta.wilaya||'';
+    panel.querySelector('#mlProfilePaymentMethod').value=meta.payment_method||'';
+    panel.querySelector('#mlProfilePaymentDetails').value=meta.payment_details||'';
+    const paymentMethod=panel.querySelector('#mlProfilePaymentMethod');
+    const paymentDetails=panel.querySelector('#mlProfilePaymentDetails');
+    const updatePaymentHint=()=>{
+      const method=paymentMethod.value;
+      paymentDetails.placeholder=method==='ccp'?'مثال: رقم CCP / RIP واسم صاحب الحساب':method==='baridimob'?'مثال: رقم الهاتف المرتبط ببريدي موب واسم صاحب الحساب':'اختار طريقة الدفع أولاً، ثم اكتب معلومات الحساب';
+      paymentDetails.disabled=!method;
+      paymentDetails.required=Boolean(method);
+    };
+    paymentMethod.addEventListener('change',updatePaymentHint);
+    updatePaymentHint();
     panel.querySelector('#mlProfileForm').addEventListener('submit',async ev=>{
       ev.preventDefault();
       const sb=window.supabaseClient||window.supabase;
@@ -1793,14 +1818,17 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
       const full_name=panel.querySelector('#mlProfileName').value.trim();
       const phone=panel.querySelector('#mlProfilePhone').value.trim();
       const wilaya=panel.querySelector('#mlProfileWilaya').value.trim();
-      if(!full_name||!phone||!wilaya){status.textContent='عمر جميع المعلومات المطلوبة.';return}
+      const payment_method=paymentMethod.value;
+      const payment_details=paymentDetails.value.trim();
+      if(!full_name||!phone||!wilaya){status.textContent='عمر جميع المعلومات الشخصية المطلوبة.';return}
+      if(payment_method&&!payment_details){status.textContent='عمّر معلومات الدفع أو اختار طريقة دفع فارغة.';return}
       button.disabled=true;button.textContent='جارٍ الحفظ...';status.textContent='';
       try{
         const current=window.currentUser||{};
-        const {data,error}=await sb.auth.updateUser({data:{...(current.user_metadata||{}),full_name,phone,wilaya}});
+        const {data,error}=await sb.auth.updateUser({data:{...(current.user_metadata||{}),full_name,phone,wilaya,payment_method,payment_details}});
         if(error)throw error;
         if(data&&data.user){window.currentUser=data.user}
-        else if(window.currentUser){window.currentUser={...window.currentUser,user_metadata:{...(window.currentUser.user_metadata||{}),full_name,phone,wilaya}}}
+        else if(window.currentUser){window.currentUser={...window.currentUser,user_metadata:{...(window.currentUser.user_metadata||{}),full_name,phone,wilaya,payment_method,payment_details}}}
         status.textContent='✅ تم حفظ معلوماتك بنجاح.';
       }catch(err){status.textContent='ما قدرناش نحفظو المعلومات: '+(err?.message||'خطأ غير معروف')}
       finally{button.disabled=false;button.textContent='💾 حفظ التعديلات'}
