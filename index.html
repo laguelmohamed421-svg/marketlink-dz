@@ -2563,6 +2563,15 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
  setTimeout(restoreIfNeeded,1800);
 })();
 </script>
+
+<style id="ml-marketer-restore-original-css">
+#marketerDash.ml-restore-original>#marketerStats{display:grid!important}
+#marketerDash.ml-restore-original>.marketer-hero{display:flex!important}
+#marketerDash.ml-restore-original>.marketer-tabs{display:flex!important}
+#marketerDash.ml-restore-original>#m-tab-catalog{display:block!important}
+#marketerDash.ml-restore-original>#m-tab-mine,
+#marketerDash.ml-restore-original>#m-tab-orders{display:none!important}
+</style>
 </body></html>
 
 
@@ -2754,14 +2763,27 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   function keepHomeClean(){
     const root=document.getElementById('marketerDash');
     if(!root)return;
-    ['marketerStats'].forEach(id=>{
-      const e=document.getElementById(id);
-      if(e)e.style.setProperty('display','none','important');
-    });
-    root.querySelectorAll(':scope > .marketer-hero,:scope > .marketer-tabs,:scope > .ml-v23-quick')
-      .forEach(e=>e.style.setProperty('display','none','important'));
     const top=document.getElementById('ml-v23-wrap');
-    if(top)top.style.setProperty('display',root.classList.contains('ml-marketer-home-active')?'block':'none','important');
+    // Only hide the legacy dashboard after the replacement dashboard has actually mounted.
+    if(!top){
+      root.classList.add('ml-restore-original');
+      const stats=document.getElementById('marketerStats');
+      if(stats)stats.style.setProperty('display','grid','important');
+      root.querySelectorAll(':scope > .marketer-hero,:scope > .marketer-tabs').forEach(e=>{
+        e.style.setProperty('display',e.classList.contains('marketer-tabs')?'flex':'flex','important');
+      });
+      ['m-tab-catalog','m-tab-mine','m-tab-orders'].forEach(id=>{
+        const e=document.getElementById(id);
+        if(e)e.style.setProperty('display',id==='m-tab-catalog'?'block':'none','important');
+      });
+      return;
+    }
+    root.classList.remove('ml-restore-original');
+    const stats=document.getElementById('marketerStats');
+    if(stats)stats.style.setProperty('display','none','important');
+    root.querySelectorAll(':scope > .marketer-hero,:scope > .marketer-tabs')
+      .forEach(e=>e.style.setProperty('display','none','important'));
+    top.style.setProperty('display',root.classList.contains('ml-marketer-home-active')?'block':'none','important');
   }
   const oldShow=window.showSection;
   if(typeof oldShow==='function' && !oldShow.__mlv24){
@@ -2801,10 +2823,20 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
       if(stats)stats.style.setProperty('display',key==='home'?'grid':'none','important');
       if(quick)quick.style.setProperty('display',key==='home'?'grid':'none','important');
     }
-    ['marketerStats','ml-home-v20'].forEach(id=>{
-      const e=document.getElementById(id);
-      if(e)e.style.setProperty('display',key==='home' && id==='ml-home-v20'?'block':'none','important');
-    });
+    // Do not hide the original dashboard unless the enhanced header/cards exist.
+    if(top){
+      ['marketerStats','ml-home-v20'].forEach(id=>{
+        const e=document.getElementById(id);
+        if(e)e.style.setProperty('display',key==='home' && id==='ml-home-v20'?'block':'none','important');
+      });
+    }else{
+      root.classList.add('ml-restore-original');
+      const stats=document.getElementById('marketerStats');
+      if(stats)stats.style.setProperty('display','grid','important');
+      root.querySelectorAll(':scope > .marketer-hero,:scope > .marketer-tabs').forEach(e=>{
+        e.style.setProperty('display',e.classList.contains('marketer-tabs')?'flex':'flex','important');
+      });
+    }
   }
   window.mlV25Go=function(key){
     try{
