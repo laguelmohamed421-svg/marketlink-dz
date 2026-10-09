@@ -2526,6 +2526,43 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 }
 @media(max-width:380px){.ml-admin-withdraw-summary{grid-template-columns:1fr}.ml-admin-withdraw-kpi b{font-size:17px}}
 </style>
+
+<style id="ml-marketer-restore-fallback">
+/* Safety fallback: if the enhanced marketer dashboard fails to mount, show the original dashboard and its data panels. */
+#marketerDash.ml-restore-original > #marketerStats,
+#marketerDash.ml-restore-original > .marketer-hero,
+#marketerDash.ml-restore-original > .marketer-tabs,
+#marketerDash.ml-restore-original > #m-tab-catalog,
+#marketerDash.ml-restore-original > #m-tab-mine,
+#marketerDash.ml-restore-original > #m-tab-orders{display:block!important;visibility:visible!important;opacity:1!important}
+#marketerDash.ml-restore-original > .marketer-tabs{display:flex!important}
+#marketerDash.ml-restore-original > #marketerStats{display:grid!important}
+</style>
+<script id="ml-marketer-restore-fallback-js">
+(function(){
+ function restoreIfNeeded(){
+  var root=document.getElementById('marketerDash');
+  if(!root)return;
+  var enhanced=document.getElementById('ml-v23-wrap');
+  if(!enhanced){
+   root.classList.add('ml-restore-original');
+   ['marketerStats','m-tab-catalog','m-tab-mine','m-tab-orders'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.style.setProperty('display',id==='marketerStats'?'grid':'block','important');
+   });
+   root.querySelectorAll(':scope > .marketer-hero,:scope > .marketer-tabs').forEach(function(el){
+    el.style.setProperty('display',el.classList.contains('marketer-tabs')?'flex':'flex','important');
+   });
+  }else{
+   root.classList.remove('ml-restore-original');
+  }
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',restoreIfNeeded);
+ else restoreIfNeeded();
+ setTimeout(restoreIfNeeded,800);
+ setTimeout(restoreIfNeeded,1800);
+})();
+</script>
 </body></html>
 
 
