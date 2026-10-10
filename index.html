@@ -2694,11 +2694,11 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
    if(!payments.length){const empty=document.createElement('tr');empty.innerHTML='<td colspan="6" class="empty">مازال ما كاش إيصالات دفع.</td>';body.appendChild(empty);return}
    payments.forEach(p=>{
      const u=(window.users||[]).find(x=>x.id===p.supplier_id)||{};
-     const n=String(p.note||'');const m=n.match(/\\[RECEIPT_URL\\](https?:\\/\\/[^\\s|]+)/);const url=m?m[1]:'';
-     const note=n.replace(/\\s*\\[RECEIPT_URL\\]https?:\\/\\/[^\\s|]+/,'').trim();
+     const n=String(p.note||'');const m=n.match(/\[RECEIPT_URL\](https?:\/\/[^\s|]+)/);const url=m?m[1]:'';
+     const note=n.replace(/\s*\[RECEIPT_URL\]https?:\/\/[^\s|]+/,'').trim();
      const status=p.status==='approved'?'تم التحقق':p.status==='rejected'?'مرفوض':'قيد المراجعة';
      const tr=document.createElement('tr');
-     const actions=p.status==='pending'?'<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="smallbtn" onclick="window.reviewSupplierPayment(\\''+p.id+'\\',\\'approved\\')">تأكيد الدفع</button><button class="smallbtn danger" onclick="window.reviewSupplierPayment(\\''+p.id+'\\',\\'rejected\\')">رفض</button></div>':'—';
+     const actions=p.status==='pending'?'<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="smallbtn" onclick="window.reviewSupplierPayment(&quot;'+String(p.id)+'&quot;,&quot;approved&quot;)">تأكيد الدفع</button><button class="smallbtn danger" onclick="window.reviewSupplierPayment(&quot;'+String(p.id)+'&quot;,&quot;rejected&quot;)">رفض</button></div>':'—';
      tr.innerHTML='<td>'+clean(u.email||p.supplier_id||'—')+'</td><td>'+clean(p.payment_method||'—')+'</td><td>'+Number(p.amount_dzd||0)+' دج</td><td>'+(url?'<a target="_blank" rel="noopener" href="'+clean(url)+'">عرض صورة الوصل</a>':'لا يوجد وصل')+(note?'<div class="muted">'+clean(note)+'</div>':'')+'</td><td>'+status+'</td><td>'+(url?'<a class="smallbtn" target="_blank" rel="noopener" href="'+clean(url)+'">فتح الوصل</a> ':'')+actions+'</td>';
      body.appendChild(tr);
    });
