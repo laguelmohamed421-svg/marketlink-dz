@@ -1630,7 +1630,7 @@ window.submitPayment=async()=>{
  const urlRes=supabase.storage.from('payment-receipts').getPublicUrl(upload.data.path);
  const receiptUrl=urlRes?.data?.publicUrl;
  if(!receiptUrl){await supabase.storage.from('payment-receipts').remove([upload.data.path]);return showInline('paymentMsg','تم رفع الصورة لكن تعذر إنشاء رابط لها.',true)}
- const insert=await supabase.from('commission_payments').insert({supplier_id:currentUser.id,amount_dzd:outstanding,payment_method:method,note:note||null,status:'pending',receipt_url:receiptUrl});
+ const receiptNote=(note?note+' | ':'')+'[RECEIPT_URL]'+receiptUrl; const insert=await supabase.from('commission_payments').insert({supplier_id:currentUser.id,amount_dzd:outstanding,payment_method:method,note:receiptNote,status:'pending'});
  if(insert.error){await supabase.storage.from('payment-receipts').remove([upload.data.path]);return showInline('paymentMsg','تم حساب المبلغ ورفع الصورة، لكن قاعدة بيانات commission_payments رفضت حفظ طلب الدفع: '+insert.error.message+' — يلزم التأكد من وجود عمود receipt_url وسياسات الجدول.',true)}
  showInline('paymentMsg','تم إرسال صورة الوصل ومبلغ '+outstanding.toLocaleString('fr-DZ')+' دج للمراجعة. سيظهر الطلب للإدارة بعد حفظه في قاعدة البيانات.',false);
  $('paymentReceiptFile').value='';if($('paymentReceiptPreviewWrap'))$('paymentReceiptPreviewWrap').classList.add('hidden');
