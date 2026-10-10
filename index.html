@@ -2453,8 +2453,9 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     const wrap=document.createElement('span');wrap.id='mlBellWrap';wrap.className='ml-bell-wrap';
     wrap.innerHTML='<button id="mlBellBtn" class="ml-bell-btn" type="button" aria-label="الإشعارات" title="الإشعارات">🔔<span id="mlBellCount" class="ml-bell-count">0</span></button><div id="mlBellMenu" class="ml-bell-menu"><div class="ml-bell-head"><b>🔔 الإشعارات</b><button type="button" id="mlBellReadAll">تحديد الكل كمقروء</button></div><div id="mlBellList" class="ml-bell-list"><div class="ml-bell-empty">جارٍ التحميل...</div></div><div class="ml-bell-foot"><button type="button" id="mlBellAll">كل الإشعارات</button><button type="button" id="mlBellOrders">فتح طلباتي</button></div></div>';
     area.appendChild(wrap);
+    const bellMenu=$('mlBellMenu');if(bellMenu)document.body.appendChild(bellMenu);
     const modal=document.createElement('div');modal.id='mlNoticeModal';modal.className='ml-notice-modal';modal.innerHTML='<div class="ml-notice-modal-box"><h3 id="mlNoticeModalTitle">تفاصيل الإشعار</h3><p id="mlNoticeModalText"></p><div id="mlNoticeModalDetail" class="ml-notice-detail"></div><button id="mlNoticeModalClose" class="ml-notice-close" type="button">إغلاق</button></div>';document.body.appendChild(modal);
-    $('mlBellBtn').onclick=e=>{e.stopPropagation();const menu=$('mlBellMenu');if(window.innerWidth>760){const rect=$('mlBellBtn').getBoundingClientRect();const menuWidth=Math.min(340,window.innerWidth-24);const left=Math.max(12,Math.min(rect.right-menuWidth,window.innerWidth-menuWidth-12));menu.style.left=left+'px';menu.style.right='auto';menu.style.top=(rect.bottom+8)+'px';menu.style.width=menuWidth+'px'}menu.classList.toggle('open');loadBellNotifications()};
+    $('mlBellBtn').onclick=e=>{e.stopPropagation();const menu=$('mlBellMenu');const rect=$('mlBellBtn').getBoundingClientRect();menu.style.position='fixed';menu.style.zIndex='2147483647';if(window.innerWidth>760){const menuWidth=Math.min(340,window.innerWidth-24);const left=Math.max(12,Math.min(rect.right-menuWidth,window.innerWidth-menuWidth-12));menu.style.left=left+'px';menu.style.right='auto';menu.style.top=(rect.bottom+8)+'px';menu.style.width=menuWidth+'px';menu.style.maxWidth='calc(100vw - 24px)'}else{menu.style.left='12px';menu.style.right='12px';menu.style.top='68px';menu.style.width='auto';menu.style.maxWidth='none'}menu.classList.toggle('open');loadBellNotifications()};
     $('mlBellReadAll').onclick=()=>{mlBellNotifications=mlBellNotifications.map(x=>({...x,unread:false}));renderBell()};
     $('mlBellAll').onclick=()=>{ $('mlBellMenu').classList.remove('open'); if(window.mlShowSection)window.mlShowSection('notifications') };
     $('mlBellOrders').onclick=()=>{ $('mlBellMenu').classList.remove('open'); if(window.mlShowSection)window.mlShowSection('orders') };
@@ -2493,7 +2494,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   const tryEnsure=()=>{if($('userArea'))ensureBell()};
   if(oldLoadUser){window.loadUser=async function(){const r=await oldLoadUser.apply(this,arguments);setTimeout(()=>{tryEnsure();loadBellNotifications()},350);return r}}
   setTimeout(tryEnsure,700);
-  document.addEventListener('click',e=>{const w=$('mlBellWrap');const m=$('mlBellMenu');if(w&&m&&!w.contains(e.target))m.classList.remove('open')});
+  document.addEventListener('click',e=>{const w=$('mlBellWrap');const m=$('mlBellMenu');if(w&&m&&!w.contains(e.target)&&!m.contains(e.target))m.classList.remove('open')});
 })();
 </script>
 
@@ -3123,4 +3124,9 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   #mlBellMenu.ml-bell-menu{position:fixed;right:auto;max-width:calc(100vw - 24px);box-sizing:border-box;z-index:10020}
   #mlBellWrap{flex-shrink:0}
 }
+</style>
+
+<style id="marketlink-notification-over-dashboard-fix">
+#mlBellMenu.ml-bell-menu{z-index:2147483647!important;position:fixed!important;isolation:isolate}
+#mlBellMenu.ml-bell-menu.open{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
 </style>
