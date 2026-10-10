@@ -3561,3 +3561,61 @@ body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
   window.addEventListener('load',install,{once:true});
 })();
 </script>
+
+
+<script id="ml-admin-payment-receipts-refresh-v2">
+/* Keep existing dashboards intact; make supplier receipt loading explicit and refreshable. */
+(function(){
+  const $=id=>document.getElementById(id);
+  async function refreshReceipts(showError){
+    const db=window.supabaseClient||window.supabase;
+    if(!db||window.currentRole!=='admin')return;
+    const body=$('billingBody');
+    if(body && showError) {
+      const old=document.getElementById('mlPaymentReceiptStatus');
+      if(old)old.remove();
+    }
+    const {data,error}=await db.from('commission_payments').select('*').order('created_at',{ascending:false});
+    if(error){
+      if(body){
+        let row=document.getElementById('mlPaymentReceiptStatus');
+        if(!row){row=document.createElement('tr');row.id='mlPaymentReceiptStatus';body.prepend(row);}
+        row.innerHTML='<td colspan="6" style="white-space:normal;color:#b42318">تعذر تحميل إيصالات الموردين من Supabase: '+String(error.message||'خطأ غير معروف').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))+'. لازم مراجعة صلاحيات SELECT في جدول commission_payments لدور الإدارة.</td>';
+      }
+      return;
+    }
+    window.payments=data||[];
+    if(typeof window.renderBills==='function')window.renderBills();
+    if(body){
+      let row=document.getElementById('mlPaymentReceiptStatus');
+      if(row)row.remove();
+    }
+  }
+  window.refreshSupplierPaymentReceipts=()=>refreshReceipts(true);
+  const oldLoad=window.loadAdminData;
+  if(typeof oldLoad==='function'&&!oldLoad.__mlPaymentRefreshV2){
+    const wrapped=async function(){
+      const result=await oldLoad.apply(this,arguments);
+      await refreshReceipts(false);
+      return result;
+    };
+    wrapped.__mlPaymentRefreshV2=true;
+    window.loadAdminData=wrapped;
+  }
+  document.addEventListener('click',function(e){
+    const b=e.target&&e.target.closest&&e.target.closest('#mlRefreshPaymentReceipts');
+    if(b){e.preventDefault();refreshReceipts(true);}
+  });
+  function addRefreshButton(){
+    const body=$('billingBody');if(!body||document.getElementById('mlRefreshPaymentReceipts'))return;
+    const table=body.closest('table');if(!table)return;
+    const wrap=table.parentElement;
+    const btn=document.createElement('button');
+    btn.id='mlRefreshPaymentReceipts';btn.type='button';btn.className='btn secondary';
+    btn.style.margin='0 0 10px';btn.textContent='🔄 تحديث إيصالات الدفع';
+    wrap.parentElement.insertBefore(btn,wrap);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addRefreshButton);else addRefreshButton();
+  setTimeout(addRefreshButton,1000);
+})();
+</script>
