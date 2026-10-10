@@ -2206,6 +2206,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
           </div>
           <div class="ml-history-box ml-history-box-v17"><div class="ml-history-head"><div><h4>آخر طلبات السحب</h4><span>سجل كامل لطلبات السحب الخاصة بك.</span></div><button type="button" class="ml-link-btn" onclick="loadMarketerEarningsV12()">عرض الكل ↔</button></div><div class="ml-history-table-wrap"><table class="ml-history-table"><thead><tr><th>#</th><th>المبلغ</th><th>طريقة الدفع</th><th>الحساب</th><th>الحالة</th><th>تاريخ الطلب</th><th>تاريخ المعالجة</th></tr></thead><tbody id="mlWithdrawalHistory"><tr><td colspan="7"><div class="muted">جارٍ التحميل...</div></td></tr></tbody></table></div></div>`;
         $('marketerDash').appendChild(d);
+        if(typeof window.installMarketerToolsV1==='function') window.installMarketerToolsV1(d);
         loadMarketerEarningsV12();
       }else if(key==='profile'){
         renderMLProfilePanel('marketerDash');
@@ -3012,3 +3013,104 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 }
 
 </style>
+
+<style id="ml-marketer-tools-v1">
+.ml-tools-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:18px}
+.ml-tool-card{min-width:0;border:1px solid #e4e7ec;border-radius:16px;background:#fff;padding:18px;box-shadow:0 4px 14px rgba(16,24,40,.035)}
+.ml-tool-card h4{margin:0 0 6px;color:#101828;font-size:17px}.ml-tool-card p{margin:0 0 14px;color:#667085;font-size:12px;line-height:1.8}
+.ml-tool-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ml-tool-fields label{display:flex;flex-direction:column;gap:6px;color:#344054;font-size:12px;font-weight:800}
+.ml-tool-fields input{width:100%;min-width:0;min-height:44px;border:1px solid #d0d5dd;border-radius:10px;padding:9px 11px;font:inherit;background:#fff;color:#101828}
+.ml-tool-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}
+.ml-tool-result{padding:12px;border-radius:11px;background:#f8fafc;border:1px solid #eaecf0}.ml-tool-result span{display:block;color:#667085;font-size:11px}.ml-tool-result strong{display:block;color:#101828;font-size:18px;margin-top:5px;overflow-wrap:anywhere}
+.ml-tool-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.ml-tool-note{font-size:11px!important;margin:12px 0 0!important}
+@media(max-width:760px){.ml-tools-grid{grid-template-columns:minmax(0,1fr)}.ml-tool-card{padding:15px}.ml-tool-fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:420px){.ml-tool-fields{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script id="ml-marketer-tools-script-v1">
+(function(){
+  const fmt = n => Math.max(0,Number(n)||0).toLocaleString('fr-DZ')+' دج';
+  const safe = v => String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  window.updateMarketerProfitCalcV1 = function(){
+    const root=document.getElementById('ml-profit-calculator-v1');if(!root)return;
+    const cost=Math.max(0,Number(root.querySelector('#mlCalcWholesaleV1')?.value)||0);
+    const commission=Math.min(100,Math.max(0,Number(root.querySelector('#mlCalcCommissionV1')?.value)||0));
+    const pieces=Math.max(0,Math.floor(Number(root.querySelector('#mlCalcPiecesV1')?.value)||0));
+    const platform=50;
+    const total=cost+commission+platform;
+    const set=(id,val)=>{const el=root.querySelector('#'+id);if(el)el.textContent=val};
+    set('mlCalcSuggestedV1',fmt(total));
+    set('mlCalcCommissionTotalV1',fmt(commission*pieces));
+    set('mlCalcPlatformTotalV1',fmt(platform*pieces));
+    set('mlCalcTotalV1',fmt(total*pieces));
+  };
+  window.installMarketerToolsV1 = function(panel){
+    if(!panel||panel.querySelector('#ml-marketer-tools-v1-ui'))return;
+    const section=document.createElement('section');
+    section.id='ml-marketer-tools-v1-ui';
+    section.className='ml-tools-grid';
+    section.innerHTML=`
+      <div class="ml-tool-card" id="ml-profit-calculator-v1">
+        <h4>🧮 حاسبة الربح قبل التسويق</h4>
+        <p>بدّل سعر الجملة والعمولة وعدد القطع باش تشوف الحساب التقديري قبل ما تختار المنتج.</p>
+        <div class="ml-tool-fields">
+          <label>سعر الجملة للقطعة (دج)<input id="mlCalcWholesaleV1" type="number" min="0" step="1" value="0" inputmode="numeric" oninput="updateMarketerProfitCalcV1()"></label>
+          <label>عمولتك للقطعة (دج)<input id="mlCalcCommissionV1" type="number" min="0" max="100" step="1" value="100" inputmode="numeric" oninput="if(Number(this.value)>100)this.value=100;if(Number(this.value)<0)this.value=0;updateMarketerProfitCalcV1()"></label>
+          <label>عدد القطع المتوقع تسليمها<input id="mlCalcPiecesV1" type="number" min="0" step="1" value="6" inputmode="numeric" oninput="updateMarketerProfitCalcV1()"></label>
+        </div>
+        <div class="ml-tool-results">
+          <div class="ml-tool-result"><span>سعر البيع التقديري للقطعة*</span><strong id="mlCalcSuggestedV1">150 دج</strong></div>
+          <div class="ml-tool-result"><span>عمولتك على العدد المدخل</span><strong id="mlCalcCommissionTotalV1">600 دج</strong></div>
+          <div class="ml-tool-result"><span>حصة المنصة على العدد</span><strong id="mlCalcPlatformTotalV1">300 دج</strong></div>
+          <div class="ml-tool-result"><span>إجمالي السعر التقديري للقطع</span><strong id="mlCalcTotalV1">900 دج</strong></div>
+        </div>
+        <p class="ml-tool-note">*الحساب التقديري = سعر الجملة + عمولة المسوّق + 50 دج حصة المنصة للقطعة، وفق قاعدة التسعير الحالية. عمولتك الفعلية تُحتسب على القطع Delivered فقط؛ والعدد هنا افتراضي.</p>
+      </div>
+      <div class="ml-tool-card">
+        <h4>📄 كشف حساب الأرباح</h4>
+        <p>حمّل كشف CSV يفتح في Excel ويجمع الطلبات المسجلة عندك مع الكمية والحالة والعمولة والتاريخ. الكشف للتتبع ولا يغيّر رصيدك.</p>
+        <div class="ml-tool-results">
+          <div class="ml-tool-result"><span>الطلبات في الحساب</span><strong id="mlStatementOrdersV1">0</strong></div>
+          <div class="ml-tool-result"><span>قطع Delivered</span><strong id="mlStatementUnitsV1">0</strong></div>
+          <div class="ml-tool-result"><span>عمولات Delivered</span><strong id="mlStatementEarnedV1">0 دج</strong></div>
+          <div class="ml-tool-result"><span>عمولات غير Delivered</span><strong id="mlStatementNotDeliveredV1">0 دج</strong></div>
+        </div>
+        <div class="ml-tool-actions"><button class="btn primary" type="button" onclick="downloadMarketerStatementV1()">⬇ تحميل كشف الأرباح CSV</button><button class="btn" type="button" onclick="refreshMarketerStatementV1()">↻ تحديث الأرقام</button></div>
+        <p class="ml-tool-note">البيانات تُقرأ من الطلبات المحمّلة في حسابك. لا يتضمن الملف أرقام هواتف العملاء أو عناوينهم.</p>
+      </div>`;
+    panel.appendChild(section);
+    window.updateMarketerProfitCalcV1();
+    window.refreshMarketerStatementV1();
+  };
+  window.refreshMarketerStatementV1 = function(){
+    const rows=Array.isArray(window.marketerOrders)?window.marketerOrders:[];
+    const delivered=rows.filter(x=>String(x.status||'').toLowerCase()==='delivered');
+    const notDelivered=rows.filter(x=>String(x.status||'').toLowerCase()!=='delivered');
+    const sum=a=>a.reduce((t,x)=>t+Math.max(0,Number(x.quantity)||0)*Math.max(0,Number(x.marketer_commission)||0),0);
+    const units=delivered.reduce((t,x)=>t+Math.max(0,Number(x.quantity)||0),0);
+    const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val};
+    set('mlStatementOrdersV1',String(rows.length));
+    set('mlStatementUnitsV1',String(units));
+    set('mlStatementEarnedV1',fmt(sum(delivered)));
+    set('mlStatementNotDeliveredV1',fmt(sum(notDelivered)));
+  };
+  window.downloadMarketerStatementV1 = function(){
+    const rows=Array.isArray(window.marketerOrders)?window.marketerOrders:[];
+    const headers=['رقم الطلب','التاريخ','الحالة','عدد القطع','عمولة القطعة (دج)','العمولة الإجمالية (دج)','تاريخ التسليم'];
+    const status={pending:'جديد',processing:'قيد المعالجة',shipping:'في التوصيل',delivered:'Delivered',returned:'Retour',cancelled:'ملغى'};
+    const cell=v=>{let x=String(v??'').replace(/"/g,'""');return '"'+x+'"';};
+    const data=[headers,...rows.map(x=>[
+      x.id||'',
+      x.created_at?new Date(x.created_at).toLocaleString('fr-DZ'):'',
+      status[String(x.status||'').toLowerCase()]||x.status||'',
+      Number(x.quantity)||0,
+      Number(x.marketer_commission)||0,
+      Math.max(0,Number(x.quantity)||0)*Math.max(0,Number(x.marketer_commission)||0),
+      x.delivered_at?new Date(x.delivered_at).toLocaleString('fr-DZ'):''
+    ])];
+    const csv='\uFEFF'+data.map(row=>row.map(cell).join(';')).join('\r\n');
+    const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='MarketLink-DZ-Marketer-Earnings.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  };
+})();
+</script>
