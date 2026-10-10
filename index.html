@@ -1606,7 +1606,7 @@ window.submitPayment=async()=>{
  const method=$('paymentMethod').value,note=$('paymentNote').value.trim(),file=$('paymentReceiptFile')?.files?.[0];
  if(!currentUser?.id)return showInline('paymentMsg','انتهت الجلسة. سجّل الدخول من جديد.',true);
  if(!file)return showInline('paymentMsg','اختار صورة وصل الدفع من معرض الصور أولاً.',true);
- if(!/^image\\/(jpeg|png|webp|gif)$/i.test(file.type))return showInline('paymentMsg','الصورة لازم تكون JPG أو PNG أو WEBP أو GIF.',true);
+ if(!/^image\/(jpeg|png|webp|gif)$/i.test(file.type))return showInline('paymentMsg','الصورة لازم تكون JPG أو PNG أو WEBP أو GIF.',true);
  if(file.size>8*1024*1024)return showInline('paymentMsg','حجم الصورة كبير. الحد الأقصى 8MB.',true);
  showInline('paymentMsg','جارٍ التحقق من المبلغ المستحق...',false);
  const [billRes,ordersRes,paymentsRes]=await Promise.all([
