@@ -3154,3 +3154,86 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 .ml-supplier-next>small{display:block;margin-top:10px;color:#cbd9e9;font-size:11px;line-height:1.8;text-align:center}
 @media(max-width:760px){.ml-supplier-next{padding:12px}.ml-supplier-steps{gap:5px}.ml-supplier-steps span{display:flex;flex-direction:column;gap:5px;text-align:center;font-size:10px}.ml-supplier-primary{font-size:14px;padding:14px 10px}}
 </style>
+
+
+<style id="marketlink-login-professional-v1">
+/* Professional authentication card; CSS-only so all existing auth logic and fields remain intact */
+body:has(#auth:not(.hidden)) .auth-card{
+  position:relative!important;isolation:isolate;overflow:hidden!important;
+  width:min(520px,100%)!important;max-width:520px!important;
+  padding:clamp(24px,4vw,38px)!important;
+  background:linear-gradient(180deg,#fff 0%,#fffafd 100%)!important;
+  border:1px solid #f0d7e4!important;border-radius:24px!important;
+  box-shadow:0 24px 70px rgba(89,35,66,.12),0 3px 10px rgba(89,35,66,.035)!important;
+}
+body:has(#auth:not(.hidden)) .auth-card:before{
+  content:"";position:absolute;inset:0 0 auto;height:5px;
+  background:linear-gradient(90deg,#d93682,#f28bb8,#6c65e8);z-index:-1
+}
+body:has(#auth:not(.hidden)) .auth-card:after{
+  content:"ML";position:absolute;top:26px;right:clamp(24px,4vw,38px);
+  width:42px;height:42px;display:grid;place-items:center;border-radius:14px;
+  background:linear-gradient(140deg,#ffe3ef,#f0eaff);color:#bd3478;
+  font-size:14px;font-weight:950;letter-spacing:-1px;border:1px solid #f5d5e5
+}
+body:has(#auth:not(.hidden)) .auth-card h2#authTitle{
+  margin:4px 58px 8px 0!important;color:#302039!important;
+  font-size:clamp(25px,3vw,30px)!important;font-weight:900!important;letter-spacing:-.5px
+}
+body:has(#auth:not(.hidden)) .auth-card>p.muted{
+  margin:0 0 24px!important;color:#89778a!important;font-size:13px!important;line-height:1.9
+}
+body:has(#auth:not(.hidden)) .auth-card .tabs{
+  display:grid!important;grid-template-columns:1fr 1fr;gap:5px!important;
+  padding:5px!important;margin:0 0 23px!important;border:1px solid #f1e1eb!important;
+  border-radius:14px!important;background:#faf5f9!important
+}
+body:has(#auth:not(.hidden)) .auth-card .tabs button{
+  min-height:44px!important;border:0!important;border-radius:10px!important;
+  background:transparent!important;color:#816d80!important;font-weight:800!important;
+  font-size:13px!important;box-shadow:none!important;transition:background .18s,color .18s,box-shadow .18s
+}
+body:has(#auth:not(.hidden)) .auth-card .tabs button.active{
+  background:#fff!important;color:#c33179!important;
+  box-shadow:0 3px 12px rgba(82,34,64,.09)!important;border:1px solid #f4dce8!important
+}
+body:has(#auth:not(.hidden)) .auth-card .field{margin-bottom:16px!important}
+body:has(#auth:not(.hidden)) .auth-card .field label{
+  display:block;margin-bottom:7px!important;color:#4d3a4e!important;
+  font-size:12px!important;font-weight:800!important
+}
+body:has(#auth:not(.hidden)) .auth-card input,
+body:has(#auth:not(.hidden)) .auth-card select{
+  width:100%;min-height:48px!important;box-sizing:border-box!important;
+  padding:12px 14px!important;border:1px solid #eadce7!important;border-radius:12px!important;
+  background:#fff!important;color:#302039!important;font:inherit!important;font-size:14px!important;
+  outline:none!important;box-shadow:0 1px 2px rgba(48,32,57,.025)!important;
+  transition:border-color .18s,box-shadow .18s,background .18s
+}
+body:has(#auth:not(.hidden)) .auth-card input::placeholder{color:#b3a4b2!important}
+body:has(#auth:not(.hidden)) .auth-card input:focus,
+body:has(#auth:not(.hidden)) .auth-card select:focus{
+  border-color:#df6ba2!important;background:#fff!important;
+  box-shadow:0 0 0 4px rgba(217,54,130,.10)!important
+}
+body:has(#auth:not(.hidden)) .auth-card #submitBtn{
+  min-height:50px!important;margin-top:5px!important;border:0!important;border-radius:13px!important;
+  background:linear-gradient(110deg,#c92e78,#e9559b 62%,#d65fd0)!important;
+  color:#fff!important;font-size:14px!important;font-weight:900!important;letter-spacing:.1px;
+  box-shadow:0 10px 22px rgba(201,46,120,.22)!important;transition:transform .18s,box-shadow .18s
+}
+body:has(#auth:not(.hidden)) .auth-card #submitBtn:hover{
+  transform:translateY(-1px);box-shadow:0 13px 26px rgba(201,46,120,.28)!important
+}
+body:has(#auth:not(.hidden)) .auth-card .notice{margin-top:14px!important;border-radius:12px!important}
+body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
+@media(max-width:700px){
+ body:has(#auth:not(.hidden)) .auth-card{padding:25px 19px!important;border-radius:20px!important}
+ body:has(#auth:not(.hidden)) .auth-card:after{top:23px;right:19px;width:38px;height:38px}
+ body:has(#auth:not(.hidden)) .auth-card h2#authTitle{font-size:25px!important}
+ body:has(#auth:not(.hidden)) .auth-card>p.muted{margin-bottom:20px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ body:has(#auth:not(.hidden)) .auth-card *{transition:none!important}
+}
+</style>
