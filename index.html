@@ -1430,7 +1430,7 @@ body:has(#auth:not(.hidden)) .ml-mobile-menu{display:none!important}
 <div id="supplierDetailModal" class="modal"><div class="modal-box" style="width:min(900px,100%)"><div class="topbar"><div><div class="eyebrow" style="color:#059669">تفاصيل المنتج</div><h2 id="supplierDetailTitle" style="margin:4px 0"></h2></div><button class="btn" onclick="closeSupplierDetail()">✕</button></div><div id="supplierDetailContent"></div><div class="actions" style="margin-top:16px"><button class="btn primary" onclick="editSupplierProductFromDetail()">✏️ تعديل المنتج</button><button class="btn" onclick="closeSupplierDetail()">إغلاق</button></div></div></div>
 <div id="supplierEditModal" class="modal"><div class="modal-box" style="width:min(700px,100%)"><h3>✏️ تعديل تفاصيل المنتج</h3><p class="muted">هنا تقدر تبدل جميع معلومات المنتج: الصور، الوصف، السعر، المخزون، الحد الأدنى، وشركة التوصيل.</p><input type="hidden" id="editProductId"><div class="field"><label>اسم المنتج *</label><input id="editName"></div><div class="form-grid"><div class="field"><label>سعر الجملة (دج) *</label><input id="editPrice" type="number" min="1"></div><div class="field"><label>الفئة *</label><select id="editCategory" class="ml-category-select" required></select></div><div class="field"><label>الكمية المتوفرة *</label><input id="editStock" type="number" min="0"></div></div><div class="form-grid"><div class="field"><label>الحد الأدنى للطلب *</label><input id="editMinSeries" type="number" min="1"><div class="muted" style="margin-top:6px">السيرية = 6 حبات. مثال: 3 سريات = 18 حبة.</div></div><div class="field"><label>شركة التوصيل *</label><input id="editDelivery"></div></div><div class="field"><label>صور المنتج</label><input id="editImages" type="file" accept="image/*" multiple><div class="edit-image-note">خليها فارغة إذا ما حبيتش تبدل الصور. إذا رفعت صور جديدة، راح نعتمد الصور الجديدة للمنتج.</div></div><div id="editCurrentImages" class="mini-grid" style="margin-top:10px"></div><div class="field"><label>وصف المنتج *</label><textarea id="editDescription" rows="7"></textarea></div><div class="actions"><button class="btn primary" onclick="saveSupplierProductEdit()">حفظ التعديلات</button><button class="btn" onclick="closeSupplierEdit()">إلغاء</button></div><div id="editProductMsg" class="notice hidden"></div></div></div>
 <div id="marketerProductModal" class="modal"><div class="modal-box"><h3 id="mpTitle">إضافة المنتج إلى منتجاتي</h3><p class="muted" id="mpSupplierPrice"></p><div class="field"><label>عمولتك لكل قطعة: <b><span id="commissionValue">100</span> دج</b></label><input id="commissionRange" type="range" min="0" max="100" step="1" value="100" oninput="updateCommissionPreview()"><div style="display:flex;justify-content:space-between;font-size:12px;color:#667085"><span>0 دج</span><span>100 دج</span></div></div><div class="profit" id="commissionPreview"></div><div class="notice">أقصى عمولة للمسوق هي 100 دج. لا يمكن تجاوزها حتى لو حاول تعديل الطلب مباشرة.</div><div class="actions"><button class="btn primary" onclick="saveMarketerProduct()">حفظ في منتجاتي</button><button class="btn" onclick="closeMarketerProductModal()">إلغاء</button></div><div id="marketerProductMsg" class="notice hidden"></div></div></div>
-<div id="shippingModal" class="modal"><div class="modal-box"><h3>📦 تأكيد شحن الطلبية</h3><p class="muted" id="shippingOrderInfo"></p><div class="field"><label>شركة التوصيل *</label><input id="shippingCompany" placeholder="مثلاً: Yalidine / ZR Express"></div><div class="field"><label>رقم التتبع *</label><input id="trackingNumber" placeholder="مثلاً: YL123456789"></div><div class="field"><label>بون / وصل شركة التوصيل *</label><input id="shippingReceipt" type="file" accept="image/*,.pdf"><div class="muted" style="margin-top:6px">ارفع صورة البون أو ملف PDF باش يبقى محفوظ مع الطلبية.</div></div><div class="actions"><button class="btn primary" onclick="submitShipment()">تأكيد الشحن</button><button class="btn" onclick="closeShippingModal()">إلغاء</button></div><div id="shippingMsg" class="notice hidden"></div></div></div><div id="paymentModal" class="modal"><div class="modal-box"><h3>تسجيل دفع فاتورة</h3><p class="muted">في هذه النسخة نسجل الدفع والملاحظة. رفع صورة الوصل يمكن ربطه بـ Supabase Storage في الخطوة التالية.</p><div class="field"><label>طريقة الدفع</label><select id="paymentMethod"><option value="ccp">CCP</option><option value="baridimob">BaridiMob</option><option value="cash">أخرى</option></select></div><div class="field"><label>مرجع/ملاحظة</label><input id="paymentNote" placeholder="مثلاً رقم العملية"></div><input type="hidden" id="paymentBillId"><div class="actions"><button class="btn primary" onclick="submitPayment()">إرسال للمراجعة</button><button class="btn" onclick="closePaymentModal()">إلغاء</button></div><div id="paymentMsg" class="notice hidden"></div></div></div>
+<div id="shippingModal" class="modal"><div class="modal-box"><h3>📦 تأكيد شحن الطلبية</h3><p class="muted" id="shippingOrderInfo"></p><div class="field"><label>شركة التوصيل *</label><input id="shippingCompany" placeholder="مثلاً: Yalidine / ZR Express"></div><div class="field"><label>رقم التتبع *</label><input id="trackingNumber" placeholder="مثلاً: YL123456789"></div><div class="field"><label>بون / وصل شركة التوصيل *</label><input id="shippingReceipt" type="file" accept="image/*,.pdf"><div class="muted" style="margin-top:6px">ارفع صورة البون أو ملف PDF باش يبقى محفوظ مع الطلبية.</div></div><div class="actions"><button class="btn primary" onclick="submitShipment()">تأكيد الشحن</button><button class="btn" onclick="closeShippingModal()">إلغاء</button></div><div id="shippingMsg" class="notice hidden"></div></div></div><div id="paymentModal" class="modal"><div class="modal-box"><h3>تسجيل دفع فاتورة</h3><p class="muted">اختار طريقة الدفع وارفع صورة واضحة لوصل CCP أو BaridiMob. الإدارة تراجع الوصل قبل تأكيد التسوية.</p><div class="field"><label>طريقة الدفع</label><select id="paymentMethod"><option value="ccp">CCP</option><option value="baridimob">BaridiMob</option><option value="cash">أخرى</option></select></div><div class="field"><label>صورة وصل الدفع *</label><input id="paymentReceiptFile" type="file" accept="image/*,.pdf" required><div class="muted" style="margin-top:6px">صورة أو PDF، الحجم الأقصى 8MB.</div></div><div class="field"><label>مرجع/ملاحظة (اختياري)</label><input id="paymentNote" placeholder="مثلاً رقم العملية"></div><input type="hidden" id="paymentBillId"><div class="actions"><button class="btn primary" onclick="submitPayment()">إرسال للمراجعة</button><button class="btn" onclick="closePaymentModal()">إلغاء</button></div><div id="paymentMsg" class="notice hidden"></div></div></div>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -2593,6 +2593,69 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 #marketerDash.ml-restore-original>#m-tab-mine,
 #marketerDash.ml-restore-original>#m-tab-orders{display:none!important}
 </style>
+
+<!-- MarketLink supplier payment receipt review v1 -->
+<script>
+(function(){
+ const $p=id=>document.getElementById(id);
+ const clean=s=>String(s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+ window.submitPayment=async function(){
+   if(!window.supabaseClient||!window.currentUser)return;
+   const db=window.supabaseClient, file=$p('paymentReceiptFile')?.files?.[0], method=$p('paymentMethod')?.value||'ccp', note=$p('paymentNote')?.value?.trim()||'';
+   if(!file)return showInline('paymentMsg','لازم ترفع صورة وصل CCP أو BaridiMob قبل الإرسال.',true);
+   if(!/^image\//i.test(file.type)&&file.type!=='application/pdf')return showInline('paymentMsg','الملف لازم يكون صورة أو PDF.',true);
+   if(file.size>8*1024*1024)return showInline('paymentMsg','حجم الوصل لازم يكون أقل من 8MB.',true);
+   const {data:b,error:be}=await db.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',window.currentUser.id).single();
+   if(be||!b||Number(b.outstanding_dzd)<=0)return showInline('paymentMsg','لا توجد فاتورة مستحقة حالياً.',true);
+   showInline('paymentMsg','جاري رفع الوصل وإرسال الدفع للمراجعة...',false);
+   const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+   const path=window.currentUser.id+'/payment-'+Date.now()+'.'+ext;
+   const up=await db.storage.from('shipping-receipts').upload(path,file,{upsert:false,contentType:file.type});
+   if(up.error)return showInline('paymentMsg','تعذر رفع الوصل: '+up.error.message,true);
+   const url=db.storage.from('shipping-receipts').getPublicUrl(path).data.publicUrl;
+   const noteWithReceipt=(note?note+' | ':'')+'[RECEIPT_URL]'+url;
+   const {error}=await db.from('commission_payments').insert({supplier_id:window.currentUser.id,amount_dzd:Number(b.outstanding_dzd),payment_method:method,note:noteWithReceipt,status:'pending'});
+   if(error){await db.storage.from('shipping-receipts').remove([path]);return showInline('paymentMsg','تعذر إرسال طلب الدفع: '+error.message,true)}
+   showInline('paymentMsg','تم إرسال وصل الدفع بنجاح. يبقى المبلغ قيد المراجعة حتى تتحقق الإدارة من الوصل.',false);
+   const btn=document.querySelector('#paymentModal button[onclick="submitPayment()"]');if(btn)btn.disabled=true;
+   if($p('paymentReceiptFile'))$p('paymentReceiptFile').value='';
+   if(window.loadSupplierData)await window.loadSupplierData();
+ };
+ window.openPaymentModal=()=>{if(window.currentRole!=='supplier')return;$p('paymentBillId').value='';$p('paymentReceiptFile').value='';$p('paymentNote').value='';$p('paymentModal').classList.add('open');$p('paymentMsg').classList.add('hidden');const btn=document.querySelector('#paymentModal button[onclick="submitPayment()"]');if(btn)btn.disabled=false};
+ const originalRenderBills=window.renderBills;
+ window.renderBills=function(){
+   const body=$p('billingBody');if(!body)return;
+   const base=(window.bills||[]).map(b=>'<tr><td>'+clean(((window.users||[]).find(u=>u.id===b.supplier_id)||{}).email||'—')+'</td><td>'+((window.fmtDate&&b.billing_start)?fmtDate(b.billing_start):'—')+' → '+((window.fmtDate&&b.billing_end)?fmtDate(b.billing_end):'—')+'</td><td>'+Number(b.delivered_units||0)+'</td><td>'+Number(b.outstanding_dzd||0)+' دج</td><td>'+(Number(b.outstanding_dzd)>0?'<span class="badge pendingpay">مستحقة</span>':'<span class="badge approved">مسددة</span>')+'</td><td>'+(Number(b.outstanding_dzd)>0?'في انتظار الدفع':'—')+'</td></tr>').join('');
+   const payments=window.payments||[];
+   const payRows=payments.map(p=>{
+     const u=(window.users||[]).find(x=>x.id===p.supplier_id)||{};
+     const n=String(p.note||'');const m=n.match(/\[RECEIPT_URL\](https?:\/\/[^\s|]+)/);const url=m?m[1]:'';
+     const note=n.replace(/\s*\[RECEIPT_URL\]https?:\/\/[^\s|]+/,'').trim();
+     const status=p.status==='approved'?'تم التحقق':p.status==='rejected'?'مرفوض':'قيد المراجعة';
+     const actions=p.status==='pending'?'<div style="display:flex;gap:6px;flex-wrap:wrap"><a class="smallbtn" target="_blank" rel="noopener" href="'+clean(url)+'">عرض الوصل</a><button class="smallbtn" onclick="window.reviewSupplierPayment(\''+p.id+'\',\'approved\')">تأكيد الدفع</button><button class="smallbtn danger" onclick="window.reviewSupplierPayment(\''+p.id+'\',\'rejected\')">رفض</button></div>':(url?'<a class="smallbtn" target="_blank" rel="noopener" href="'+clean(url)+'">عرض الوصل</a>':'—');
+     return '<tr><td>'+clean(u.email||'—')+'</td><td>'+clean(p.payment_method||'—')+'</td><td>'+Number(p.amount_dzd||0)+' دج</td><td>'+(url?'<a target="_blank" rel="noopener" href="'+clean(url)+'">فتح صورة الوصل</a>':'لا يوجد وصل')+(note?'<div class="muted">'+clean(note)+'</div>':'')+'</td><td>'+status+'</td><td>'+actions+'</td></tr>'
+   }).join('');
+   body.innerHTML='<tr><td colspan="6"><b>الفواتير</b></td></tr>'+(base||'<tr><td colspan="6" class="empty">لا توجد فواتير.</td></tr>')+'<tr><td colspan="6"><b>إيصالات الدفع المرسلة للمراجعة</b></td></tr>'+(payRows||'<tr><td colspan="6" class="empty">مازال ما كاش إيصالات دفع.</td></tr>');
+ };
+ window.reviewSupplierPayment=async function(id,status){
+   if(window.currentRole!=='admin')return alert('هذا الإجراء متاح للإدارة فقط.');
+   const p=(window.payments||[]).find(x=>String(x.id)===String(id));if(!p)return alert('ما لقيناش طلب الدفع.');
+   if(status==='approved'&&!confirm('تأكدت من وصل الدفع والمبلغ ووصلت الأموال فعلاً؟ تأكيدك يسجل التسوية.'))return;
+   if(status==='rejected'&&!confirm('ترفض وصل الدفع هذا؟'))return;
+   const db=window.supabaseClient;
+   const {error}=await db.from('commission_payments').update({status}).eq('id',id);
+   if(error)return alert('تعذر تحديث حالة الدفع: '+error.message);
+   if(status==='approved'){
+     const {data:b,error:be}=await db.from('supplier_billing').select('id,outstanding_dzd,credit_limit').eq('supplier_id',p.supplier_id).single();
+     if(be||!b)return alert('تم التحقق من الدفع، لكن تعذر تحديث الفاتورة تلقائياً: '+(be?.message||'الفاتورة غير موجودة')+'. راجع الفوترة يدوياً.');
+     const {error:ue}=await db.from('supplier_billing').update({outstanding_dzd:Math.max(0,Number(b.outstanding_dzd)-Number(p.amount_dzd||0)),credit_limit:10}).eq('id',b.id);
+     if(ue)return alert('تم التحقق من الدفع، لكن تعذر تحديث رصيد الفاتورة: '+ue.message);
+   }
+   alert(status==='approved'?'تم التحقق من الدفع وتحديث الفاتورة.':'تم رفض وصل الدفع.');
+   if(window.loadAdminData)await window.loadAdminData();
+ };
+})();
+</script>
 </body></html>
 
 
