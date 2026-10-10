@@ -3380,9 +3380,9 @@ body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
 })();
 </script>
 
-<!-- MarketLink payment submission override after module initialization -->
+<!-- MarketLink payment submission override: assign immediately so older handlers cannot win -->
 <script>
-window.addEventListener('load', function(){
+(function(){
   window.submitPayment = async function(){
     const db=window.supabaseClient, user=window.currentUser;
     const el=id=>document.getElementById(id);
@@ -3427,5 +3427,5 @@ window.addEventListener('load', function(){
       if(window.loadSupplierData)await window.loadSupplierData();
     } catch(e){msg('صار خطأ أثناء إرسال الوصل: '+(e?.message||e),true)}
   };
-});
+})();
 </script>
