@@ -1610,7 +1610,7 @@ window.submitPayment=async()=>{
  if(file.size>8*1024*1024)return showInline('paymentMsg','حجم الصورة كبير. الحد الأقصى 8MB.',true);
  showInline('paymentMsg','جارٍ التحقق من المبلغ المستحق...',false);
  const [billRes,ordersRes,paymentsRes]=await Promise.all([
-   supabase.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',currentUser.id).maybeSingle(),
+   supabase.from('supplier_billing').select('supplier_id,outstanding_dzd').eq('supplier_id',currentUser.id).maybeSingle(),
    supabase.from('orders').select('quantity,marketer_commission,platform_commission,status').eq('supplier_id',currentUser.id),
    supabase.from('commission_payments').select('amount_dzd,status').eq('supplier_id',currentUser.id)
  ]);
@@ -2639,7 +2639,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
    if(file.size>8*1024*1024)return showInline('paymentMsg','حجم الوصل لازم يكون أقل من 8MB.',true);
    showInline('paymentMsg','جاري التحقق من المبلغ المستحق...',false);
    const [billRes,ordersRes,paymentsRes]=await Promise.all([
-     db.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',window.currentUser.id).limit(1),
+     db.from('supplier_billing').select('supplier_id,outstanding_dzd').eq('supplier_id',window.currentUser.id).limit(1),
      db.from('orders').select('quantity,marketer_commission,platform_commission,status').eq('supplier_id',window.currentUser.id),
      db.from('commission_payments').select('amount_dzd,status').eq('supplier_id',window.currentUser.id)
    ]);
@@ -2712,9 +2712,9 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
    const {error}=await db.from('commission_payments').update({status}).eq('id',id);
    if(error)return alert('تعذر تحديث حالة الدفع: '+error.message);
    if(status==='approved'){
-     const {data:b,error:be}=await db.from('supplier_billing').select('id,outstanding_dzd,credit_limit').eq('supplier_id',p.supplier_id).single();
+     const {data:b,error:be}=await db.from('supplier_billing').select('supplier_id,outstanding_dzd,credit_limit').eq('supplier_id',p.supplier_id).single();
      if(be||!b)return alert('تم التحقق من الدفع، لكن تعذر تحديث الفاتورة تلقائياً: '+(be?.message||'الفاتورة غير موجودة')+'. راجع الفوترة يدوياً.');
-     const {error:ue}=await db.from('supplier_billing').update({outstanding_dzd:Math.max(0,Number(b.outstanding_dzd)-Number(p.amount_dzd||0)),credit_limit:10}).eq('id',b.id);
+     const {error:ue}=await db.from('supplier_billing').update({outstanding_dzd:Math.max(0,Number(b.outstanding_dzd)-Number(p.amount_dzd||0)),credit_limit:10}).eq('supplier_id',p.supplier_id);
      if(ue)return alert('تم التحقق من الدفع، لكن تعذر تحديث رصيد الفاتورة: '+ue.message);
    }
    alert(status==='approved'?'تم التحقق من الدفع وتحديث الفاتورة.':'تم رفض وصل الدفع.');
@@ -3427,7 +3427,7 @@ body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
     msg('جاري التحقق من المبلغ المستحق...',false);
     try {
       const [billRes,ordersRes,paymentsRes]=await Promise.all([
-        db.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',user.id).limit(1),
+        db.from('supplier_billing').select('supplier_id,outstanding_dzd').eq('supplier_id',user.id).limit(1),
         db.from('orders').select('quantity,marketer_commission,platform_commission,status').eq('supplier_id',user.id),
         db.from('commission_payments').select('amount_dzd,status').eq('supplier_id',user.id)
       ]);
