@@ -3507,3 +3507,57 @@ body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
   document.addEventListener('DOMContentLoaded',()=>setTimeout(install,0),{once:true});
 })();
 </script>
+
+
+<script id="marketlink-auth-click-recovery-v3">
+/* Make the login/register button resilient to script-load timing and always surface an actionable message. */
+(function(){
+  function install(){
+    const button=document.getElementById('submitBtn');
+    if(!button||button.dataset.mlAuthClickV3==='1')return;
+    button.dataset.mlAuthClickV3='1';
+    button.removeAttribute('onclick');
+    button.addEventListener('click',async function(ev){
+      ev.preventDefault();
+      if(button.dataset.mlBusy==='1')return;
+      button.dataset.mlBusy='1';
+      const msg=document.getElementById('msg');
+      const show=(text)=>{
+        if(typeof window.showMsg==='function')window.showMsg(text,true);
+        else if(msg){msg.textContent=text;msg.classList.remove('hidden');msg.classList.add('error');}
+      };
+      const originalText=button.textContent;
+      button.disabled=true;
+      button.textContent='جارٍ الاتصال...';
+      try{
+        let submit=window.submitAuth;
+        if(typeof submit!=='function'){
+          await new Promise(resolve=>setTimeout(resolve,700));
+          submit=window.submitAuth;
+        }
+        if(typeof submit!=='function'){
+          show('خدمة تسجيل الدخول ما تحمّلتش. حدّث الصفحة بـ Ctrl+F5، وإذا بقى المشكل لازم نراجع خطأ JavaScript واتصال Supabase.');
+          return;
+        }
+        await submit();
+      }catch(err){
+        console.error('[MarketLink auth click]',err);
+        const detail=String(err?.message||err||'');
+        if(/Invalid login credentials/i.test(detail))show('البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+        else if(/Email not confirmed/i.test(detail))show('أكد البريد الإلكتروني من الرسالة اللي وصلتك ثم حاول الدخول.');
+        else if(/Failed to fetch|NetworkError|fetch/i.test(detail))show('ما قدرناش نتصلوا بـ Supabase. تحقق من الإنترنت وحاول مجددًا.');
+        else show('فشلت محاولة الدخول: '+(detail||'خطأ غير معروف'));
+      }finally{
+        button.dataset.mlBusy='0';
+        button.disabled=false;
+        const auth=document.getElementById('auth');
+        if(auth&&!auth.classList.contains('hidden'))button.textContent=document.getElementById('registerTab')?.classList.contains('active')?'إنشاء الحساب':'دخول';
+        else button.textContent=originalText;
+      }
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});
+  else install();
+  window.addEventListener('load',install,{once:true});
+})();
+</script>
