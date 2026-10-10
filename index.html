@@ -3379,3 +3379,53 @@ body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
   window.marketLinkUpdateRoleGuidanceV1=updateRoleGuidance;
 })();
 </script>
+
+<!-- MarketLink payment submission override after module initialization -->
+<script>
+window.addEventListener('load', function(){
+  window.submitPayment = async function(){
+    const db=window.supabaseClient, user=window.currentUser;
+    const el=id=>document.getElementById(id);
+    const msg=(text,bad)=>{if(typeof window.showInline==='function')window.showInline('paymentMsg',text,bad);else{const m=el('paymentMsg');if(m){m.textContent=text;m.classList.remove('hidden');m.classList.toggle('error',!!bad)}}};
+    if(!db||!user)return msg('تعذر الاتصال بالحساب. حدّث الصفحة وسجّل الدخول من جديد.',true);
+    const file=el('paymentReceiptFile')?.files?.[0], method=el('paymentMethod')?.value||'ccp', note=el('paymentNote')?.value?.trim()||'';
+    if(!file)return msg('لازم ترفع صورة وصل CCP أو BaridiMob قبل الإرسال.',true);
+    if(!/^image\/(jpeg|png|webp|gif)$/i.test(file.type))return msg('ارفع صورة فقط بصيغة JPG أو PNG أو WEBP أو GIF.',true);
+    if(file.size>8*1024*1024)return msg('حجم الصورة لازم يكون أقل من 8MB.',true);
+    msg('جاري التحقق من المبلغ المستحق...',false);
+    try {
+      const [billRes,ordersRes,paymentsRes]=await Promise.all([
+        db.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',user.id).limit(1),
+        db.from('orders').select('quantity,marketer_commission,platform_commission,status').eq('supplier_id',user.id),
+        db.from('commission_payments').select('amount_dzd,status').eq('supplier_id',user.id)
+      ]);
+      if(ordersRes.error)return msg('تعذر قراءة طلبيات المورد: '+ordersRes.error.message,true);
+      if(paymentsRes.error)return msg('تعذر قراءة الدفعات: '+paymentsRes.error.message,true);
+      const rows=paymentsRes.data||[];
+      if(rows.some(x=>String(x.status||'').toLowerCase()==='pending'))return msg('عندك وصل دفع قيد المراجعة بالفعل. استنى الإدارة تتحقق منه قبل إرسال وصل آخر.',true);
+      const bill=(billRes.data||[])[0]||null;
+      const approved=rows.filter(x=>String(x.status||'').toLowerCase()==='approved').reduce((a,x)=>a+Number(x.amount_dzd||0),0);
+      const delivered=(ordersRes.data||[]).filter(x=>String(x.status||'').trim().toLowerCase()==='delivered').reduce((a,x)=>a+Number(x.quantity||0)*(Number(x.marketer_commission||0)+Number(x.platform_commission??50)),0);
+      const parse=v=>Number(String(v||'').replace(/[^0-9\u0660-\u0669]/g,'').replace(/[\u0660-\u0669]/g,c=>String(c.charCodeAt(0)-0x0660)))||0;
+      const root=el('supplierBilling'), cards=el('normalCards');
+      const visible=parse(root?.querySelector('.kpi.green')?.textContent)||parse((root?.innerText||'').match(/(?:المبلغ المستحق|الفاتورة)[\s\S]{0,100}?([0-9\u0660-\u0669][0-9\u0660-\u0669\s,٬.\u202f\u00a0]*)\s*دج/)?.[1])||parse(cards?.querySelector('.num')?.textContent);
+      const due=visible>0?visible:(Number(bill?.outstanding_dzd||0)>0?Number(bill.outstanding_dzd):Math.max(0,delivered-approved));
+      if(due<=0)return msg('ما لقيناش مبلغ مستحق في بيانات الفوترة. حدّث بيانات المورد؛ إذا مازال المبلغ ظاهر، يلزم مراجعة حساب الفاتورة.',true);
+      msg('جاري رفع صورة الوصل...',false);
+      const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+      const path=user.id+'/payment-'+Date.now()+'.'+ext;
+      const up=await db.storage.from('shipping-receipts').upload(path,file,{upsert:false,contentType:file.type});
+      if(up.error)return msg('تعذر رفع صورة الوصل: '+up.error.message,true);
+      const url=db.storage.from('shipping-receipts').getPublicUrl(path).data.publicUrl;
+      const receiptNote=(note?note+' | ':'')+'[RECEIPT_URL]'+url;
+      const ins=await db.from('commission_payments').insert({supplier_id:user.id,amount_dzd:due,payment_method:method,note:receiptNote,status:'pending'});
+      if(ins.error){await db.storage.from('shipping-receipts').remove([path]);return msg('تعذر إرسال طلب الدفع: '+ins.error.message,true)}
+      msg('تم إرسال صورة الوصل بنجاح بمبلغ '+Math.round(due)+' دج. تظهر للإدارة للمراجعة، ولا تتم التسوية حتى تتحقق من الدفع.',false);
+      const btn=document.querySelector('#paymentModal button[onclick="submitPayment()"]');if(btn)btn.disabled=true;
+      if(el('paymentReceiptFile'))el('paymentReceiptFile').value='';
+      if(window.clearPaymentReceiptPreview)window.clearPaymentReceiptPreview();
+      if(window.loadSupplierData)await window.loadSupplierData();
+    } catch(e){msg('صار خطأ أثناء إرسال الوصل: '+(e?.message||e),true)}
+  };
+});
+</script>
