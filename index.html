@@ -1602,7 +1602,39 @@ window.closeShippingModal=()=>{$('shippingModal').classList.remove('open')};
 window.submitShipment=async()=>{const id=window.shippingOrderId,company=$('shippingCompany').value.trim(),tracking=$('trackingNumber').value.trim(),file=$('shippingReceipt').files?.[0];if(!company||!tracking||!file)return showInline('shippingMsg','لازم شركة التوصيل + رقم التتبع + البون.',true);if(file.size>8*1024*1024)return showInline('shippingMsg','حجم البون لازم يكون أقل من 8MB.',true);showInline('shippingMsg','جاري رفع البون وتأكيد الشحن...',false);const ext=(file.name.split('.').pop()||'jpg').toLowerCase(),path=`${currentUser.id}/${id}-${Date.now()}.${ext}`,up=await supabase.storage.from('shipping-receipts').upload(path,file,{upsert:false,contentType:file.type});if(up.error)return showInline('shippingMsg','فشل رفع البون: '+up.error.message,true);const url=supabase.storage.from('shipping-receipts').getPublicUrl(path).data.publicUrl;const {error}=await supabase.from('orders').update({status:'shipping',shipping_company:company,tracking_number:tracking,shipping_receipt_url:url,shipped_at:new Date().toISOString()}).eq('id',id).eq('supplier_id',currentUser.id);if(error){await supabase.storage.from('shipping-receipts').remove([path]);return showInline('shippingMsg','تعذر حفظ بيانات الشحن: '+error.message,true)}showInline('shippingMsg','تم شحن الطلبية وحفظ البون. المسوق يقدر الآن يشوف رقم التتبع والبون.',false);setTimeout(()=>{closeShippingModal();loadSupplierData()},700)};
 window.changeOrderStatus=async(id,status)=>{const {error}=await supabase.from('orders').update({status,delivered_at:status==='delivered'?new Date().toISOString():null}).eq('id',id);if(error)return alert(error.message);await loadSupplierData()};
 window.openPaymentModal=()=>{if(!currentRole||currentRole!=='supplier')return;$('paymentBillId').value='';$('paymentModal').classList.add('open');$('paymentMsg').classList.add('hidden')};window.closePaymentModal=()=>$('paymentModal').classList.remove('open');
-window.submitPayment=async()=>{const method=$('paymentMethod').value,note=$('paymentNote').value.trim();const {data:b}=await supabase.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',currentUser.id).single();if(!b||Number(b.outstanding_dzd)<=0)return showInline('paymentMsg','لا توجد فاتورة مستحقة.',true);const {error}=await supabase.from('commission_payments').insert({supplier_id:currentUser.id,amount_dzd:b.outstanding_dzd,payment_method:method,note,status:'pending'});if(error)return showInline('paymentMsg',error.message,true);showInline('paymentMsg','تم إرسال الدفع للمراجعة. بعد موافقة الإدارة يتم تسوية الرصيد.',false)};
+window.submitPayment=async()=>{
+ const method=$('paymentMethod').value,note=$('paymentNote').value.trim(),file=$('paymentReceiptFile')?.files?.[0];
+ if(!currentUser?.id)return showInline('paymentMsg','انتهت الجلسة. سجّل الدخول من جديد.',true);
+ if(!file)return showInline('paymentMsg','اختار صورة وصل الدفع من معرض الصور أولاً.',true);
+ if(!/^image\\/(jpeg|png|webp|gif)$/i.test(file.type))return showInline('paymentMsg','الصورة لازم تكون JPG أو PNG أو WEBP أو GIF.',true);
+ if(file.size>8*1024*1024)return showInline('paymentMsg','حجم الصورة كبير. الحد الأقصى 8MB.',true);
+ showInline('paymentMsg','جارٍ التحقق من المبلغ المستحق...',false);
+ const [billRes,ordersRes,paymentsRes]=await Promise.all([
+   supabase.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',currentUser.id).maybeSingle(),
+   supabase.from('orders').select('quantity,marketer_commission,platform_commission,status').eq('supplier_id',currentUser.id),
+   supabase.from('commission_payments').select('amount_dzd,status').eq('supplier_id',currentUser.id)
+ ]);
+ if(billRes.error)return showInline('paymentMsg','تعذر قراءة فاتورة المورد من Supabase: '+billRes.error.message,true);
+ if(ordersRes.error)return showInline('paymentMsg','تعذر حساب مستحقات الطلبيات من Supabase: '+ordersRes.error.message,true);
+ if(paymentsRes.error)return showInline('paymentMsg','تعذر قراءة الدفعات السابقة من Supabase: '+paymentsRes.error.message,true);
+ const bill=billRes.data;
+ const stored=Number(bill?.outstanding_dzd||0);
+ const deliveredDue=(ordersRes.data||[]).filter(x=>String(x.status).toLowerCase()==='delivered').reduce((sum,x)=>sum+Number(x.quantity||0)*(Number(x.marketer_commission||0)+Number(x.platform_commission||50)),0);
+ const approved=(paymentsRes.data||[]).filter(x=>String(x.status).toLowerCase()==='approved').reduce((sum,x)=>sum+Number(x.amount_dzd||0),0);
+ const outstanding=stored>0?stored:Math.max(0,deliveredDue-approved);
+ if(outstanding<=0)return showInline('paymentMsg','لا توجد فاتورة مستحقة حسب بيانات Supabase الحالية. المبلغ المحسوب من الطلبيات المسلّمة: '+deliveredDue+' دج، والمدفوعات المقبولة: '+approved+' دج. حدّث لوحة المورد وتحقق من أن حالة الطلبية Delivered.',true);
+ showInline('paymentMsg','المبلغ المستحق '+outstanding.toLocaleString('fr-DZ')+' دج. جارٍ رفع صورة الوصل...',false);
+ const path=currentUser.id+'/'+Date.now()+'-'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+ const upload=await supabase.storage.from('payment-receipts').upload(path,file,{contentType:file.type,upsert:false});
+ if(upload.error)return showInline('paymentMsg','تعذر رفع الصورة إلى Supabase Storage: '+upload.error.message+' — تأكد من إنشاء bucket باسم payment-receipts وضبط صلاحيات الرفع للموردين.',true);
+ const urlRes=supabase.storage.from('payment-receipts').getPublicUrl(upload.data.path);
+ const receiptUrl=urlRes?.data?.publicUrl;
+ if(!receiptUrl){await supabase.storage.from('payment-receipts').remove([upload.data.path]);return showInline('paymentMsg','تم رفع الصورة لكن تعذر إنشاء رابط لها.',true)}
+ const insert=await supabase.from('commission_payments').insert({supplier_id:currentUser.id,amount_dzd:outstanding,payment_method:method,note:note||null,status:'pending',receipt_url:receiptUrl});
+ if(insert.error){await supabase.storage.from('payment-receipts').remove([upload.data.path]);return showInline('paymentMsg','تم حساب المبلغ ورفع الصورة، لكن قاعدة بيانات commission_payments رفضت حفظ طلب الدفع: '+insert.error.message+' — يلزم التأكد من وجود عمود receipt_url وسياسات الجدول.',true)}
+ showInline('paymentMsg','تم إرسال صورة الوصل ومبلغ '+outstanding.toLocaleString('fr-DZ')+' دج للمراجعة. سيظهر الطلب للإدارة بعد حفظه في قاعدة البيانات.',false);
+ $('paymentReceiptFile').value='';if($('paymentReceiptPreviewWrap'))$('paymentReceiptPreviewWrap').classList.add('hidden');
+};
 window.showAdminTab=(tab,btn)=>{if(tab==='categories'&&window.loadAdminCategories)setTimeout(()=>window.loadAdminCategories(),0);document.querySelectorAll('#adminDash .admin-nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.querySelectorAll('#adminDash .admin-section').forEach(s=>{s.classList.remove('active');s.style.display='none'});const sec=$('admin-'+tab);if(sec){sec.classList.add('active');sec.style.display='block'}if(tab==='withdrawals'&&window.loadAdminWithdrawalsV13)setTimeout(()=>window.loadAdminWithdrawalsV13(),0)};
 
 let adminProductCategories=[];
