@@ -2620,9 +2620,14 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
    const storedDue=Number(bill?.outstanding_dzd||0);
    const calculatedDue=Math.max(0,deliveredTotal-approvedTotal);
    // Match the same outstanding amount rendered in the supplier dashboard if the billing row is absent/stale.
-   const visibleDueText=($p('supplierBilling')?.innerText||$p('normalCards')?.innerText||'').match(/(?:المبلغ المستحق|الفاتورة)[\s\S]{0,50}?([\d\u0660-\u0669][\d\u0660-\u0669\s,٬.]*)\s*دج/);
-   const visibleDue=visibleDueText?Number(visibleDueText[1].replace(/[\s,٬.]/g,'')):0;
-   const dueAmount=storedDue>0?storedDue:(calculatedDue>0?calculatedDue:visibleDue);
+   // Read the exact amount currently shown to the supplier first; the billing row can be stale or absent.
+   const billingRoot=$p('supplierBilling'), cardsRoot=$p('normalCards');
+   const visibleKpi=billingRoot?.querySelector('.kpi.green')||cardsRoot?.querySelector('.num');
+   const visibleRaw=visibleKpi?.textContent||'';
+   const parseDzd=v=>{const digits=String(v||'').replace(/[^0-9\u0660-\u0669]/g,'').replace(/[\u0660-\u0669]/g,c=>String(c.charCodeAt(0)-0x0660));return Number(digits)||0};
+   const visibleDue=parseDzd(visibleRaw)||parseDzd((billingRoot?.innerText||cardsRoot?.innerText||'').match(/(?:المبلغ المستحق|الفاتورة)[\s\S]{0,100}?([0-9\u0660-\u0669][0-9\u0660-\u0669\s,٬.\u202f\u00a0]*)\s*دج/)?.[1]);
+   // Prefer the amount rendered in the supplier's own billing section when database billing is stale.
+   const dueAmount=visibleDue>0?visibleDue:(storedDue>0?storedDue:calculatedDue);
    if(dueAmount<=0)return showInline('paymentMsg','ما قدرناش نلقاو مبلغ مستحق في بيانات الحساب. حدّث الصفحة؛ إذا المبلغ مازال ظاهر في الفوترة، ابعثلي صورة من قسم الفوترة باش نراجع مصدر الحساب.',true);
    showInline('paymentMsg','جاري رفع الوصل وإرسال الدفع للمراجعة...',false);
    const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
