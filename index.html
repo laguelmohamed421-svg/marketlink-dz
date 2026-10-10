@@ -3461,3 +3461,44 @@ body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
   };
 })();
 </script>
+
+
+<script id="marketlink-auth-click-recovery-v1">
+/* Guard the existing login/register action against silent async failures; keep original auth and dashboard logic. */
+(function(){
+  const original = window.submitAuth;
+  if(typeof original !== 'function') return;
+  window.submitAuth = async function(){
+    const button = document.getElementById('submitBtn');
+    const wasHidden = document.getElementById('auth')?.classList.contains('hidden');
+    const label = button?.textContent || 'دخول';
+    if(button){button.disabled=true;button.textContent='جارٍ التحقق من الحساب...';}
+    try{
+      await original();
+      const auth = document.getElementById('auth');
+      const dashboard = document.getElementById('dashboard');
+      const msg = document.getElementById('msg');
+      /* If authentication succeeded but profile/dashboard loading failed, surface a helpful message. */
+      if(auth && !auth.classList.contains('hidden') && dashboard && !dashboard.classList.contains('active') && msg && !msg.textContent.trim()){
+        window.showMsg?.('تمت محاولة الدخول لكن تعذر فتح لوحة الحساب. حدّث الصفحة وحاول مجددًا.',true);
+      }
+    }catch(err){
+      console.error('[MarketLink auth]',err);
+      const text = String(err?.message || err || '');
+      let friendly = 'ما قدرناش نكملوا الدخول بسبب خطأ في الاتصال. تحقق من الإنترنت وحاول مجددًا.';
+      if(/Invalid login credentials/i.test(text)) friendly='البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+      else if(/Email not confirmed/i.test(text)) friendly='لازم تأكد البريد الإلكتروني من الرسالة اللي وصلتك قبل الدخول.';
+      else if(/Failed to fetch|NetworkError|fetch/i.test(text)) friendly='تعذر الاتصال بقاعدة البيانات. تحقق من الإنترنت وحاول مجددًا.';
+      else if(text) friendly += ' التفاصيل: '+text;
+      if(typeof window.showMsg==='function') window.showMsg(friendly,true);
+      else if(document.getElementById('msg')) document.getElementById('msg').textContent=friendly;
+    }finally{
+      if(button){
+        button.disabled=false;
+        if(document.getElementById('auth')?.classList.contains('hidden')) button.textContent=label;
+        else button.textContent=document.getElementById('registerTab')?.classList.contains('active')?'إنشاء الحساب':'دخول';
+      }
+    }
+  };
+})();
+</script>
