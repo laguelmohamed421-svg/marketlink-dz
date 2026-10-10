@@ -1217,6 +1217,15 @@ body:has(#auth:not(.hidden)) .ml-mobile-menu{display:none!important}
         <article><span class="auth-feature-icon">📣</span><div><strong>وسّع شبكة الترويج</strong><small>خلّي المسوقين يتعرفوا على سلعك ويخدموا على جلب طلبات جديدة.</small></div></article>
         <article><span class="auth-feature-icon">🧾</span><div><strong>تابع حالة الطلبات والعمولات</strong><small>نظّم معلومات الطلبات والقطع الموصلة، وراجع المستحقات حسب النظام المعتمد في المنصة.</small></div></article>
       </div>
+      <div class="ml-supplier-next">
+        <div class="ml-supplier-steps" aria-label="خطوات بدء العمل كمورد">
+          <span><b>1</b> افتح حساب مورد</span>
+          <span><b>2</b> ارفع منتجاتك</span>
+          <span><b>3</b> تابع الطلبات</span>
+        </div>
+        <button type="button" class="ml-supplier-primary" onclick="setMode('register');const r=document.getElementById('role');if(r){r.value='supplier';r.dispatchEvent(new Event('change',{bubbles:true}));}document.getElementById('authTitle').scrollIntoView({behavior:'smooth',block:'center'});">ابدأ كمورد وارفع أول منتج <span aria-hidden="true">←</span></button>
+        <small>جهّز صور السلعة وسعر الجملة والكمية ومعلومات التوصيل قبل الإضافة.</small>
+      </div>
     </div>
     <div class="auth-people-visual" role="group" aria-label="صورة فوتوغرافية لفريق يعمل في التجارة والتسويق">
   <img class="auth-real-people-photo" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85" alt="رجل وامرأة يعملان مع فريقهما على الحاسوب ويتعاونون في مشروع تجاري" loading="eager" fetchpriority="high" decoding="async">
@@ -3129,4 +3138,19 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
 <style id="marketlink-notification-over-dashboard-fix">
 #mlBellMenu.ml-bell-menu{z-index:2147483647!important;position:fixed!important;isolation:isolate}
 #mlBellMenu.ml-bell-menu.open{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+</style>
+
+
+<style id="marketlink-supplier-conversion-v1">
+/* Supplier-first onboarding additions; presentation only, existing data and workflows remain unchanged */
+#supplierStory{border-color:rgba(76,230,154,.35);background:linear-gradient(125deg,rgba(24,155,111,.15),rgba(255,255,255,.045))}
+.ml-supplier-next{margin-top:18px;padding:16px;border:1px solid rgba(76,230,154,.28);border-radius:16px;background:rgba(3,17,36,.32)}
+.ml-supplier-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.ml-supplier-steps span{display:flex;align-items:center;gap:7px;color:#e8fff5;font-size:12px;font-weight:700;line-height:1.6}
+.ml-supplier-steps b{display:grid;place-items:center;flex:0 0 25px;height:25px;border-radius:50%;background:#4ce69a;color:#073b2c;font-size:12px}
+.ml-supplier-primary{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;border:0;border-radius:12px;padding:15px 18px;background:linear-gradient(100deg,#4ce69a,#a7f3d0);color:#073b2c;font:inherit;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 8px 24px rgba(18,185,129,.17);transition:transform .15s,box-shadow .15s}
+.ml-supplier-primary:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(18,185,129,.24)}
+.ml-supplier-primary span{font-size:20px}
+.ml-supplier-next>small{display:block;margin-top:10px;color:#cbd9e9;font-size:11px;line-height:1.8;text-align:center}
+@media(max-width:760px){.ml-supplier-next{padding:12px}.ml-supplier-steps{gap:5px}.ml-supplier-steps span{display:flex;flex-direction:column;gap:5px;text-align:center;font-size:10px}.ml-supplier-primary{font-size:14px;padding:14px 10px}}
 </style>
