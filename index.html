@@ -2454,7 +2454,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
     wrap.innerHTML='<button id="mlBellBtn" class="ml-bell-btn" type="button" aria-label="الإشعارات" title="الإشعارات">🔔<span id="mlBellCount" class="ml-bell-count">0</span></button><div id="mlBellMenu" class="ml-bell-menu"><div class="ml-bell-head"><b>🔔 الإشعارات</b><button type="button" id="mlBellReadAll">تحديد الكل كمقروء</button></div><div id="mlBellList" class="ml-bell-list"><div class="ml-bell-empty">جارٍ التحميل...</div></div><div class="ml-bell-foot"><button type="button" id="mlBellAll">كل الإشعارات</button><button type="button" id="mlBellOrders">فتح طلباتي</button></div></div>';
     area.appendChild(wrap);
     const modal=document.createElement('div');modal.id='mlNoticeModal';modal.className='ml-notice-modal';modal.innerHTML='<div class="ml-notice-modal-box"><h3 id="mlNoticeModalTitle">تفاصيل الإشعار</h3><p id="mlNoticeModalText"></p><div id="mlNoticeModalDetail" class="ml-notice-detail"></div><button id="mlNoticeModalClose" class="ml-notice-close" type="button">إغلاق</button></div>';document.body.appendChild(modal);
-    $('mlBellBtn').onclick=e=>{e.stopPropagation();$('mlBellMenu').classList.toggle('open');loadBellNotifications()};
+    $('mlBellBtn').onclick=e=>{e.stopPropagation();const menu=$('mlBellMenu');if(window.innerWidth>760){const rect=$('mlBellBtn').getBoundingClientRect();const menuWidth=Math.min(340,window.innerWidth-24);const left=Math.max(12,Math.min(rect.right-menuWidth,window.innerWidth-menuWidth-12));menu.style.left=left+'px';menu.style.right='auto';menu.style.top=(rect.bottom+8)+'px';menu.style.width=menuWidth+'px'}menu.classList.toggle('open');loadBellNotifications()};
     $('mlBellReadAll').onclick=()=>{mlBellNotifications=mlBellNotifications.map(x=>({...x,unread:false}));renderBell()};
     $('mlBellAll').onclick=()=>{ $('mlBellMenu').classList.remove('open'); if(window.mlShowSection)window.mlShowSection('notifications') };
     $('mlBellOrders').onclick=()=>{ $('mlBellMenu').classList.remove('open'); if(window.mlShowSection)window.mlShowSection('orders') };
@@ -3116,3 +3116,11 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
   };
 })();
 </script>
+
+
+<style id="marketlink-notification-desktop-position-fix">
+@media(min-width:761px){
+  #mlBellMenu.ml-bell-menu{position:fixed;right:auto;max-width:calc(100vw - 24px);box-sizing:border-box;z-index:10020}
+  #mlBellWrap{flex-shrink:0}
+}
+</style>
