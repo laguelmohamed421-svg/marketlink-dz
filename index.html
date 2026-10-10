@@ -2608,19 +2608,22 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
    showInline('paymentMsg','جاري التحقق من المبلغ المستحق...',false);
    const [billRes,ordersRes,paymentsRes]=await Promise.all([
      db.from('supplier_billing').select('id,outstanding_dzd').eq('supplier_id',window.currentUser.id).limit(1),
-     db.from('orders').select('quantity,marketer_commission,platform_commission,supplier_total_dzd,status').eq('supplier_id',window.currentUser.id),
+     db.from('orders').select('quantity,marketer_commission,platform_commission,status').eq('supplier_id',window.currentUser.id),
      db.from('commission_payments').select('amount_dzd,status').eq('supplier_id',window.currentUser.id)
    ]);
    if(ordersRes.error||paymentsRes.error)return showInline('paymentMsg','تعذر التحقق من الفاتورة والدفعات: '+(ordersRes.error?.message||paymentsRes.error?.message||''),true);
    const bill=(billRes.data||[])[0]||null, paymentRows=paymentsRes.data||[];
-   if(paymentRows.some(x=>String(x.status||'').toLowerCase()==='pending'))return showInline('paymentMsg','عندك وصل دفع قيد المراجعة بالفعل. استنى تحقق الإدارة قبل إرسال وصل آخر.',true);
-   const approvedTotal=paymentRows.filter(x=>String(x.status||'').toLowerCase()==='approved').reduce((sum,x)=>sum+Number(x.amount_dzd||0),0);
+   if(paymentRows.some(x=>String(x.status||'').trim().toLowerCase()==='pending'))return showInline('paymentMsg','عندك وصل دفع قيد المراجعة بالفعل. استنى تحقق الإدارة قبل إرسال وصل آخر.',true);
+   const approvedTotal=paymentRows.filter(x=>String(x.status||'').trim().toLowerCase()==='approved').reduce((sum,x)=>sum+Number(x.amount_dzd||0),0);
    const deliveredRows=(ordersRes.data||[]).filter(x=>String(x.status||'').trim().toLowerCase()==='delivered');
-   const deliveredTotal=deliveredRows.reduce((sum,x)=>{const rowAmount=Number(x.supplier_total_dzd||0);return sum+(rowAmount>0?rowAmount:Number(x.quantity||0)*(Number(x.marketer_commission||0)+Number(x.platform_commission??50)));},0);
+   const deliveredTotal=deliveredRows.reduce((sum,x)=>sum+Number(x.quantity||0)*(Number(x.marketer_commission||0)+Number(x.platform_commission??50)),0);
    const storedDue=Number(bill?.outstanding_dzd||0);
    const calculatedDue=Math.max(0,deliveredTotal-approvedTotal);
-   const dueAmount=storedDue>0?storedDue:calculatedDue;
-   if(dueAmount<=0)return showInline('paymentMsg','ما قدرناش نلقاو مبلغ مستحق قابل للدفع. حدّث الصفحة؛ إذا المبلغ مازال ظاهر في الفوترة، فغالباً سجل الفاتورة ما يتقراش من قاعدة البيانات بنفس الحساب. المبلغ المحسوب من طلبيات Delivered هو '+Math.round(calculatedDue)+' دج.',true);
+   // Match the same outstanding amount rendered in the supplier dashboard if the billing row is absent/stale.
+   const visibleDueText=($p('supplierBilling')?.innerText||$p('normalCards')?.innerText||'').match(/(?:المبلغ المستحق|الفاتورة)[\s\S]{0,50}?([\d\u0660-\u0669][\d\u0660-\u0669\s,٬.]*)\s*دج/);
+   const visibleDue=visibleDueText?Number(visibleDueText[1].replace(/[\s,٬.]/g,'')):0;
+   const dueAmount=storedDue>0?storedDue:(calculatedDue>0?calculatedDue:visibleDue);
+   if(dueAmount<=0)return showInline('paymentMsg','ما قدرناش نلقاو مبلغ مستحق في بيانات الحساب. حدّث الصفحة؛ إذا المبلغ مازال ظاهر في الفوترة، ابعثلي صورة من قسم الفوترة باش نراجع مصدر الحساب.',true);
    showInline('paymentMsg','جاري رفع الوصل وإرسال الدفع للمراجعة...',false);
    const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
    const path=window.currentUser.id+'/payment-'+Date.now()+'.'+ext;
