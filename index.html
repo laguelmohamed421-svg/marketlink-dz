@@ -2624,18 +2624,21 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
  window.openPaymentModal=()=>{if(window.currentRole!=='supplier')return;$p('paymentBillId').value='';$p('paymentReceiptFile').value='';$p('paymentNote').value='';$p('paymentModal').classList.add('open');$p('paymentMsg').classList.add('hidden');const btn=document.querySelector('#paymentModal button[onclick="submitPayment()"]');if(btn)btn.disabled=false};
  const originalRenderBills=window.renderBills;
  window.renderBills=function(){
+   if(originalRenderBills)originalRenderBills();
    const body=$p('billingBody');if(!body)return;
-   const base=(window.bills||[]).map(b=>'<tr><td>'+clean(((window.users||[]).find(u=>u.id===b.supplier_id)||{}).email||'—')+'</td><td>'+((window.fmtDate&&b.billing_start)?fmtDate(b.billing_start):'—')+' → '+((window.fmtDate&&b.billing_end)?fmtDate(b.billing_end):'—')+'</td><td>'+Number(b.delivered_units||0)+'</td><td>'+Number(b.outstanding_dzd||0)+' دج</td><td>'+(Number(b.outstanding_dzd)>0?'<span class="badge pendingpay">مستحقة</span>':'<span class="badge approved">مسددة</span>')+'</td><td>'+(Number(b.outstanding_dzd)>0?'في انتظار الدفع':'—')+'</td></tr>').join('');
    const payments=window.payments||[];
-   const payRows=payments.map(p=>{
+   const heading=document.createElement('tr');heading.innerHTML='<td colspan="6"><b>إيصالات الدفع المرسلة للمراجعة</b></td>';body.appendChild(heading);
+   if(!payments.length){const empty=document.createElement('tr');empty.innerHTML='<td colspan="6" class="empty">مازال ما كاش إيصالات دفع.</td>';body.appendChild(empty);return}
+   payments.forEach(p=>{
      const u=(window.users||[]).find(x=>x.id===p.supplier_id)||{};
-     const n=String(p.note||'');const m=n.match(/\[RECEIPT_URL\](https?:\/\/[^\s|]+)/);const url=m?m[1]:'';
-     const note=n.replace(/\s*\[RECEIPT_URL\]https?:\/\/[^\s|]+/,'').trim();
+     const n=String(p.note||'');const m=n.match(/\\[RECEIPT_URL\\](https?:\\/\\/[^\\s|]+)/);const url=m?m[1]:'';
+     const note=n.replace(/\\s*\\[RECEIPT_URL\\]https?:\\/\\/[^\\s|]+/,'').trim();
      const status=p.status==='approved'?'تم التحقق':p.status==='rejected'?'مرفوض':'قيد المراجعة';
-     const actions=p.status==='pending'?'<div style="display:flex;gap:6px;flex-wrap:wrap"><a class="smallbtn" target="_blank" rel="noopener" href="'+clean(url)+'">عرض الوصل</a><button class="smallbtn" onclick="window.reviewSupplierPayment(\''+p.id+'\',\'approved\')">تأكيد الدفع</button><button class="smallbtn danger" onclick="window.reviewSupplierPayment(\''+p.id+'\',\'rejected\')">رفض</button></div>':(url?'<a class="smallbtn" target="_blank" rel="noopener" href="'+clean(url)+'">عرض الوصل</a>':'—');
-     return '<tr><td>'+clean(u.email||'—')+'</td><td>'+clean(p.payment_method||'—')+'</td><td>'+Number(p.amount_dzd||0)+' دج</td><td>'+(url?'<a target="_blank" rel="noopener" href="'+clean(url)+'">فتح صورة الوصل</a>':'لا يوجد وصل')+(note?'<div class="muted">'+clean(note)+'</div>':'')+'</td><td>'+status+'</td><td>'+actions+'</td></tr>'
-   }).join('');
-   body.innerHTML='<tr><td colspan="6"><b>الفواتير</b></td></tr>'+(base||'<tr><td colspan="6" class="empty">لا توجد فواتير.</td></tr>')+'<tr><td colspan="6"><b>إيصالات الدفع المرسلة للمراجعة</b></td></tr>'+(payRows||'<tr><td colspan="6" class="empty">مازال ما كاش إيصالات دفع.</td></tr>');
+     const tr=document.createElement('tr');
+     const actions=p.status==='pending'?'<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="smallbtn" onclick="window.reviewSupplierPayment(\\''+p.id+'\\',\\'approved\\')">تأكيد الدفع</button><button class="smallbtn danger" onclick="window.reviewSupplierPayment(\\''+p.id+'\\',\\'rejected\\')">رفض</button></div>':'—';
+     tr.innerHTML='<td>'+clean(u.email||p.supplier_id||'—')+'</td><td>'+clean(p.payment_method||'—')+'</td><td>'+Number(p.amount_dzd||0)+' دج</td><td>'+(url?'<a target="_blank" rel="noopener" href="'+clean(url)+'">عرض صورة الوصل</a>':'لا يوجد وصل')+(note?'<div class="muted">'+clean(note)+'</div>':'')+'</td><td>'+status+'</td><td>'+(url?'<a class="smallbtn" target="_blank" rel="noopener" href="'+clean(url)+'">فتح الوصل</a> ':'')+actions+'</td>';
+     body.appendChild(tr);
+   });
  };
  window.reviewSupplierPayment=async function(id,status){
    if(window.currentRole!=='admin')return alert('هذا الإجراء متاح للإدارة فقط.');
