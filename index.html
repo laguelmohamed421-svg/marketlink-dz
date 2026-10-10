@@ -1263,6 +1263,14 @@ body:has(#auth:not(.hidden)) .ml-mobile-menu{display:none!important}
 <h2 id="authTitle">تسجيل الدخول</h2><p class="muted">ادخل إلى حسابك في MarketLink DZ</p>
 <div class="tabs"><button id="loginTab" class="active" onclick="setMode('login')">دخول</button><button id="registerTab" onclick="setMode('register')">إنشاء حساب</button></div>
 <div id="roleWrap" class="field hidden"><label>نوع الحساب</label><select id="role"><option value="marketer">مسوق</option><option value="supplier">مورد</option></select></div>
+<div id="marketlink-role-guidance-v1" class="ml-role-guidance hidden" aria-live="polite">
+  <div class="ml-role-guide-icon" id="mlRoleGuideIcon">🛍️</div>
+  <div class="ml-role-guide-copy">
+    <strong id="mlRoleGuideTitle">اختار نوع الحساب المناسب ليك</strong>
+    <p id="mlRoleGuideText">اختار الدور اللي يناسب طريقة خدمتك باش نوجهوك للبداية الصحيحة.</p>
+    <ul id="mlRoleGuideSteps"></ul>
+  </div>
+</div>
 <div id="registerFields" class="hidden">
   <div class="form-grid register-grid">
     <div class="field"><label>اسم المتجر *</label><input id="storeName" placeholder="مثلاً: Panda One DZ"></div>
@@ -3237,3 +3245,40 @@ body:has(#auth:not(.hidden)) .auth-card .register-grid{gap:12px!important}
  body:has(#auth:not(.hidden)) .auth-card *{transition:none!important}
 }
 </style>
+
+
+<style id="marketlink-role-guidance-style-v1">
+.ml-role-guidance{display:flex;gap:13px;align-items:flex-start;padding:15px;margin:0 0 17px;border:1px solid #f0d3e3;border-radius:15px;background:linear-gradient(135deg,#fff3f9,#f8f5ff)}
+.ml-role-guidance.hidden{display:none!important}
+.ml-role-guide-icon{display:grid;place-items:center;flex:0 0 44px;height:44px;border-radius:13px;background:#fff;color:#bf3479;font-size:23px;box-shadow:0 4px 14px rgba(89,35,66,.07)}
+.ml-role-guide-copy{min-width:0}
+.ml-role-guide-copy strong{display:block;color:#43243b;font-size:14px;font-weight:900;margin:1px 0 5px}
+.ml-role-guide-copy p{margin:0 0 8px;color:#7b6177;font-size:12px;line-height:1.8}
+.ml-role-guide-copy ul{margin:0;padding:0 18px 0 0;color:#5f4560;font-size:12px;line-height:1.9}
+.ml-role-guide-copy li::marker{color:#d93682}
+@media(max-width:560px){.ml-role-guidance{padding:12px;gap:10px}.ml-role-guide-icon{flex-basis:38px;height:38px;font-size:20px}}
+</style>
+<script id="marketlink-role-guidance-script-v1">
+(function(){
+  function updateRoleGuidance(){
+    const role=document.getElementById('role');
+    const panel=document.getElementById('marketlink-role-guidance-v1');
+    if(!role||!panel)return;
+    const registering=!!document.getElementById('registerTab')&&document.getElementById('registerTab').classList.contains('active');
+    panel.classList.toggle('hidden',!registering);
+    const supplier=role.value==='supplier';
+    const icon=document.getElementById('mlRoleGuideIcon');
+    const title=document.getElementById('mlRoleGuideTitle');
+    const copy=document.getElementById('mlRoleGuideText');
+    const steps=document.getElementById('mlRoleGuideSteps');
+    if(icon)icon.textContent=supplier?'📦':'📣';
+    if(title)title.textContent=supplier?'حساب المورد — اعرض سلعك للمسوقين':'حساب المسوق — روّج المنتجات بالعمولة';
+    if(copy)copy.textContent=supplier?'إذا عندك سلعة وتحب توسّع الترويج ليها، افتح حساب مورد وأضف معلومات منتجاتك باش يقدر المسوقون يكتشفوها.':'إذا تحب تروّج لمنتجات الموردين، افتح حساب مسوق، تصفح الكتالوج وحدد عمولتك حسب إعدادات المنتج.';
+    if(steps)steps.innerHTML=supplier?'<li>حضّر صور المنتج وسعر الجملة والكمية.</li><li>أضف معلومات التوصيل والحد الأدنى للطلب.</li><li>تابع الطلبات من حسابك بعد نشر المنتج.</li>':'<li>تصفح المنتجات المتاحة في المنصة.</li><li>حدد عمولتك ضمن الحد المسموح.</li><li>تابع الطلبات والعمولات من لوحة المسوق.</li>';
+  }
+  document.addEventListener('change',function(e){if(e.target&&e.target.id==='role')updateRoleGuidance();});
+  document.addEventListener('click',function(e){if(e.target&&e.target.closest&&e.target.closest('#registerTab,#loginTab'))setTimeout(updateRoleGuidance,0);});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateRoleGuidance);else updateRoleGuidance();
+  window.marketLinkUpdateRoleGuidanceV1=updateRoleGuidance;
+})();
+</script>
