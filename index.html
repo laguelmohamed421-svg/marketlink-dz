@@ -2674,7 +2674,7 @@ supabase.auth.onAuthStateChange((_event,session)=>{if(session)loadUser()});loadU
    if(status==='approved'){
      const {data:b,error:be}=await db.from('supplier_billing').select('supplier_id,outstanding_dzd,credit_limit,updated_at').eq('supplier_id',p.supplier_id).gt('outstanding_dzd',0).order('updated_at',{ascending:false}).limit(1).maybeSingle();
      if(be||!b)return alert('تم التحقق من الدفع، لكن تعذر تحديث الفاتورة تلقائياً: '+(be?.message||'الفاتورة غير موجودة')+'. راجع الفوترة يدوياً.');
-     const {error:ue}=await db.from('supplier_billing').update({outstanding_dzd:Math.max(0,Number(b.outstanding_dzd)-Number(p.amount_dzd||0)),credit_limit:10}).eq('id',b.id);
+     const {error:ue}=await db.from('supplier_billing').update({outstanding_dzd:Math.max(0,Number(b.outstanding_dzd)-Number(p.amount_dzd||0)),credit_limit:10}).eq('supplier_id',p.supplier_id).gt('outstanding_dzd',0);
      if(ue)return alert('تم التحقق من الدفع، لكن تعذر تحديث رصيد الفاتورة: '+ue.message);
    }
    alert(status==='approved'?'تم التحقق من الدفع وتحديث الفاتورة.':'تم رفض وصل الدفع.');
